@@ -581,7 +581,7 @@ function MockDashboard() {
             </div>
           ))}
         </div>
-
+  
         <div className="flex-1 overflow-hidden">
           <div className="grid border-b border-white/[0.07] bg-slate-900/60" style={{ gridTemplateColumns: '1.4fr 1.6fr 1.2fr 0.7fr 0.8fr' }}>
             {['Group ID', 'Applicant', 'Loan Amount', 'Score', 'Status'].map((h) => (
