@@ -589,7 +589,7 @@ function MockDashboard() {
             ))}
           </div>
           {rows.map((r) => (
-            <div
+            <div 
               key={r.id}
               className="grid border-b border-white/4 hover:bg-white/2.5 transition-colors cursor-pointer"
               style={{ gridTemplateColumns: '1.4fr 1.6fr 1.2fr 0.7fr 0.8fr' }}
