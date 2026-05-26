@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { motion, useInView, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, useInView, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
 
 const APP_URL = import.meta.env.VITE_APP_URL || '#';
 
 // ─── Animation Variants ────────────────────────────────────────────────────
 
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 28 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 };
