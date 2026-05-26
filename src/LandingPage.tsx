@@ -207,7 +207,7 @@ function Marquee({ items }: { items: string[] }) {
             key={i}
             className="flex items-center gap-2.5 pr-12 text-gray-600 font-semibold text-sm tracking-tight whitespace-nowrap hover:text-gray-400 transition-colors duration-300 cursor-default select-none"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/40 flex-shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/40 shrink-0" />
             {item}
           </div>
         ))}
@@ -225,7 +225,7 @@ function AnimatedLine() {
   return (
     <motion.div
       ref={ref}
-      className="hidden lg:block absolute top-[52px] h-px origin-left"
+      className="hidden lg:block absolute top-13 h-px origin-left"
       style={{
         left: '20%',
         right: '20%',
@@ -278,7 +278,7 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         >
-          <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_20px_rgba(52,211,153,0.45)]">
+          <div className="h-8 w-8 rounded-xl bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_20px_rgba(52,211,153,0.45)]">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
             </svg>
@@ -296,7 +296,7 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
             <button
               key={l.id}
               onClick={() => scrollTo(l.id)}
-              className="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-gray-200 hover:bg-white/[0.06] transition-all duration-200 relative group"
+              className="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-gray-200 hover:bg-white/6 transition-all duration-200 relative group"
             >
               {l.label}
               <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-px bg-emerald-400/50 transition-all duration-300 rounded-full" />
@@ -317,7 +317,7 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
             onClick={() => scrollTo('contact')}
             className="relative overflow-hidden px-5 py-2.5 text-sm rounded-xl font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(52,211,153,0.2)] hover:shadow-[0_0_28px_rgba(52,211,153,0.35)] group"
           >
-            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-300/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+            <span className="absolute inset-0 bg-linear-to-r from-transparent via-emerald-300/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
             Request Demo
           </button>
         </motion.div>
@@ -373,7 +373,7 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
 
 // ─── Hero Section ────────────────────────────────────────────────────────────
 
-function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
+function HeroSection() {
   const statsRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true });
 
@@ -437,14 +437,14 @@ function HeroSection({ onGetStarted }: { onGetStarted: () => void }) {
           <motion.div variants={fadeInUp} className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
             <button
               onClick={() => scrollTo('contact')}
-              className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-semibold bg-gradient-to-r from-emerald-500 to-cyan-500 text-white transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.55)] hover:-translate-y-0.5 group"
+              className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-semibold bg-linear-to-r from-emerald-500 to-cyan-500 text-white transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.55)] hover:-translate-y-0.5 group"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+              <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
               Request a Demo
             </button>
             <button
               onClick={() => scrollTo('how-it-works')}
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-medium text-gray-300 border border-white/10 bg-white/5 hover:bg-white/[0.08] hover:border-white/[0.16] transition-all duration-300 flex items-center justify-center gap-2 group"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-medium text-gray-300 border border-white/10 bg-white/5 hover:bg-white/8 hover:border-white/16 transition-all duration-300 flex items-center justify-center gap-2 group"
             >
               See How It Works
               <motion.span
@@ -544,7 +544,7 @@ function MockDashboard() {
 
   return (
     <div className="flex bg-[#0a0f1c] text-xs" style={{ height: 360 }}>
-      <div className="w-10 flex-shrink-0 bg-slate-950 border-r border-white/[0.07] flex flex-col items-center py-3 gap-3">
+      <div className="w-10 shrink-0 bg-slate-950 border-r border-white/[0.07] flex flex-col items-center py-3 gap-3">
         {[
           <path key="h" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />,
           <path key="g" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />,
@@ -575,7 +575,7 @@ function MockDashboard() {
             { label: 'Approved', value: '82%' },
             { label: 'In Review', value: '31' },
           ].map((s) => (
-            <div key={s.label} className="bg-white/[0.03] rounded-lg p-2.5">
+            <div key={s.label} className="bg-white/3 rounded-lg p-2.5">
               <div className="text-gray-500 text-[10px]">{s.label}</div>
               <div className="text-gray-200 font-semibold text-sm mt-0.5">{s.value}</div>
             </div>
@@ -591,7 +591,7 @@ function MockDashboard() {
           {rows.map((r) => (
             <div
               key={r.id}
-              className="grid border-b border-white/[0.04] hover:bg-white/[0.025] transition-colors cursor-pointer"
+              className="grid border-b border-white/4 hover:bg-white/2.5 transition-colors cursor-pointer"
               style={{ gridTemplateColumns: '1.4fr 1.6fr 1.2fr 0.7fr 0.8fr' }}
             >
               <div className="px-3 py-2.5 text-emerald-400 font-mono text-[10px]">{r.id}</div>
@@ -615,7 +615,7 @@ function TrustedBySection() {
   const institutions = ['Evoca Bank', 'Fast Credit', 'Kamurj', 'ID Bank', 'TellCell Finance', 'Converse Bank'];
 
   return (
-    <section className="py-14 border-y border-white/[0.06] bg-[#080d1a]">
+    <section className="py-14 border-y border-white/6 bg-[#080d1a]">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal>
           <p className="text-center text-gray-600 text-xs mb-7 tracking-widest uppercase font-medium">
@@ -678,9 +678,9 @@ function ProblemSection() {
               <TiltCard>
                 <SpotlightCard
                   spotColor="rgba(239,68,68,0.07)"
-                  className="h-full p-7 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.05] hover:border-red-500/15 transition-all duration-300 group"
+                  className="h-full p-7 rounded-2xl bg-white/3 border border-white/8 hover:bg-white/5 hover:border-red-500/15 transition-all duration-300 group"
                 >
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-red-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
+                  <div className="absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent via-red-500/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-t-2xl" />
                   <div className="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.2)] transition-all duration-300">
                     {p.icon}
                   </div>
@@ -772,9 +772,9 @@ function FeaturesSection() {
                 <TiltCard>
                   <SpotlightCard
                     spotColor={accent.spot}
-                    className="h-full p-7 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.055] hover:border-white/[0.14] transition-all duration-300 group cursor-default"
+                    className="h-full p-7 rounded-2xl bg-white/3 border border-white/8 hover:bg-white/5.5 hover:border-white/[0.14] transition-all duration-300 group cursor-default"
                   >
-                    <div className={`absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent ${accent.line} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-t-2xl`} />
+                    <div className={`absolute top-0 left-0 right-0 h-px bg-linear-to-r from-transparent ${accent.line} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 rounded-t-2xl`} />
                     <div className={`w-10 h-10 rounded-xl ${accent.bg} border ${accent.border} ${accent.text} flex items-center justify-center mb-5 group-hover:scale-110 transition-all duration-300`}>
                       {f.icon}
                     </div>
@@ -858,7 +858,7 @@ function IntegrationsSection() {
               <Reveal key={intg.name} delay={i * 0.08}>
                 <SpotlightCard
                   spotColor={c.spot}
-                  className="h-full p-6 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-white/[0.14] transition-all duration-300 group"
+                  className="h-full p-6 rounded-2xl bg-white/3 border border-white/8 hover:border-white/[0.14] transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-4 mb-4">
                     <div className={`w-12 h-12 rounded-2xl ${c.bg} border ${c.border} ring-4 ${c.ring} flex items-center justify-center group-hover:scale-105 group-hover:ring-8 transition-all duration-300`}>
@@ -880,9 +880,9 @@ function IntegrationsSection() {
           })}
 
           <Reveal delay={0.4}>
-            <div className="h-full p-6 rounded-2xl border border-dashed border-white/[0.1] flex flex-col items-center justify-center gap-3 text-center group hover:border-white/20 hover:bg-white/[0.02] transition-all duration-300 cursor-default">
+            <div className="h-full p-6 rounded-2xl border border-dashed border-white/10 flex flex-col items-center justify-center gap-3 text-center group hover:border-white/20 hover:bg-white/2 transition-all duration-300 cursor-default">
               <motion.div
-                className="w-10 h-10 rounded-2xl bg-white/[0.04] border border-white/[0.08] flex items-center justify-center"
+                className="w-10 h-10 rounded-2xl bg-white/4 border border-white/8 flex items-center justify-center"
                 whileHover={{ scale: 1.1, rotate: 90 }}
                 transition={{ type: 'spring', stiffness: 400, damping: 20 }}
               >
@@ -946,10 +946,10 @@ function HowItWorksSection() {
             {steps.map((s, i) => (
               <Reveal key={s.number} delay={i * 0.15}>
                 <div className="relative text-center lg:text-left group">
-                  <div className="relative inline-flex w-[104px] h-[104px] rounded-3xl items-center justify-center mb-6 bg-gradient-to-br from-emerald-500/15 to-cyan-500/15 border border-emerald-500/20 text-emerald-400 group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(52,211,153,0.2)] transition-all duration-500">
+                  <div className="relative inline-flex w-26 h-26 rounded-3xl items-center justify-center mb-6 bg-linear-to-br from-emerald-500/15 to-cyan-500/15 border border-emerald-500/20 text-emerald-400 group-hover:scale-105 group-hover:shadow-[0_0_40px_rgba(52,211,153,0.2)] transition-all duration-500">
                     <div className="scale-[1.4]">{s.icon}</div>
                     <motion.div
-                      className="absolute -top-2.5 -right-2.5 w-7 h-7 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 text-white text-[11px] font-bold flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.5)]"
+                      className="absolute -top-2.5 -right-2.5 w-7 h-7 rounded-full bg-linear-to-br from-emerald-500 to-cyan-500 text-white text-[11px] font-bold flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.5)]"
                       whileInView={{ scale: [0, 1.2, 1] }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.15 + 0.3 }}
@@ -968,12 +968,12 @@ function HowItWorksSection() {
 
         <Reveal className="mt-16">
           <motion.div
-            className="relative rounded-2xl bg-gradient-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 p-10 text-center overflow-hidden"
+            className="relative rounded-2xl bg-linear-to-r from-emerald-500/10 to-cyan-500/10 border border-emerald-500/20 p-10 text-center overflow-hidden"
             whileHover={{ scale: 1.01 }}
             transition={{ type: 'spring', stiffness: 400, damping: 30 }}
           >
             <motion.div
-              className="absolute inset-0 bg-gradient-to-r from-transparent via-emerald-500/[0.06] to-transparent pointer-events-none"
+              className="absolute inset-0 bg-linear-to-r from-transparent via-emerald-500/6 to-transparent pointer-events-none"
               animate={{ x: ['-100%', '100%'] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', repeatDelay: 2.5 }}
             />
@@ -1031,7 +1031,7 @@ function BenefitsSection() {
             <Reveal key={s.label} delay={i * 0.1}>
               <SpotlightCard
                 spotColor="rgba(52,211,153,0.08)"
-                className="p-7 rounded-2xl bg-white/[0.03] border border-white/[0.08] text-center group hover:bg-white/[0.055] hover:border-white/[0.14] transition-all duration-300"
+                className="p-7 rounded-2xl bg-white/3 border border-white/8 text-center group hover:bg-white/5.5 hover:border-white/14 transition-all duration-300"
               >
                 <div className="relative inline-block">
                   {!reduced && (
@@ -1114,7 +1114,7 @@ function TestimonialsSection() {
               <TiltCard>
                 <SpotlightCard
                   spotColor={colorMap[t.color].spot}
-                  className="h-full p-7 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:bg-white/[0.055] hover:border-white/[0.14] transition-all duration-300 flex flex-col"
+                  className="h-full p-7 rounded-2xl bg-white/3 border border-white/8 hover:bg-white/5.5 hover:border-white/14 transition-all duration-300 flex flex-col"
                 >
                   <div
                     className="text-7xl font-serif leading-none text-emerald-500/10 mb-2 select-none pointer-events-none"
@@ -1140,7 +1140,7 @@ function TestimonialsSection() {
                   </div>
                   <p className="text-gray-400 text-sm leading-relaxed flex-1">"{t.quote}"</p>
                   <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/[0.07]">
-                    <div className={`w-9 h-9 rounded-full ${colorMap[t.color].avatar} flex items-center justify-center text-sm font-semibold flex-shrink-0`}>
+                    <div className={`w-9 h-9 rounded-full ${colorMap[t.color].avatar} flex items-center justify-center text-sm font-semibold shrink-0`}>
                       {t.initial}
                     </div>
                     <div>
@@ -1200,7 +1200,7 @@ function PricingSection({ onContact }: { onContact: () => void }) {
             <SpotlightCard
               spotColor="rgba(52,211,153,0.12)"
               spotSize={480}
-              className="relative rounded-3xl bg-gradient-to-br from-white/[0.07] to-white/[0.03] border border-white/15 p-10 shadow-2xl"
+              className="relative rounded-3xl bg-linear-to-br from-white/[0.07] to-white/3 border border-white/15 p-10 shadow-2xl"
             >
               <div className="flex items-start justify-between mb-8">
                 <div>
@@ -1230,7 +1230,7 @@ function PricingSection({ onContact }: { onContact: () => void }) {
                     variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } }}
                     className="flex items-center gap-2.5"
                   >
-                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center flex-shrink-0">
+                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center shrink-0">
                       <svg className="w-3 h-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
                     </div>
                     <span className="text-gray-400 text-sm">{f}</span>
@@ -1240,9 +1240,9 @@ function PricingSection({ onContact }: { onContact: () => void }) {
 
               <button
                 onClick={onContact}
-                className="relative overflow-hidden w-full py-4 rounded-2xl font-semibold text-white text-sm bg-gradient-to-r from-emerald-500 to-cyan-500 transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.5)] hover:-translate-y-0.5 group"
+                className="relative overflow-hidden w-full py-4 rounded-2xl font-semibold text-white text-sm bg-linear-to-r from-emerald-500 to-cyan-500 transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.5)] hover:-translate-y-0.5 group"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+                <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
                 Contact Sales
               </button>
               <p className="text-center text-gray-600 text-xs mt-4">Response within one business day · No commitment required</p>
@@ -1304,8 +1304,8 @@ function FAQSection() {
               <div
                 className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
                   open === i
-                    ? 'bg-white/[0.06] border-emerald-500/20 shadow-[0_0_24px_rgba(52,211,153,0.05)]'
-                    : 'bg-white/[0.03] border-white/[0.07] hover:border-white/10 hover:bg-white/[0.04]'
+                    ? 'bg-white/6 border-emerald-500/20 shadow-[0_0_24px_rgba(52,211,153,0.05)]'
+                    : 'bg-white/3 border-white/[0.07] hover:border-white/10 hover:bg-white/4'
                 }`}
               >
                 <button
@@ -1315,7 +1315,7 @@ function FAQSection() {
                 >
                   <span className="text-gray-200 text-sm font-medium leading-relaxed">{f.q}</span>
                   <motion.span
-                    className={`flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                    className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-300 ${
                       open === i ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-gray-500'
                     }`}
                     animate={{ rotate: open === i ? 45 : 0 }}
@@ -1394,14 +1394,14 @@ function FinalCTASection({ onSignIn }: { onSignIn: () => void }) {
           <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
             <button
               onClick={onSignIn}
-              className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-semibold bg-gradient-to-r from-emerald-500 to-cyan-500 text-white transition-all duration-300 shadow-[0_8px_40px_rgba(52,211,153,0.4)] hover:shadow-[0_12px_56px_rgba(52,211,153,0.6)] hover:-translate-y-0.5 group"
+              className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-semibold bg-linear-to-r from-emerald-500 to-cyan-500 text-white transition-all duration-300 shadow-[0_8px_40px_rgba(52,211,153,0.4)] hover:shadow-[0_12px_56px_rgba(52,211,153,0.6)] hover:-translate-y-0.5 group"
             >
-              <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+              <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
               Sign In to Your Account
             </button>
             <a
               href="mailto:sales@dynamicsolutions.am"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-medium text-gray-300 border border-white/10 bg-white/5 hover:bg-white/[0.09] hover:border-white/20 transition-all duration-300 text-center"
+              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-medium text-gray-300 border border-white/10 bg-white/5 hover:bg-white/9 hover:border-white/20 transition-all duration-300 text-center"
             >
               Contact Sales
             </a>
@@ -1441,12 +1441,12 @@ function Footer({ onSignIn }: { onSignIn: () => void }) {
   };
 
   return (
-    <footer className="bg-[#060a15] border-t border-white/[0.06]">
+    <footer className="bg-[#060a15] border-t border-white/6">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2.5 mb-4">
-              <div className="h-8 w-8 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_16px_rgba(52,211,153,0.35)]">
+              <div className="h-8 w-8 rounded-xl bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_16px_rgba(52,211,153,0.35)]">
                 <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
@@ -1481,7 +1481,7 @@ function Footer({ onSignIn }: { onSignIn: () => void }) {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-700">
+        <div className="mt-12 pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-700">
           <div>Built with React & Vite · Hosted on Vercel</div>
           <div className="flex items-center gap-1.5">
             <span className="relative flex h-2 w-2">
@@ -1511,7 +1511,7 @@ export default function LandingPage() {
     <div className="min-h-screen bg-[#080d1a] text-gray-100" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" }}>
       <Navbar onSignIn={handleSignIn} />
       <main>
-        <HeroSection onGetStarted={handleSignIn} />
+        <HeroSection />
         <TrustedBySection />
         <ProblemSection />
         <FeaturesSection />
