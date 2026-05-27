@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
 
-const APP_URL = import.meta.env.VITE_APP_URL || '#';
+const SALES_EMAIL = 'sales@dynamicsolutions.am';
 
 // ─── Animation Variants ────────────────────────────────────────────────────
 
@@ -240,7 +240,7 @@ function AnimatedLine() {
 
 // ─── Navbar ─────────────────────────────────────────────────────────────────
 
-function Navbar({ onSignIn }: { onSignIn: () => void }) {
+function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -257,8 +257,9 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
 
   const navLinks = [
     { label: 'Features', id: 'features' },
-    { label: 'How It Works', id: 'how-it-works' },
+    { label: 'CHPlus', id: 'chplus' },
     { label: 'Integrations', id: 'integrations' },
+    { label: 'How It Works', id: 'how-it-works' },
     { label: 'Pricing', id: 'pricing' },
     { label: 'FAQ', id: 'faq' },
   ];
@@ -292,16 +293,30 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          {navLinks.map((l) => (
-            <button
-              key={l.id}
-              onClick={() => scrollTo(l.id)}
-              className="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-gray-200 hover:bg-white/6 transition-all duration-200 relative group"
-            >
-              {l.label}
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-px bg-emerald-400/50 transition-all duration-300 rounded-full" />
-            </button>
-          ))}
+          {navLinks.map((l) =>
+            l.id === 'chplus' ? (
+              <button
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
+                className="px-4 py-2 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 transition-all duration-200 relative group flex items-center gap-1.5"
+              >
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                </span>
+                {l.label}
+              </button>
+            ) : (
+              <button
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
+                className="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-gray-200 hover:bg-white/6 transition-all duration-200 relative group"
+              >
+                {l.label}
+                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-px bg-emerald-400/50 transition-all duration-300 rounded-full" />
+              </button>
+            )
+          )}
         </motion.nav>
 
         <motion.div
@@ -310,9 +325,6 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
         >
-          <button onClick={onSignIn} className="px-4 py-2 text-sm text-gray-400 hover:text-gray-200 transition-colors duration-200">
-            Sign In
-          </button>
           <button
             onClick={() => scrollTo('contact')}
             className="relative overflow-hidden px-5 py-2.5 text-sm rounded-xl font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 hover:bg-emerald-500/30 transition-all duration-300 shadow-[0_0_20px_rgba(52,211,153,0.2)] hover:shadow-[0_0_28px_rgba(52,211,153,0.35)] group"
@@ -355,7 +367,6 @@ function Navbar({ onSignIn }: { onSignIn: () => void }) {
                 </button>
               ))}
               <div className="pt-3 flex flex-col gap-2 border-t border-white/[0.07] mt-3">
-                <button onClick={onSignIn} className="px-4 py-3 text-sm text-gray-300 text-left">Sign In →</button>
                 <button
                   onClick={() => scrollTo('contact')}
                   className="px-4 py-3 text-sm rounded-xl font-medium bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-center"
@@ -377,9 +388,9 @@ function HeroSection() {
   const statsRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true });
 
-  const c1 = useCountUp(50000, 2200, statsInView);
-  const c2 = useCountUp(10, 1400, statsInView);
-  const c3 = useCountUp(7, 1000, statsInView);
+  const c1 = useCountUp(2000000, 2200, statsInView);
+  const c2 = useCountUp(10, 1000, statsInView);
+  const c3 = useCountUp(6, 1400, statsInView);
 
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
@@ -431,7 +442,7 @@ function HeroSection() {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="mt-6 text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            MDAnalytics aggregates credit intelligence from every source — ACRA, CBA, Ekeng, Velox — and delivers an AI-powered risk score in under two minutes. Replace days of manual work with one unified platform.
+            MDAnalytics aggregates credit intelligence from every source — ACRA, Norq, EKENG (multiple sources) — and delivers a risk score in under two minutes. Replace days of manual work with one unified platform.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
@@ -460,15 +471,15 @@ function HeroSection() {
           <motion.div
             ref={statsRef}
             variants={stagger}
-            className="mt-14 grid grid-cols-3 gap-6 max-w-sm mx-auto lg:mx-0"
+            className="mt-14 flex flex-wrap gap-x-8 gap-y-4 justify-center lg:justify-start"
           >
             {[
               { value: `${c1.toLocaleString()}+`, label: 'Loans Assessed' },
-              { value: `${c2}+`, label: 'Institutions' },
-              { value: `${c3}`, label: 'Data Sources' },
+              { value: `${c2}+`, label: 'Sources' },
+              { value: `${c3}`, label: 'Institutions' },
             ].map((s) => (
               <motion.div key={s.label} variants={fadeInUp} className="text-center lg:text-left">
-                <div className="text-2xl font-bold text-gray-100 tabular-nums">{s.value}</div>
+                <div className="text-2xl font-bold text-gray-100 tabular-nums whitespace-nowrap">{s.value}</div>
                 <div className="text-xs text-gray-500 mt-0.5">{s.label}</div>
               </motion.div>
             ))}
@@ -525,84 +536,372 @@ function HeroSection() {
 // ─── Mock Dashboard ──────────────────────────────────────────────────────────
 
 function MockDashboard() {
-  const rows = [
-    { id: 'LG-2026-4231', name: 'Aram Petrosyan', amount: '5,000,000 ֏', score: 742, status: 'Approved' },
-    { id: 'LG-2026-4232', name: 'Ani Hovhannisyan', amount: '12,000,000 ֏', score: 695, status: 'In Review' },
-    { id: 'LG-2026-4233', name: 'Gevorg Harutyunyan', amount: '8,500,000 ֏', score: 823, status: 'Approved' },
-    { id: 'LG-2026-4234', name: 'Mariam Mkrtchyan', amount: '3,200,000 ֏', score: 580, status: 'Rejected' },
-    { id: 'LG-2026-4235', name: 'Varduhi Sargsyan', amount: '7,800,000 ֏', score: 711, status: 'In Review' },
+  const reduced = useReducedMotion();
+  const SCROLL_DIST = 268;
+
+  const navPaths = [
+    'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
+    'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
+    'M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z',
+    'M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z',
+    'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z',
   ];
 
-  const statusColor: Record<string, string> = {
-    Approved: 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30',
-    'In Review': 'bg-yellow-500/20 text-yellow-300 border-yellow-500/30',
-    Rejected: 'bg-red-500/20 text-red-300 border-red-500/30',
+  type SigStatus = 'good' | 'warning' | 'flag';
+  const sigColor: Record<SigStatus, { bar: string; text: string }> = {
+    good:    { bar: 'bg-emerald-500', text: 'text-emerald-400' },
+    warning: { bar: 'bg-amber-500',   text: 'text-amber-400'   },
+    flag:    { bar: 'bg-red-500',     text: 'text-red-400'     },
   };
 
-  const scoreColor = (s: number) =>
-    s >= 720 ? 'text-emerald-400' : s >= 650 ? 'text-yellow-400' : 'text-red-400';
+  const scoreItems = [
+    { label: 'Credit History', val: 88, color: 'from-emerald-500 to-emerald-400' },
+    { label: 'Income',         val: 82, color: 'from-cyan-500 to-cyan-400'       },
+    { label: 'Debt Ratio',     val: 71, color: 'from-amber-500 to-amber-400'     },
+    { label: 'Collateral',     val: 90, color: 'from-emerald-500 to-cyan-400'    },
+  ];
+
+  const signals: Array<{ label: string; score: number; status: SigStatus }> = [
+    { label: 'Payment Consistency', score: 91, status: 'good'    },
+    { label: 'Obligation Load',     score: 63, status: 'warning' },
+    { label: 'Behavioral Trend',    score: 87, status: 'good'    },
+    { label: 'Relationship Risk',   score: 34, status: 'flag'    },
+  ];
+
+  const dataSources = [
+    { src: 'ACRA',     status: 'ok',   detail: 'Credit history · 36 months' },
+    { src: 'ACRA PEK', status: 'ok',   detail: 'Property lien · clear'      },
+    { src: 'Norq',     status: 'ok',   detail: 'Business registration'      },
+    { src: 'EKENG',    status: 'ok',   detail: '8 sub-sources queried'      },
+    { src: 'Taxes',    status: 'warn', detail: '2 minor obligations'        },
+    { src: 'Police',   status: 'ok',   detail: 'No adverse records'         },
+  ];
+
+  const circumference = 2 * Math.PI * 24;
 
   return (
-    <div className="flex bg-[#0a0f1c] text-xs" style={{ height: 360 }}>
-      <div className="w-10 shrink-0 bg-slate-950 border-r border-white/[0.07] flex flex-col items-center py-3 gap-3">
-        {[
-          <path key="h" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />,
-          <path key="g" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />,
-          <path key="c" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />,
-          <path key="s" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />,
-        ].map((d, i) => (
-          <button key={i} className={`w-7 h-7 rounded-lg flex items-center justify-center ${i === 1 ? 'bg-emerald-500/20 text-emerald-400' : 'text-gray-600 hover:text-gray-400'}`}>
-            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">{d}</svg>
+    <div className="flex bg-[#080c17] text-[11px]" style={{ height: 400 }}>
+
+      {/* ── Left Sidebar ── */}
+      <div className="w-11 shrink-0 bg-[#05080f] border-r border-white/[0.05] flex flex-col items-center pt-3 pb-3 gap-1.5">
+        <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center mb-2 shadow-[0_0_14px_rgba(52,211,153,0.45)]">
+          <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+          </svg>
+        </div>
+        {navPaths.map((d, i) => (
+          <button key={i} className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200 ${i === 1 ? 'bg-emerald-500/20 text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.2)]' : 'text-gray-700 hover:text-gray-500 hover:bg-white/5'}`}>
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d={d} />
+            </svg>
           </button>
         ))}
       </div>
 
-      <div className="flex-1 flex flex-col min-w-0">
-        <div className="px-4 py-2.5 bg-slate-900/80 border-b border-white/[0.07] flex items-center gap-3">
-          <span className="text-gray-300 font-medium">Loan Groups</span>
-          <div className="flex gap-1.5 ml-auto">
-            {['Draft', 'Active', 'Approved', 'Rejected'].map((s) => (
-              <span key={s} className="px-2 py-0.5 rounded-full bg-white/5 text-gray-500 text-[10px]">{s}</span>
-            ))}
+      {/* ── Main Area ── */}
+      <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
+
+        {/* Top bar */}
+        <div className="h-9 px-3 bg-[#05080f]/80 border-b border-white/[0.05] flex items-center gap-1.5 shrink-0">
+          <span className="text-gray-300 font-semibold text-[11px]">Loan Pipeline</span>
+          <svg className="w-3 h-3 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          <span className="text-gray-600 text-[10px]">LG-2026-4271 · Active Review</span>
+          <div className="ml-auto flex items-center gap-2">
+            <span className="flex items-center gap-1 text-[9px] text-emerald-400">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+              </span>
+              Live
+            </span>
+            <div className="h-3 w-px bg-white/[0.07]" />
+            <button className="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 text-[9px] font-medium">+ New</button>
           </div>
-          <button className="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[10px]">+ New Group</button>
         </div>
 
-        <div className="px-4 py-3 grid grid-cols-4 gap-3 border-b border-white/[0.07]">
-          {[
-            { label: 'Total Groups', value: '247' },
-            { label: 'Avg Score', value: '714' },
-            { label: 'Approved', value: '82%' },
-            { label: 'In Review', value: '31' },
-          ].map((s) => (
-            <div key={s.label} className="bg-white/3 rounded-lg p-2.5">
-              <div className="text-gray-500 text-[10px]">{s.label}</div>
-              <div className="text-gray-200 font-semibold text-sm mt-0.5">{s.value}</div>
-            </div>
-          ))}
-        </div>
-  
-        <div className="flex-1 overflow-hidden">
-          <div className="grid border-b border-white/[0.07] bg-slate-900/60" style={{ gridTemplateColumns: '1.4fr 1.6fr 1.2fr 0.7fr 0.8fr' }}>
-            {['Group ID', 'Applicant', 'Loan Amount', 'Score', 'Status'].map((h) => (
-              <div key={h} className="px-3 py-2 text-gray-500 text-[10px] font-medium uppercase tracking-wide">{h}</div>
-            ))}
-          </div>
-          {rows.map((r) => (
-            <div 
-              key={r.id}
-              className="grid border-b border-white/4 hover:bg-white/2.5 transition-colors cursor-pointer"
-              style={{ gridTemplateColumns: '1.4fr 1.6fr 1.2fr 0.7fr 0.8fr' }}
-            >
-              <div className="px-3 py-2.5 text-emerald-400 font-mono text-[10px]">{r.id}</div>
-              <div className="px-3 py-2.5 text-gray-300 text-[10px]">{r.name}</div>
-              <div className="px-3 py-2.5 text-gray-400 text-[10px]">{r.amount}</div>
-              <div className={`px-3 py-2.5 font-semibold text-[10px] ${scoreColor(r.score)}`}>{r.score}</div>
-              <div className="px-3 py-2.5">
-                <span className={`px-2 py-0.5 rounded-full border text-[9px] font-medium ${statusColor[r.status]}`}>{r.status}</span>
+        {/* Auto-scrolling content */}
+        <div className="flex-1 overflow-hidden relative">
+          <motion.div
+            animate={reduced ? {} : { y: [0, -SCROLL_DIST, -SCROLL_DIST, 0] }}
+            transition={{ duration: 28, times: [0, 0.70, 0.88, 1], repeat: Infinity, ease: 'linear' }}
+          >
+
+            {/* ── Section 1 · Pipeline Stages + Selected Application ── */}
+            <div className="px-3 pt-3 pb-2">
+              <div className="grid grid-cols-4 gap-1.5 mb-2.5">
+                {[
+                  { label: 'Screening',    count: 12, cls: 'bg-sky-500/10     border-sky-500/20     text-sky-400'     },
+                  { label: 'In Analysis',  count: 8,  cls: 'bg-amber-500/15   border-amber-500/30   text-amber-300',  active: true },
+                  { label: 'Under Review', count: 5,  cls: 'bg-violet-500/10  border-violet-500/20  text-violet-400'  },
+                  { label: 'Decision',     count: 3,  cls: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
+                ].map((s) => (
+                  <div key={s.label} className={`rounded-lg border px-2 py-1.5 ${s.cls} ${s.active ? 'ring-1 ring-amber-500/25' : ''}`}>
+                    <div className="text-[8px] font-semibold uppercase tracking-wide opacity-75">{s.label}</div>
+                    <div className="text-base font-bold tabular-nums mt-0.5">{s.count}</div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Selected application card */}
+              <div className="rounded-xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-emerald-500/25 p-2.5 shadow-[0_0_20px_rgba(52,211,153,0.07)]">
+                <div className="flex items-start justify-between mb-2">
+                  <div>
+                    <div className="flex items-center gap-1.5 mb-0.5">
+                      <span className="font-mono text-[9px] text-emerald-400">LG-2026-4271</span>
+                      <span className="px-1.5 py-px rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/25 text-[8px] font-medium">In Analysis</span>
+                      <span className="px-1.5 py-px rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[8px]">Agricultural</span>
+                    </div>
+                    <div className="text-gray-100 font-semibold text-[12px]">Gevorg Harutyunyan Group</div>
+                    <div className="text-gray-600 text-[9px] mt-0.5">36-month term · Collateral: Residential property</div>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <div className="text-gray-100 font-bold text-sm tabular-nums">18,500,000 ֏</div>
+                    <div className="text-gray-600 text-[9px]">Requested amount</div>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 pt-1.5 border-t border-white/[0.05]">
+                  <span className="text-gray-700 text-[9px]">Group:</span>
+                  {[
+                    { name: 'G. Harutyunyan', role: 'Borrower',    dot: 'bg-emerald-500' },
+                    { name: 'A. Petrosyan',   role: 'Guarantor',   dot: 'bg-red-500'     },
+                    { name: 'Armavia LLC',    role: 'Co-borrower', dot: 'bg-violet-500'  },
+                  ].map((m) => (
+                    <div key={m.name} className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06]">
+                      <span className={`w-1.5 h-1.5 rounded-full ${m.dot} shrink-0`} />
+                      <span className="text-gray-400 text-[9px]">{m.name}</span>
+                      <span className="text-gray-700 text-[8px]">{m.role}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          ))}
+
+            {/* ── Section 2 · ScoreFlex + CHPlus ── */}
+            <div className="px-3 pb-2 grid grid-cols-5 gap-2">
+
+              {/* ScoreFlex */}
+              <div className="col-span-2 rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+                <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-2">ScoreFlex Score</div>
+                <div className="flex items-center gap-2 mb-2.5">
+                  <div className="relative shrink-0 w-14 h-14">
+                    <svg viewBox="0 0 64 64" className="w-14 h-14 -rotate-90">
+                      <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="5" />
+                      <motion.circle
+                        cx="32" cy="32" r="24"
+                        fill="none" stroke="url(#sg)" strokeWidth="5" strokeLinecap="round"
+                        strokeDasharray={circumference}
+                        initial={{ strokeDashoffset: circumference }}
+                        animate={{ strokeDashoffset: circumference * (1 - 0.79) }}
+                        transition={{ duration: 1.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                      />
+                      <defs>
+                        <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stopColor="#34d399" />
+                          <stop offset="100%" stopColor="#22d3ee" />
+                        </linearGradient>
+                      </defs>
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="text-gray-100 font-bold text-sm tabular-nums">793</span>
+                      <span className="text-[7px] text-emerald-400 font-semibold">LOW</span>
+                    </div>
+                  </div>
+                  <div>
+                    <div className="text-emerald-300 font-semibold text-[10px]">Low Risk</div>
+                    <div className="text-gray-600 text-[9px]">Top 18%</div>
+                    <div className="text-gray-700 text-[8px]">of portfolio</div>
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  {scoreItems.map((item, i) => (
+                    <div key={item.label}>
+                      <div className="flex justify-between mb-0.5">
+                        <span className="text-gray-600 text-[9px]">{item.label}</span>
+                        <span className="text-gray-400 text-[9px] tabular-nums">{item.val}</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-white/[0.05] overflow-hidden">
+                        <motion.div
+                          className={`h-full rounded-full bg-gradient-to-r ${item.color}`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${item.val}%` }}
+                          transition={{ duration: 0.9, delay: i * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* CHPlus */}
+              <div className="col-span-3 rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3.5 h-3.5 rounded bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_6px_rgba(52,211,153,0.5)]">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <span className="text-[9px] font-semibold text-gray-300">CHPlus Analysis</span>
+                    <span className="text-gray-700 text-[8px]">ACRA Analytics</span>
+                  </div>
+                  <span className="flex items-center gap-1 text-[8px] text-emerald-400">
+                    <span className="relative flex h-1.5 w-1.5">
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+                    </span>
+                    Live
+                  </span>
+                </div>
+
+                <div className="space-y-1.5 mb-2">
+                  {signals.map((sig, i) => (
+                    <div key={sig.label}>
+                      <div className="flex justify-between mb-0.5">
+                        <span className="text-gray-500 text-[9px]">{sig.label}</span>
+                        <span className={`text-[9px] font-semibold tabular-nums ${sigColor[sig.status].text}`}>{sig.score}</span>
+                      </div>
+                      <div className="h-1 rounded-full bg-white/[0.05] overflow-hidden">
+                        <motion.div
+                          className={`h-full rounded-full ${sigColor[sig.status].bar}`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${sig.score}%` }}
+                          transition={{ duration: 0.9, delay: i * 0.08 + 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-1">
+                  <div className="flex items-start gap-1.5 px-2 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20">
+                    <svg className="w-3 h-3 text-red-400 shrink-0 mt-px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-red-300 text-[9px] leading-tight">Guarantor linked to active default · LG-2025-0871</span>
+                  </div>
+                  <div className="flex items-start gap-1.5 px-2 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20">
+                    <svg className="w-3 h-3 text-amber-400 shrink-0 mt-px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                    </svg>
+                    <span className="text-amber-300 text-[9px] leading-tight">D/I ratio 72% — approaching 75% approval threshold</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Section 3 · Relationship Network + Data Sources ── */}
+            <div className="px-3 pb-2 grid grid-cols-2 gap-2">
+
+              {/* Relationship Network */}
+              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+                <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Relationship Network</div>
+                <div className="relative h-[88px]">
+                  {/* SVG lines */}
+                  <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
+                    <line x1="26%" y1="30%" x2="50%" y2="52%" stroke="rgba(239,68,68,0.4)"  strokeWidth="1" />
+                    <line x1="74%" y1="30%" x2="50%" y2="52%" stroke="rgba(139,92,246,0.3)" strokeWidth="1" />
+                    <line x1="26%" y1="30%" x2="24%" y2="68%" stroke="rgba(239,68,68,0.5)"  strokeWidth="1" strokeDasharray="2,2" />
+                  </svg>
+                  {/* Center — Borrower */}
+                  <div className="absolute w-10 h-10 rounded-full bg-emerald-500/20 border-2 border-emerald-500/50 flex flex-col items-center justify-center z-10"
+                    style={{ top: '50%', left: '50%', transform: 'translate(-50%, -52%)' }}>
+                    <span className="text-emerald-300 text-[7px] font-bold">G.H.</span>
+                    <span className="text-emerald-600 text-[6px]">Borrower</span>
+                  </div>
+                  {/* Guarantor */}
+                  <div className="absolute w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex flex-col items-center justify-center"
+                    style={{ top: '8%', left: '10%' }}>
+                    <span className="text-red-300 text-[7px] font-bold">A.P.</span>
+                    <span className="text-red-500 text-[6px]">⚠ GTR</span>
+                  </div>
+                  {/* Co-borrower */}
+                  <div className="absolute w-8 h-8 rounded-full bg-violet-500/20 border border-violet-500/30 flex flex-col items-center justify-center"
+                    style={{ top: '8%', right: '10%' }}>
+                    <span className="text-violet-300 text-[7px] font-bold">LLC</span>
+                    <span className="text-violet-500 text-[6px]">Co-B</span>
+                  </div>
+                  {/* Linked default */}
+                  <div className="absolute w-7 h-7 rounded-full bg-red-500/10 border border-red-500/30 border-dashed flex items-center justify-center"
+                    style={{ bottom: '2%', left: '8%' }}>
+                    <span className="text-red-400 text-[7px] font-medium">DEF</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="flex items-center gap-1 text-[8px] text-red-400"><span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />Default</span>
+                  <span className="flex items-center gap-1 text-[8px] text-violet-400"><span className="w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />Co-borrow</span>
+                </div>
+              </div>
+
+              {/* Data Sources */}
+              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+                <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Data Sources</div>
+                <div className="space-y-1">
+                  {dataSources.map((item) => (
+                    <div key={item.src} className="flex items-center gap-1.5">
+                      <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.status === 'ok' ? 'bg-emerald-500' : 'bg-amber-400'}`} />
+                      <span className="text-gray-300 text-[9px] font-medium w-14 shrink-0">{item.src}</span>
+                      <span className="text-gray-600 text-[8px] truncate">{item.detail}</span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-1.5 pt-1.5 border-t border-white/[0.05] flex justify-between text-[8px]">
+                  <span className="text-gray-700">Queried 18s ago</span>
+                  <span className="text-emerald-400">✓ 5/6 clear</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Section 4 · Decision Engine ── */}
+            <div className="px-3 pb-2">
+              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600">Decision Engine</div>
+                  <span className="text-[8px] text-gray-700">Step 3 of 4 · Credit Committee</span>
+                </div>
+                <div className="rounded-lg bg-emerald-500/[0.07] border border-emerald-500/20 px-2.5 py-2 mb-2">
+                  <div className="flex items-center gap-1.5 mb-1">
+                    <svg className="w-3 h-3 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <span className="text-emerald-300 font-semibold text-[10px]">Recommendation: Conditional Approval</span>
+                  </div>
+                  <p className="text-gray-500 text-[9px] leading-relaxed">Score 793 (low risk). Guarantor flag requires additional documentation before final approval. Income and collateral coverage adequate.</p>
+                </div>
+                <div className="flex items-center gap-1.5 mb-2">
+                  <button className="flex-1 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[9px] font-semibold">✓ Approve</button>
+                  <button className="flex-1 py-1.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/25 text-[9px]">⟳ Request Info</button>
+                  <button className="flex-1 py-1.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 text-[9px]">✕ Decline</button>
+                </div>
+                <div className="flex items-center gap-2 text-[8px] text-gray-700 pt-1.5 border-t border-white/[0.05]">
+                  <span>Analyst: A. Mkrtchyan</span>
+                  <span className="text-gray-800">·</span>
+                  <span>Assigned: 2h ago</span>
+                  <span className="text-gray-800">·</span>
+                  <span className="text-amber-600">SLA: 4h remaining</span>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Section 5 · Live Portfolio Metrics ── */}
+            <div className="px-3 pb-3">
+              <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Portfolio Metrics · Live</div>
+              <div className="grid grid-cols-4 gap-1.5">
+                {[
+                  { label: 'Approved Today', val: '14',  trend: '↑ 3 vs yesterday', color: 'text-emerald-400' },
+                  { label: 'Avg Risk Score', val: '716', trend: '+8 pts MTD',        color: 'text-cyan-400'    },
+                  { label: 'Active Flags',   val: '7',   trend: '2 critical',        color: 'text-amber-400'  },
+                  { label: 'Approval Rate',  val: '84%', trend: 'Month to date',     color: 'text-violet-400' },
+                ].map((m) => (
+                  <div key={m.label} className="rounded-lg bg-white/[0.03] border border-white/[0.06] px-2 py-1.5">
+                    <div className={`text-sm font-bold tabular-nums ${m.color}`}>{m.val}</div>
+                    <div className="text-gray-600 text-[8px] mt-0.5 leading-tight">{m.label}</div>
+                    <div className="text-gray-700 text-[7px] mt-0.5">{m.trend}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </motion.div>
         </div>
       </div>
     </div>
@@ -612,7 +911,7 @@ function MockDashboard() {
 // ─── Trusted By ──────────────────────────────────────────────────────────────
 
 function TrustedBySection() {
-  const institutions = ['Evoca Bank', 'Fast Credit', 'Kamurj', 'ID Bank', 'TellCell Finance', 'Converse Bank'];
+  const institutions = ['Evoca Bank', 'FastBank', 'Kamurj UCO', 'ID Bank', 'TelCell', 'Converse Bank'];
 
   return (
     <section className="py-14 border-y border-white/6 bg-[#080d1a]">
@@ -646,7 +945,7 @@ function ProblemSection() {
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
       ),
       title: 'Data Scattered Across Systems',
-      description: 'ACRA, CBA, Ekeng, Velox — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
+      description: 'ACRA, ACRA Pek, Norq, Pek, AVV, Business, Ces, Civil, Police, ICPolice, Taxes — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
     },
     {
       icon: (
@@ -668,7 +967,7 @@ function ProblemSection() {
             Loan decisions shouldn't take days
           </h2>
           <p className="mt-4 text-gray-400 text-lg max-w-2xl mx-auto">
-            Armenian financial institutions are losing competitive advantage — and accepting unnecessary risk — because credit assessment infrastructure hasn't kept pace.
+            Many financial institutions are losing competitive advantage — and accepting unnecessary risk — because credit assessment infrastructure hasn't kept pace.
           </p>
         </Reveal>
 
@@ -704,15 +1003,15 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
       label: 'Unified Data Aggregation',
       title: 'One click. Every data source.',
-      description: 'Pull credit history from ACRA and CBA, financial statements from Ekeng, and identity verification from Velox — simultaneously, in seconds.',
+      description: 'Pull complete credit histories from ACRA and Norq, financial statements from Ekeng, in seconds. Connects cleanly with existing software, eliminating manual screening and redundant data entry across your systems.',
       accent: 'emerald',
       span: 'col-span-1 md:col-span-2',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
-      label: 'AI Risk Scoring',
+      label: 'Risk Scoring',
       title: 'Consistent, explainable decisions',
-      description: 'ScoreFlex V1 & V2 models with configurable criteria deliver consistent risk scores with full explanability — removing guesswork from credit decisions.',
+      description: 'ScoreFlex model with configurable criteria surface red flags automatically and deliver consistent scores with full explainability — removing guesswork from every credit decision. Supports both manual review and automated approval workflows.',
       accent: 'violet',
       span: 'col-span-1',
     },
@@ -720,7 +1019,7 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" /></svg>,
       label: 'Loan Group Management',
       title: 'Complex structures, simple workflows',
-      description: 'Handle multi-participant loans with borrowers, guarantors, and co-signers. Every participant assessed together in a single cohesive workflow.',
+      description: 'Handle multi-participant loans across individual and corporate lending — borrowers, guarantors, and co-signers assessed together through a single, user-friendly workflow. Group borrower analysis built in.',
       accent: 'cyan',
       span: 'col-span-1',
     },
@@ -728,7 +1027,7 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
       label: 'Compliance & Audit Trail',
       title: 'Built for regulatory confidence',
-      description: 'Immutable audit logs, role-based access control, and complete decision histories ensure every loan review meets Armenian banking regulations.',
+      description: 'Immutable audit logs, role-based access control, and complete decision histories ensure every manual and automated approval meets Armenian banking regulations.',
       accent: 'emerald',
       span: 'col-span-1',
     },
@@ -736,7 +1035,7 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
       label: 'Real-Time Analytics',
       title: 'Complete pipeline visibility',
-      description: 'Live dashboards, 12-month trend charts, and application-status tracking give management instant visibility into lending performance.',
+      description: 'Live dashboards, 12-month trend charts, and application-status tracking give management instant visibility into the full underwriting pipeline and lending performance.',
       accent: 'amber',
       span: 'col-span-1 md:col-span-2',
     },
@@ -792,10 +1091,427 @@ function FeaturesSection() {
   );
 }
 
+// ─── CHPlus Mock Report ───────────────────────────────────────────────────────
+
+function CHPlusMockReport({ activeTab }: { activeTab: 'individual' | 'corporate' }) {
+  const individualSignals = [
+    { label: 'Payment Consistency', score: 92, status: 'good', detail: 'On-time rate across 36 months' },
+    { label: 'Obligation Load', score: 44, status: 'warning', detail: '4 active obligations detected' },
+    { label: 'Behavioral Trend', score: 85, status: 'good', detail: 'Improving utilization pattern' },
+    { label: 'Relationship Risk', score: 18, status: 'flag', detail: 'Co-guarantor with active default' },
+  ];
+
+  const corporateSignals = [
+    { label: 'Financial Stability', score: 78, status: 'good', detail: 'Consistent revenue trend' },
+    { label: 'Ownership Complexity', score: 40, status: 'warning', detail: '3-level ownership structure' },
+    { label: 'Related-Party Exposure', score: 28, status: 'warning', detail: '2 related entities with obligations' },
+    { label: 'Director Risk Profile', score: 88, status: 'good', detail: 'No adverse records found' },
+  ];
+
+  const signals = activeTab === 'individual' ? individualSignals : corporateSignals;
+
+  const statusStyle = {
+    good:    { bar: 'bg-emerald-500', text: 'text-emerald-400', item: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
+    warning: { bar: 'bg-amber-500',   text: 'text-amber-400',   item: 'bg-amber-500/10  border-amber-500/20  text-amber-400'   },
+    flag:    { bar: 'bg-red-500',     text: 'text-red-400',     item: 'bg-red-500/10    border-red-500/20    text-red-400'     },
+  };
+
+  const overallScore = activeTab === 'individual' ? 74 : 61;
+
+  const findings = activeTab === 'individual'
+    ? [
+        { type: 'flag'    as const, text: 'Co-guarantor on LG-2025-0871 entered default 3 months ago' },
+        { type: 'warning' as const, text: 'Debt-to-income ratio approaching threshold at current obligation load' },
+        { type: 'good'    as const, text: 'Payment behaviour shows consistent improvement over 12 months' },
+      ]
+    : [
+        { type: 'warning' as const, text: 'Director is guarantor on 2 other active loan agreements' },
+        { type: 'warning' as const, text: 'Subsidiary company carries delinquent tax obligations' },
+        { type: 'good'    as const, text: 'Core revenue stream stable; no major creditor concentration' },
+      ];
+
+  const findingIcon = {
+    good:    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />,
+    warning: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />,
+    flag:    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
+  };
+
+  return (
+    <motion.div
+      key={activeTab}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -10 }}
+      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+      className="rounded-2xl overflow-hidden border border-white/12 bg-[#0a0f1e] shadow-[0_32px_80px_rgba(0,0,0,0.65)]"
+    >
+      {/* Report header */}
+      <div className="px-5 py-3.5 bg-[#07090f] border-b border-white/[0.07] flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <div className="w-6 h-6 rounded-lg bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.45)]">
+            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+          </div>
+          <span className="text-gray-300 font-semibold text-sm">CHPlus Report</span>
+          <span className="text-gray-700 text-xs">·</span>
+          <span className="text-gray-600 text-[11px]">ACRA Analytics</span>
+        </div>
+        <div className="flex items-center gap-1.5">
+          <span className="text-[10px] text-emerald-400 font-medium">Live</span>
+          <span className="relative flex h-1.5 w-1.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
+          </span>
+        </div>
+      </div>
+
+      {/* Subject + score */}
+      <div className="px-5 py-4 border-b border-white/6 flex items-center justify-between gap-4">
+        <div>
+          <div className="text-gray-200 font-semibold text-sm">
+            {activeTab === 'individual' ? 'Aram K. Petrosyan' : 'Armavia Technologies LLC'}
+          </div>
+          <div className="text-gray-600 text-[11px] mt-0.5">
+            {activeTab === 'individual' ? 'Individual · SSN ••••2847' : 'Corporate · Reg. No. ••••8834'}
+          </div>
+        </div>
+        <div className="text-right shrink-0">
+          <div className="text-[10px] text-gray-600 mb-0.5 uppercase tracking-wide">CHPlus Score</div>
+          <div className={`text-3xl font-bold tabular-nums ${overallScore >= 70 ? 'text-emerald-400' : overallScore >= 50 ? 'text-amber-400' : 'text-red-400'}`}>
+            {overallScore}
+          </div>
+        </div>
+      </div>
+
+      {/* Signal analysis */}
+      <div className="px-5 py-4 border-b border-white/6 space-y-4">
+        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-600">Signal Analysis</div>
+        {signals.map((sig, i) => {
+          const s = statusStyle[sig.status as keyof typeof statusStyle];
+          return (
+            <motion.div
+              key={sig.label}
+              initial={{ opacity: 0, x: -8 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: i * 0.07, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="text-gray-400 text-[11px]">{sig.label}</span>
+                <span className={`text-[11px] font-semibold tabular-nums ${s.text}`}>{sig.score}</span>
+              </div>
+              <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
+                <motion.div
+                  className={`h-full rounded-full ${s.bar}`}
+                  initial={{ width: 0 }}
+                  animate={{ width: `${sig.score}%` }}
+                  transition={{ duration: 0.9, delay: i * 0.1 + 0.15, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </div>
+              <div className="text-gray-600 text-[10px] mt-1">{sig.detail}</div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Key findings */}
+      <div className="px-5 py-4">
+        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-600 mb-3">Key Findings</div>
+        <div className="space-y-2">
+          {findings.map((f, i) => {
+            const s = statusStyle[f.type];
+            return (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: i * 0.1 + 0.5, duration: 0.3 }}
+                className={`flex items-start gap-2.5 px-3 py-2.5 rounded-xl border text-[11px] leading-tight ${s.item}`}
+              >
+                <svg className="w-3.5 h-3.5 shrink-0 mt-px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {findingIcon[f.type]}
+                </svg>
+                {f.text}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Footer strip */}
+      <div className="px-5 py-3 border-t border-white/6 flex items-center justify-between">
+        <span className="text-gray-700 text-[10px]">
+          Generated · {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
+        </span>
+        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
+          CHPlus · ACRA Analytics
+        </span>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── CHPlus Section ───────────────────────────────────────────────────────────
+
+function CHPlusSection() {
+  const [activeTab, setActiveTab] = useState<'individual' | 'corporate'>('individual');
+
+  const benefits = [
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+      title: 'Beyond the Bureau Report',
+      description: 'Standard credit history shows what happened. CHPlus analyzes why — surfacing behavioral patterns, obligation trends, and timing anomalies invisible in raw data.',
+      accent: 'emerald',
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+        </svg>
+      ),
+      title: 'Hidden Risk Identification',
+      description: 'Cross-references related-party obligations, ownership structures, and guarantee networks to expose risk concentrations that isolated single-source checks miss entirely.',
+      accent: 'amber',
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
+      title: 'Borrower Relationship Mapping',
+      description: 'Traces co-borrower and guarantor networks across the loan portfolio, identifying circular guarantee structures and exposure concentrations before they become defaults.',
+      accent: 'cyan',
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+        </svg>
+      ),
+      title: 'Individual & Corporate Assessments',
+      description: 'Applies the same analytical depth to personal credit profiles and corporate borrower structures — directors, ownership layers, and subsidiary exposure all included.',
+      accent: 'violet',
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" />
+        </svg>
+      ),
+      title: 'Faster, More Confident Decisions',
+      description: 'Pre-interpreted findings and flagged anomalies reduce analyst review time significantly. Your risk officers act on structured conclusions, not unprocessed raw data.',
+      accent: 'emerald',
+    },
+  ];
+
+  const accentMap: Record<string, { bg: string; border: string; text: string; spot: string }> = {
+    emerald: { bg: 'bg-emerald-500/10', border: 'border-emerald-500/25', text: 'text-emerald-400', spot: 'rgba(52,211,153,0.07)'  },
+    amber:   { bg: 'bg-amber-500/10',   border: 'border-amber-500/25',   text: 'text-amber-400',   spot: 'rgba(245,158,11,0.07)' },
+    cyan:    { bg: 'bg-cyan-500/10',    border: 'border-cyan-500/25',    text: 'text-cyan-400',    spot: 'rgba(56,189,248,0.07)' },
+    violet:  { bg: 'bg-violet-500/10',  border: 'border-violet-500/25',  text: 'text-violet-400',  spot: 'rgba(139,92,246,0.07)' },
+  };
+
+  return (
+    <section id="chplus" className="py-32 relative overflow-hidden" style={{ background: '#050810' }}>
+      {/* Radial glow background */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage:
+            'radial-gradient(ellipse 65% 55% at 75% 40%, rgba(52,211,153,0.08) 0%, transparent 60%), radial-gradient(ellipse 55% 50% at 20% 65%, rgba(139,92,246,0.05) 0%, transparent 60%)',
+        }}
+      />
+      {/* Dot grid */}
+      <div
+        className="absolute inset-0 opacity-[0.10] pointer-events-none"
+        style={{ backgroundImage: 'radial-gradient(circle, rgba(148,163,184,0.5) 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+      />
+      {/* Top border accent */}
+      <div
+        className="absolute top-0 left-0 right-0 h-px pointer-events-none"
+        style={{ background: 'linear-gradient(to right, transparent 8%, rgba(52,211,153,0.45) 38%, rgba(34,211,238,0.45) 62%, transparent 92%)' }}
+      />
+      {/* Bottom border accent */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-px pointer-events-none"
+        style={{ background: 'linear-gradient(to right, transparent 8%, rgba(52,211,153,0.2) 38%, rgba(34,211,238,0.2) 62%, transparent 92%)' }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-6">
+
+        {/* ── Header ─────────────────────────────────────────────────────── */}
+        <Reveal className="text-center mb-20">
+          <motion.div
+            className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full mb-8"
+            style={{
+              background: 'linear-gradient(135deg, rgba(52,211,153,0.12), rgba(34,211,238,0.08))',
+              border: '1px solid rgba(52,211,153,0.28)',
+              boxShadow: '0 0 40px rgba(52,211,153,0.12)',
+            }}
+            animate={{ boxShadow: ['0 0 40px rgba(52,211,153,0.12)', '0 0 60px rgba(52,211,153,0.22)', '0 0 40px rgba(52,211,153,0.12)'] }}
+            transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+          >
+            <div className="w-5 h-5 rounded-md bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_10px_rgba(52,211,153,0.55)]">
+              <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <span className="text-emerald-300 text-xs font-semibold uppercase tracking-widest">
+              CHPlus · Flagship Intelligence
+            </span>
+          </motion.div>
+
+          <h2 className="text-5xl sm:text-6xl font-bold tracking-tight leading-[1.06] mb-6">
+            <span className="text-gray-100">The intelligence layer</span>
+            <br />
+            <span
+              className="bg-clip-text text-transparent"
+              style={{ backgroundImage: 'linear-gradient(135deg, #34d399 0%, #22d3ee 50%, #818cf8 100%)' }}
+            >
+              behind every decision
+            </span>
+          </h2>
+
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
+            CHPlus is ACRA Analytics — deep credit intelligence that goes beyond bureau reports to surface what lenders actually need to know before approving a loan.
+          </p>
+        </Reveal>
+
+        {/* ── Two-column body ─────────────────────────────────────────────── */}
+        <div className="grid lg:grid-cols-2 gap-14 xl:gap-20 items-start">
+
+          {/* Left: benefit cards */}
+          <div className="space-y-3.5">
+            {benefits.map((b, i) => {
+              const accent = accentMap[b.accent];
+              return (
+                <Reveal key={b.title} delay={i * 0.08}>
+                  <SpotlightCard
+                    spotColor={accent.spot}
+                    className="p-5 rounded-2xl bg-white/3 border border-white/8 hover:bg-white/5 hover:border-white/12 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`w-10 h-10 rounded-xl ${accent.bg} border ${accent.border} ${accent.text} flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300 mt-0.5`}
+                      >
+                        {b.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-gray-200 font-semibold text-sm mb-1.5 leading-snug">{b.title}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed">{b.description}</p>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+              );
+            })}
+
+            <Reveal delay={0.48}>
+              <p className="text-gray-600 text-sm px-1 pt-2 leading-relaxed">
+                CHPlus integrates alongside both manual review workflows and automated decisioning pipelines — it complements your underwriting process, not replaces it.
+              </p>
+            </Reveal>
+          </div>
+
+          {/* Right: interactive mock report */}
+          <div className="lg:sticky lg:top-24">
+            <Reveal>
+              <div>
+                {/* Tab switcher */}
+                <div className="flex gap-2 mb-4">
+                  {(['individual', 'corporate'] as const).map((tab) => (
+                    <button
+                      key={tab}
+                      onClick={() => setActiveTab(tab)}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
+                        activeTab === tab
+                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-[0_0_20px_rgba(52,211,153,0.15)]'
+                          : 'bg-white/4 text-gray-500 border border-white/8 hover:bg-white/6 hover:text-gray-400'
+                      }`}
+                    >
+                      {tab === 'individual' ? (
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      ) : (
+                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                      )}
+                      {tab === 'individual' ? 'Individual' : 'Corporate'}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Report card */}
+                <AnimatePresence mode="wait">
+                  <CHPlusMockReport key={activeTab} activeTab={activeTab} />
+                </AnimatePresence>
+
+                <p className="text-center text-gray-700 text-xs mt-4">
+                  Simulated output for illustration purposes
+                </p>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+
+        {/* ── Bottom callout strip ─────────────────────────────────────────── */}
+        <Reveal className="mt-24">
+          <div className="relative rounded-2xl overflow-hidden border border-emerald-500/15">
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: 'linear-gradient(135deg, rgba(52,211,153,0.07) 0%, rgba(34,211,238,0.04) 50%, rgba(139,92,246,0.06) 100%)' }}
+            />
+            {/* Subtle sweep shimmer */}
+            <motion.div
+              className="absolute inset-0 pointer-events-none"
+              style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(52,211,153,0.05) 50%, transparent 100%)' }}
+              animate={{ x: ['-100%', '100%'] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 3 }}
+            />
+            <div className="relative px-8 py-10 sm:px-12 flex flex-col sm:flex-row items-center gap-8 text-center sm:text-left">
+              <div className="flex-1">
+                <div className="text-gray-100 font-semibold text-lg mb-2 leading-snug">
+                  CHPlus works alongside your risk team — not instead of them.
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed max-w-xl">
+                  It delivers pre-interpreted findings and flagged anomalies so analysts focus on judgment, not manual data cross-referencing. Fully auditable, traceable, and compliant by design.
+                </p>
+              </div>
+              <div className="flex gap-6 text-center shrink-0">
+                {[
+                  { val: '5×',    color: 'text-emerald-400', label: 'Faster analysis'         },
+                  { val: '100%',  color: 'text-cyan-400',    label: 'Fully auditable'         },
+                  { val: '2-in-1',color: 'text-violet-400',  label: 'Individual & Corporate'  },
+                ].map((stat, i) => (
+                  <div key={stat.label} className="flex items-center gap-6">
+                    {i > 0 && <div className="w-px h-10 bg-white/8 self-center" />}
+                    <div>
+                      <div className={`text-2xl font-bold tabular-nums ${stat.color}`}>{stat.val}</div>
+                      <div className="text-gray-600 text-xs mt-0.5 whitespace-nowrap">{stat.label}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
 // ─── Integrations Section ────────────────────────────────────────────────────
 
 function IntegrationsSection() {
-  const integrations = [
+  const creditBureaus = [
     {
       name: 'ACRA',
       full: 'Armenian Credit Bureau',
@@ -803,23 +1519,31 @@ function IntegrationsSection() {
       color: 'emerald',
     },
     {
-      name: 'CBA',
-      full: 'Central Bank of Armenia',
-      description: 'Official banking data including account information, credit classifications, and regulatory records.',
+      name: 'ACRA PEK',
+      full: 'ACRA Property Registry',
+      description: 'Collateral verification and property encumbrance data from the Armenian unified property registry.',
       color: 'cyan',
     },
     {
-      name: 'Ekeng',
-      full: 'Tax & Financial Registry',
-      description: 'Verified income statements, tax declarations, and financial standing from the Armenian tax authority.',
-      color: 'violet',
-    },
-    {
-      name: 'Velox',
-      full: 'Identity Verification',
-      description: 'Instant identity verification and customer due diligence against official Armenian databases.',
+      name: 'Norq',
+      full: 'State Registry Agency',
+      description: 'Official business registration, ownership, and legal entity data from the Armenian State Registry.',
       color: 'amber',
     },
+  ];
+
+  const ekengSources = [
+    { key: 'AVV', label: 'AVV', desc: 'Automated vehicle verification' },
+    { key: 'Business', label: 'Business', desc: 'Business registration & activity' },
+    { key: 'Pek', label: 'Pek', desc: 'Property & cadastre data' },
+    { key: 'Civil', label: 'Civil', desc: 'Civil status & identity records' },
+    { key: 'Ces', label: 'CES', desc: 'Employment & social insurance' },
+    { key: 'Taxes', label: 'Taxes', desc: 'Tax declarations & obligations' },
+    { key: 'Police', label: 'Police', desc: 'Administrative violation records' },
+    { key: 'ICPolice', label: 'IC Police', desc: 'Criminal proceeding records' },
+  ];
+
+  const systemIntegrations = [
     {
       name: 'SSO',
       full: 'Enterprise SSO (Keycloak)',
@@ -828,12 +1552,12 @@ function IntegrationsSection() {
     },
   ];
 
-  const colorMap: Record<string, { ring: string; bg: string; text: string; border: string; spot: string }> = {
-    emerald: { ring: 'ring-emerald-500/20', bg: 'bg-emerald-500/10', text: 'text-emerald-300', border: 'border-emerald-500/25', spot: 'rgba(52,211,153,0.08)' },
-    cyan:    { ring: 'ring-cyan-500/20', bg: 'bg-cyan-500/10', text: 'text-cyan-300', border: 'border-cyan-500/25', spot: 'rgba(56,189,248,0.08)' },
-    violet:  { ring: 'ring-violet-500/20', bg: 'bg-violet-500/10', text: 'text-violet-300', border: 'border-violet-500/25', spot: 'rgba(139,92,246,0.08)' },
-    amber:   { ring: 'ring-amber-500/20', bg: 'bg-amber-500/10', text: 'text-amber-300', border: 'border-amber-500/25', spot: 'rgba(245,158,11,0.08)' },
-    slate:   { ring: 'ring-slate-500/20', bg: 'bg-slate-500/10', text: 'text-slate-300', border: 'border-slate-500/25', spot: 'rgba(148,163,184,0.06)' },
+  const colorMap: Record<string, { ring: string; bg: string; text: string; border: string; spot: string; chip: string }> = {
+    emerald: { ring: 'ring-emerald-500/20', bg: 'bg-emerald-500/10', text: 'text-emerald-300', border: 'border-emerald-500/25', spot: 'rgba(52,211,153,0.08)', chip: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300' },
+    cyan:    { ring: 'ring-cyan-500/20', bg: 'bg-cyan-500/10', text: 'text-cyan-300', border: 'border-cyan-500/25', spot: 'rgba(56,189,248,0.08)', chip: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300' },
+    violet:  { ring: 'ring-violet-500/20', bg: 'bg-violet-500/10', text: 'text-violet-300', border: 'border-violet-500/25', spot: 'rgba(139,92,246,0.08)', chip: 'bg-violet-500/10 border-violet-500/20 text-violet-300' },
+    amber:   { ring: 'ring-amber-500/20', bg: 'bg-amber-500/10', text: 'text-amber-300', border: 'border-amber-500/25', spot: 'rgba(245,158,11,0.08)', chip: 'bg-amber-500/10 border-amber-500/20 text-amber-300' },
+    slate:   { ring: 'ring-slate-500/20', bg: 'bg-slate-500/10', text: 'text-slate-300', border: 'border-slate-500/25', spot: 'rgba(148,163,184,0.06)', chip: 'bg-slate-500/10 border-slate-500/20 text-slate-300' },
   };
 
   return (
@@ -844,15 +1568,22 @@ function IntegrationsSection() {
             Integrations
           </div>
           <h2 className="text-4xl font-bold text-gray-100 tracking-tight">
-            Every Armenian data source, unified
+            Every data source, unified
           </h2>
           <p className="mt-4 text-gray-400 text-lg max-w-2xl mx-auto">
-            Pre-built connections to the data sources that matter most to Armenian lenders. No custom integration work required.
+            Pre-built connections to all sources that matter to lenders — credit bureaus, state registries, and government databases. No custom integration work required.
           </p>
         </Reveal>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {integrations.map((intg, i) => {
+        {/* Credit Bureau Sources */}
+        <Reveal className="mb-3">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-600">Credit &amp; Registry</span>
+            <div className="flex-1 h-px bg-white/6" />
+          </div>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
+          {creditBureaus.map((intg, i) => {
             const c = colorMap[intg.color];
             return (
               <Reveal key={intg.name} delay={i * 0.08}>
@@ -861,7 +1592,95 @@ function IntegrationsSection() {
                   className="h-full p-6 rounded-2xl bg-white/3 border border-white/8 hover:border-white/[0.14] transition-all duration-300 group"
                 >
                   <div className="flex items-center gap-4 mb-4">
-                    <div className={`w-12 h-12 rounded-2xl ${c.bg} border ${c.border} ring-4 ${c.ring} flex items-center justify-center group-hover:scale-105 group-hover:ring-8 transition-all duration-300`}>
+                    <div className={`w-12 h-12 rounded-2xl ${c.bg} border ${c.border} ring-4 ${c.ring} flex items-center justify-center group-hover:scale-105 group-hover:ring-8 transition-all duration-300 shrink-0`}>
+                      <span className={`font-bold text-xs ${c.text} text-center leading-tight px-1`}>{intg.name}</span>
+                    </div>
+                    <div>
+                      <div className="text-gray-200 font-semibold text-sm">{intg.name}</div>
+                      <div className="text-gray-500 text-xs">{intg.full}</div>
+                    </div>
+                  </div>
+                  <p className="text-gray-500 text-sm leading-relaxed">{intg.description}</p>
+                  <div className="mt-4 flex items-center gap-1.5 text-xs text-emerald-400">
+                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+                    Pre-built connector
+                  </div>
+                </SpotlightCard>
+              </Reveal>
+            );
+          })}
+        </div>
+
+        {/* Ekeng — Featured Multi-Source Card */}
+        <Reveal className="mb-3 mt-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-600">EKENG Government Databases</span>
+            <div className="flex-1 h-px bg-white/6" />
+            <span className="text-[10px] text-gray-600 font-medium">{ekengSources.length} sources</span>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <SpotlightCard
+            spotColor="rgba(139,92,246,0.08)"
+            spotSize={480}
+            className="mb-5 p-7 rounded-2xl bg-white/3 border border-white/8 hover:border-violet-500/20 transition-all duration-300 group"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-start gap-6">
+              <div className="shrink-0">
+                <div className="w-14 h-14 rounded-2xl bg-violet-500/10 border border-violet-500/25 ring-4 ring-violet-500/15 flex items-center justify-center group-hover:scale-105 group-hover:ring-8 transition-all duration-300">
+                  <span className="font-bold text-sm text-violet-300">EK</span>
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-wrap items-center gap-3 mb-2">
+                  <div className="text-gray-200 font-semibold text-base">EKENG</div>
+                  <div className="text-gray-500 text-xs">Electronic Governance Infrastructure &amp; Innovations</div>
+                </div>
+                <p className="text-gray-500 text-sm leading-relaxed mb-5">
+                  Comprehensive access to all EKENG-connected government registries — from civil records and tax obligations to vehicle data and law-enforcement databases — queried simultaneously through a single API call.
+                </p>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {ekengSources.map((src, i) => (
+                    <motion.div
+                      key={src.key}
+                      className="flex flex-col gap-0.5 px-3 py-2.5 rounded-xl bg-violet-500/8 border border-violet-500/15 hover:border-violet-500/30 hover:bg-violet-500/12 transition-all duration-200 cursor-default"
+                      initial={{ opacity: 0, scale: 0.92 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.04, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                    >
+                      <span className="text-violet-300 font-semibold text-xs">{src.label}</span>
+                      <span className="text-gray-600 text-[10px] leading-tight">{src.desc}</span>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mt-5 pt-4 border-t border-white/6 flex items-center gap-1.5 text-xs text-emerald-400">
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
+              Pre-built connector · All 8 sub-sources queried in parallel
+            </div>
+          </SpotlightCard>
+        </Reveal>
+
+        {/* System Integrations + Custom */}
+        <Reveal className="mb-3 mt-8">
+          <div className="flex items-center gap-3 mb-4">
+            <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-600">Enterprise</span>
+            <div className="flex-1 h-px bg-white/6" />
+          </div>
+        </Reveal>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {systemIntegrations.map((intg, i) => {
+            const c = colorMap[intg.color];
+            return (
+              <Reveal key={intg.name} delay={i * 0.08}>
+                <SpotlightCard
+                  spotColor={c.spot}
+                  className="h-full p-6 rounded-2xl bg-white/3 border border-white/8 hover:border-white/[0.14] transition-all duration-300 group"
+                >
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className={`w-12 h-12 rounded-2xl ${c.bg} border ${c.border} ring-4 ${c.ring} flex items-center justify-center group-hover:scale-105 group-hover:ring-8 transition-all duration-300 shrink-0`}>
                       <span className={`font-bold text-sm ${c.text}`}>{intg.name}</span>
                     </div>
                     <div>
@@ -879,7 +1698,7 @@ function IntegrationsSection() {
             );
           })}
 
-          <Reveal delay={0.4}>
+          <Reveal delay={0.12}>
             <div className="h-full p-6 rounded-2xl border border-dashed border-white/10 flex flex-col items-center justify-center gap-3 text-center group hover:border-white/20 hover:bg-white/2 transition-all duration-300 cursor-default">
               <motion.div
                 className="w-10 h-10 rounded-2xl bg-white/4 border border-white/8 flex items-center justify-center"
@@ -913,7 +1732,7 @@ function HowItWorksSection() {
     {
       number: '02',
       title: 'Aggregate Intelligence',
-      description: 'One click triggers simultaneous queries to ACRA, CBA, Ekeng, and Velox. Complete borrower profiles — credit history, income, identity — are assembled automatically.',
+      description: 'One click triggers simultaneous queries to ACRA, Norq and Ekeng. Complete borrower profiles — credit history, income, identity, demographics — are assembled automatically.',
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>,
     },
     {
@@ -981,10 +1800,10 @@ function HowItWorksSection() {
               className="relative text-6xl font-bold bg-clip-text text-transparent"
               style={{ backgroundImage: 'linear-gradient(135deg, #34d399, #22d3ee)' }}
             >
-              &lt; 2 minutes
+              &lt; 1 minutes
             </div>
             <div className="mt-3 text-gray-400 text-base relative">
-              Average time from application creation to complete risk score — down from 2–3 days with manual processes.
+              Average time from application creation to complete risk score
             </div>
           </motion.div>
         </Reveal>
@@ -1001,9 +1820,9 @@ function BenefitsSection() {
   const reduced = useReducedMotion();
 
   const stats = [
-    { value: 90, suffix: '%', label: 'Faster Assessment', sub: 'Days reduced to under 2 minutes' },
+    { value: 90, suffix: '%', label: 'Faster Assessment', sub: 'Hours reduced to under 1 minute' },
     { value: 7, suffix: 'x', label: 'More Data Points', sub: 'Versus manual single-source review' },
-    { value: 30, suffix: '%', label: 'Lower Default Risk', sub: 'Through comprehensive scoring' },
+    { value: 30, suffix: '%', label: 'Lower Default Risk', sub: 'Data collection and analysis, scoring' },
     { value: 100, suffix: '%', label: 'Audit Compliance', sub: 'Every decision fully traceable' },
   ];
 
@@ -1060,124 +1879,25 @@ function BenefitsSection() {
   );
 }
 
-// ─── Testimonials ────────────────────────────────────────────────────────────
-
-function TestimonialsSection() {
-  const testimonials = [
-    {
-      quote: "MDAnalytics transformed our credit assessment workflow. What used to take three days now happens in under two hours. Our analysts focus on judgment calls, not data gathering.",
-      name: 'Artur Karapetyan',
-      title: 'Head of Retail Credit',
-      company: 'Leading Armenian Bank',
-      initial: 'A',
-      color: 'emerald',
-    },
-    {
-      quote: "The integration with ACRA and CBA means we always have the full picture. Decision consistency has improved dramatically — and so has our portfolio quality.",
-      name: 'Narine Grigoryan',
-      title: 'Chief Risk Officer',
-      company: 'Armenian Credit Organization',
-      initial: 'N',
-      color: 'cyan',
-    },
-    {
-      quote: "Audit readiness used to be a stressful two-week exercise. Now we pull complete audit trails in minutes. MDAnalytics has made compliance a strength, not a burden.",
-      name: 'Tigran Asatryan',
-      title: 'Compliance Director',
-      company: 'Financial Institution, Armenia',
-      initial: 'T',
-      color: 'violet',
-    },
-  ];
-
-  const colorMap: Record<string, { avatar: string; spot: string }> = {
-    emerald: { avatar: 'bg-emerald-500/20 text-emerald-300', spot: 'rgba(52,211,153,0.07)' },
-    cyan:    { avatar: 'bg-cyan-500/20 text-cyan-300', spot: 'rgba(56,189,248,0.07)' },
-    violet:  { avatar: 'bg-violet-500/20 text-violet-300', spot: 'rgba(139,92,246,0.07)' },
-  };
-
-  return (
-    <section className="py-24 bg-[#060a15]">
-      <div className="max-w-7xl mx-auto px-6">
-        <Reveal className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-4">
-            Testimonials
-          </div>
-          <h2 className="text-4xl font-bold text-gray-100 tracking-tight">
-            Trusted by the people who make lending decisions
-          </h2>
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {testimonials.map((t, i) => (
-            <Reveal key={t.name} delay={i * 0.1}>
-              <TiltCard>
-                <SpotlightCard
-                  spotColor={colorMap[t.color].spot}
-                  className="h-full p-7 rounded-2xl bg-white/3 border border-white/8 hover:bg-white/5.5 hover:border-white/14 transition-all duration-300 flex flex-col"
-                >
-                  <div
-                    className="text-7xl font-serif leading-none text-emerald-500/10 mb-2 select-none pointer-events-none"
-                    aria-hidden="true"
-                  >
-                    "
-                  </div>
-                  <div className="flex gap-1 mb-4">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <motion.svg
-                        key={j}
-                        className="w-4 h-4 text-amber-400"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                        initial={{ opacity: 0, scale: 0 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1 + j * 0.06, type: 'spring', stiffness: 400 }}
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </motion.svg>
-                    ))}
-                  </div>
-                  <p className="text-gray-400 text-sm leading-relaxed flex-1">"{t.quote}"</p>
-                  <div className="flex items-center gap-3 mt-6 pt-6 border-t border-white/[0.07]">
-                    <div className={`w-9 h-9 rounded-full ${colorMap[t.color].avatar} flex items-center justify-center text-sm font-semibold shrink-0`}>
-                      {t.initial}
-                    </div>
-                    <div>
-                      <div className="text-gray-200 text-sm font-medium">{t.name}</div>
-                      <div className="text-gray-500 text-xs">{t.title} · {t.company}</div>
-                    </div>
-                  </div>
-                </SpotlightCard>
-              </TiltCard>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─── Pricing Section ─────────────────────────────────────────────────────────
 
-function PricingSection({ onContact }: { onContact: () => void }) {
+function PricingSection() {
   const features = [
-    'Unlimited users & applications',
-    'ACRA, CBA, Ekeng, Velox integrations',
-    'ScoreFlex V1 & V2 scoring engines',
+    'Unlimited users and requests',
+    'ACRA, Norq, Ekeng integrations',
+    'ScoreFlex scoring engine',
     'Custom scoring model configuration',
-    'Full audit trail & compliance reporting',
+    'Full audit trail',
     'Role-based access control',
     'Real-time analytics dashboard',
     'Loan calculator',
     'On-premise or private cloud deployment',
     'Dedicated implementation support',
     'SLA-backed uptime guarantee',
-    'Armenian language support',
   ];
 
   return (
-    <section id="pricing" className="py-24 bg-[#080d1a]">
+    <section id="pricing" className="py-24 bg-[#060a15]">
       <div className="max-w-7xl mx-auto px-6">
         <Reveal className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-4">
@@ -1238,13 +1958,13 @@ function PricingSection({ onContact }: { onContact: () => void }) {
                 ))}
               </motion.div>
 
-              <button
-                onClick={onContact}
-                className="relative overflow-hidden w-full py-4 rounded-2xl font-semibold text-white text-sm bg-linear-to-r from-emerald-500 to-cyan-500 transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.5)] hover:-translate-y-0.5 group"
+              <a
+                href={`mailto:${SALES_EMAIL}`}
+                className="relative overflow-hidden w-full py-4 rounded-2xl font-semibold text-white text-sm bg-linear-to-r from-emerald-500 to-cyan-500 transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.5)] hover:-translate-y-0.5 group flex items-center justify-center"
               >
                 <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
                 Contact Sales
-              </button>
+              </a>
               <p className="text-center text-gray-600 text-xs mt-4">Response within one business day · No commitment required</p>
             </SpotlightCard>
           </div>
@@ -1261,20 +1981,16 @@ function FAQSection() {
 
   const faqs = [
     {
-      q: 'How does the data integration with ACRA, CBA, and other sources work?',
+      q: 'How does the data integration with ACRA, Norq, and other sources work?',
       a: "MDAnalytics connects to each data source via secure, pre-built API integrations. When a credit analyst triggers a data pull, the system queries all connected sources simultaneously and assembles a unified borrower profile — no manual portal logins required. Credentials and endpoints are configured once during onboarding.",
     },
     {
       q: 'Which credit scoring models are supported?',
-      a: "The platform includes ScoreFlex V1 and V2, our proprietary multi-criteria scoring engines designed specifically for Armenian lending. Both models are fully configurable — risk officers can adjust weights, thresholds, and criteria sets to reflect your institution's specific lending policy. FICO-compatible scoring is also supported where ACRA provides FICO data.",
-    },
-    {
-      q: 'Is MDAnalytics compliant with Armenian banking regulations?',
-      a: "Yes. The system is purpose-built for the Armenian regulatory environment. It maintains immutable audit trails, supports role-based access aligned with four-eyes principles, and generates compliance-ready reports for CBA review. Several institutions have successfully passed regulatory audits using MDAnalytics as their primary system of record.",
+      a: "The platform includes ScoreFlex, our proprietary multi-criteria scoring engine that helps lenders make consistent, explainable credit decisions. Fully configurable, it allows risk teams to customize scoring logic, weights, thresholds, and assessment criteria to match their lending strategy and compliance requirements.",
     },
     {
       q: 'How long does implementation take?',
-      a: "A standard implementation — including API configuration, user onboarding, and integration testing — typically takes 2–4 weeks. Institutions with complex existing workflows or custom scoring requirements may require additional time. Our implementation team works alongside your IT and risk teams throughout the process.",
+      a: "A standard implementation — including API configuration, user onboarding, and integration testing — typically takes 1–2 weeks. Our implementation team works alongside your IT and risk teams throughout the process.",
     },
     {
       q: 'Can MDAnalytics integrate with our existing core banking system?',
@@ -1287,7 +2003,7 @@ function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-[#060a15]">
+    <section id="faq" className="py-24 bg-[#080d1a]">
       <div className="max-w-4xl mx-auto px-6">
         <Reveal className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-4">
@@ -1347,9 +2063,33 @@ function FAQSection() {
   );
 }
 
-// ─── Final CTA ───────────────────────────────────────────────────────────────
+// ─── Demo Request Section ─────────────────────────────────────────────────────
 
-function FinalCTASection({ onSignIn }: { onSignIn: () => void }) {
+function DemoRequestSection() {
+  const [form, setForm] = useState({ name: '', company: '', email: '', phone: '', message: '' });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    const subject = encodeURIComponent(`Demo Request — ${form.company}`);
+    const body = encodeURIComponent(
+      `New Demo Request\n\nFull Name: ${form.name}\nCompany: ${form.company}\nEmail: ${form.email}\nPhone: ${form.phone}${form.message ? `\n\nMessage:\n${form.message}` : ''}`
+    );
+    const a = document.createElement('a');
+    a.href = `mailto:${SALES_EMAIL}?subject=${subject}&body=${body}`;
+    a.click();
+    setTimeout(() => {
+      setLoading(false);
+      setSubmitted(true);
+    }, 500);
+  };
+
   return (
     <section id="contact" className="py-32 bg-[#080d1a] relative overflow-hidden">
       <div
@@ -1362,8 +2102,8 @@ function FinalCTASection({ onSignIn }: { onSignIn: () => void }) {
       />
       <FloatingOrbs variant="cta" />
 
-      <div className="relative max-w-4xl mx-auto px-6 text-center">
-        <Reveal>
+      <div className="relative max-w-2xl mx-auto px-6">
+        <Reveal className="text-center mb-12">
           <motion.div
             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-medium mb-6 shadow-[0_0_24px_rgba(52,211,153,0.1)]"
             animate={{ boxShadow: ['0 0 24px rgba(52,211,153,0.1)', '0 0 40px rgba(52,211,153,0.2)', '0 0 24px rgba(52,211,153,0.1)'] }}
@@ -1376,43 +2116,134 @@ function FinalCTASection({ onSignIn }: { onSignIn: () => void }) {
             Now accepting new institutions
           </motion.div>
 
-          <h2 className="text-5xl sm:text-6xl font-bold text-gray-100 tracking-tight leading-tight">
-            Ready to modernize
+          <h2 className="text-4xl sm:text-5xl font-bold text-gray-100 tracking-tight leading-tight">
+            See MDAnalytics
             <br />
             <span
               className="bg-clip-text text-transparent"
               style={{ backgroundImage: 'linear-gradient(135deg, #34d399 0%, #22d3ee 60%, #818cf8 100%)' }}
             >
-              your credit decisions?
+              in action
             </span>
           </h2>
 
-          <p className="mt-6 text-gray-400 text-lg max-w-xl mx-auto">
-            Join the Armenian financial institutions that have replaced slow, manual credit assessment with MDAnalytics' unified intelligence platform.
+          <p className="mt-4 text-gray-400 text-lg max-w-xl mx-auto">
+            Request a personalized demo and speak with our team. We'll walk you through the platform and tailor the conversation to your institution's specific needs.
           </p>
+        </Reveal>
 
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button
-              onClick={onSignIn}
-              className="relative overflow-hidden w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-semibold bg-linear-to-r from-emerald-500 to-cyan-500 text-white transition-all duration-300 shadow-[0_8px_40px_rgba(52,211,153,0.4)] hover:shadow-[0_12px_56px_rgba(52,211,153,0.6)] hover:-translate-y-0.5 group"
-            >
-              <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
-              Sign In to Your Account
-            </button>
-            <a
-              href="mailto:sales@dynamicsolutions.am"
-              className="w-full sm:w-auto px-8 py-4 rounded-2xl text-sm font-medium text-gray-300 border border-white/10 bg-white/5 hover:bg-white/9 hover:border-white/20 transition-all duration-300 text-center"
-            >
-              Contact Sales
-            </a>
-          </div>
-
-          <p className="mt-8 text-gray-600 text-sm">
-            Questions? Email us at{' '}
-            <a href="mailto:info@dynamicsolutions.am" className="text-emerald-500 hover:text-emerald-400 transition-colors underline underline-offset-2">
-              info@dynamicsolutions.am
-            </a>
-          </p>
+        <Reveal>
+          <AnimatePresence mode="wait">
+            {submitted ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="text-center py-16 px-8 rounded-3xl bg-white/3 border border-emerald-500/20 shadow-[0_0_60px_rgba(52,211,153,0.08)]"
+              >
+                <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center mx-auto mb-6 shadow-[0_0_32px_rgba(52,211,153,0.25)]">
+                  <svg className="w-8 h-8 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-100 mb-3">Thank you.</h3>
+                <p className="text-gray-400 text-base">Our team will contact you shortly.</p>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                onSubmit={handleSubmit}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4 }}
+                className="rounded-3xl bg-white/4 border border-white/10 p-8 sm:p-10 shadow-2xl"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-5">
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      Full Name <span className="text-red-400/70">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      placeholder="Artur Karapetyan"
+                      value={form.name}
+                      onChange={handleChange}
+                      className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-600 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/7 transition-all duration-200"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      Company <span className="text-red-400/70">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      name="company"
+                      required
+                      placeholder="Evoca Bank"
+                      value={form.company}
+                      onChange={handleChange}
+                      className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-600 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/7 transition-all duration-200"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      Work Email <span className="text-red-400/70">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      name="email"
+                      required
+                      placeholder="you@company.am"
+                      value={form.email}
+                      onChange={handleChange}
+                      className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-600 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/7 transition-all duration-200"
+                    />
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                      Phone Number <span className="text-red-400/70">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      required
+                      placeholder="+374 XX XXX XXX"
+                      value={form.phone}
+                      onChange={handleChange}
+                      className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-600 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/7 transition-all duration-200"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-1.5 mb-7">
+                  <label className="text-xs font-medium text-gray-500 uppercase tracking-wide">
+                    Message <span className="text-gray-700">(optional)</span>
+                  </label>
+                  <textarea
+                    name="message"
+                    rows={3}
+                    placeholder="Tell us about your institution's needs or any specific questions…"
+                    value={form.message}
+                    onChange={handleChange}
+                    className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-600 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/7 transition-all duration-200 resize-none"
+                  />
+                </div>
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="relative overflow-hidden w-full py-4 rounded-2xl font-semibold text-white text-sm bg-linear-to-r from-emerald-500 to-cyan-500 transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.5)] hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:translate-y-0 group"
+                >
+                  <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
+                  {loading ? 'Sending…' : 'Request Demo'}
+                </button>
+                <p className="text-center text-gray-600 text-xs mt-4">
+                  We'll respond within one business day. No commitment required.
+                </p>
+              </motion.form>
+            )}
+          </AnimatePresence>
         </Reveal>
       </div>
     </section>
@@ -1421,12 +2252,13 @@ function FinalCTASection({ onSignIn }: { onSignIn: () => void }) {
 
 // ─── Footer ──────────────────────────────────────────────────────────────────
 
-function Footer({ onSignIn }: { onSignIn: () => void }) {
+function Footer() {
   const scrollTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 
   const links = {
     Product: [
       { label: 'Features', action: () => scrollTo('features') },
+      { label: 'CHPlus', action: () => scrollTo('chplus') },
       { label: 'Integrations', action: () => scrollTo('integrations') },
       { label: 'How It Works', action: () => scrollTo('how-it-works') },
       { label: 'Pricing', action: () => scrollTo('pricing') },
@@ -1435,8 +2267,8 @@ function Footer({ onSignIn }: { onSignIn: () => void }) {
       { label: 'FAQ', action: () => scrollTo('faq') },
     ],
     Company: [
-      { label: 'Contact Us', action: () => scrollTo('contact') },
-      { label: 'Sign In', action: onSignIn },
+      { label: 'Request Demo', action: () => scrollTo('contact') },
+      { label: 'Contact Sales', action: () => { window.location.href = `mailto:${SALES_EMAIL}`; } },
     ],
   };
 
@@ -1454,7 +2286,7 @@ function Footer({ onSignIn }: { onSignIn: () => void }) {
               <span className="font-semibold text-gray-200 tracking-tight">MDAnalytics</span>
             </div>
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
-              Enterprise loan risk management for Armenian financial institutions.
+              Enterprise loan risk management for financial institutions.
             </p>
             <p className="text-gray-700 text-xs">
               © {new Date().getFullYear()} Dynamic Solutions. All rights reserved.
@@ -1499,31 +2331,27 @@ function Footer({ onSignIn }: { onSignIn: () => void }) {
 // ─── Landing Page ────────────────────────────────────────────────────────────
 
 export default function LandingPage() {
-  const handleSignIn = useCallback(() => {
-    window.location.href = APP_URL;
-  }, []);
-
   useEffect(() => {
     document.title = 'MDAnalytics — Loan Risk Management for Armenian Banks';
   }, []);
 
   return (
     <div className="min-h-screen bg-[#080d1a] text-gray-100" style={{ fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif" }}>
-      <Navbar onSignIn={handleSignIn} />
+      <Navbar />
       <main>
         <HeroSection />
         <TrustedBySection />
         <ProblemSection />
         <FeaturesSection />
+        <CHPlusSection />
         <IntegrationsSection />
         <HowItWorksSection />
         <BenefitsSection />
-        <TestimonialsSection />
-        <PricingSection onContact={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })} />
+        <PricingSection />
         <FAQSection />
-        <FinalCTASection onSignIn={handleSignIn} />
+        <DemoRequestSection />
       </main>
-      <Footer onSignIn={handleSignIn} />
+      <Footer />
     </div>
   );
 }
