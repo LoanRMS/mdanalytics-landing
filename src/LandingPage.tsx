@@ -522,7 +522,61 @@ function HeroSection() {
 
 function MockDashboard() {
   const reduced = useReducedMotion();
-  const SCROLL_DIST = 268;
+  const SCROLL_DIST = 330;
+
+  const [verifyStatus, setVerifyStatus] = useState<'idle' | 'checking' | 'done'>('idle');
+  const [dataStatus, setDataStatus] = useState<'idle' | 'loading' | 'done'>('idle');
+  const [activeStep, setActiveStep] = useState(0);
+  const [flagVisible, setFlagVisible] = useState(false);
+
+  useEffect(() => {
+    if (reduced) return;
+    let timers: ReturnType<typeof setTimeout>[] = [];
+    const run = () => {
+      timers.forEach(clearTimeout);
+      timers = [];
+      setVerifyStatus('idle');
+      setDataStatus('idle');
+      setActiveStep(0);
+      setFlagVisible(false);
+      timers.push(
+        setTimeout(() => setVerifyStatus('checking'), 900),
+        setTimeout(() => { setVerifyStatus('done'); setActiveStep(1); }, 2300),
+        setTimeout(() => setActiveStep(2), 4200),
+        setTimeout(() => setDataStatus('loading'), 4500),
+        setTimeout(() => { setDataStatus('done'); setActiveStep(3); }, 6400),
+        setTimeout(() => setFlagVisible(true), 7500),
+        setTimeout(() => setActiveStep(4), 12200),
+      );
+    };
+    run();
+    const interval = setInterval(run, 22000);
+    return () => { timers.forEach(clearTimeout); clearInterval(interval); };
+  }, [reduced]);
+
+  const workflowSteps = ['Verify', 'Group', 'Request Data', 'Review', 'Decision'];
+
+  const members = [
+    { initials: 'GH', name: 'Gevorg Harutyunyan', doc: '2345678686', role: 'Borrower', roleColor: 'emerald', flag: false },
+    { initials: 'AP', name: 'Ashot Petrosyan', doc: '3456789678', role: 'Guarantor', roleColor: 'red', flag: true },
+    { initials: 'GF', name: 'Global Finance LLC', doc: '12345667', role: 'Co-signer', roleColor: 'violet', flag: false },
+  ];
+
+  const sources = [
+    { name: 'ACRA', detail: 'Credit · 36mo' },
+    { name: 'ACRA PEK', detail: 'Property lien' },
+    { name: 'Norq', detail: 'Business reg.' },
+    { name: 'EKENG', detail: '8 sub-sources' },
+    { name: 'Tax Service', detail: '2 obligations', warn: true },
+    { name: 'Police Dept.', detail: 'No records' },
+  ];
+
+  const signals = [
+    { label: 'Payment Consistency', val: 91, ok: true },
+    { label: 'Obligation Load', val: 63, warn: true },
+    { label: 'Behavioral Trend', val: 87, ok: true },
+    { label: 'Relationship Risk', val: 34, ok: false },
+  ];
 
   const navPaths = [
     'M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6',
@@ -532,50 +586,21 @@ function MockDashboard() {
     'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z',
   ];
 
-  type SigStatus = 'good' | 'warning' | 'flag';
-  const sigColor: Record<SigStatus, { bar: string; text: string }> = {
-    good: { bar: 'bg-emerald-500', text: 'text-emerald-400' },
-    warning: { bar: 'bg-amber-500', text: 'text-amber-400' },
-    flag: { bar: 'bg-red-500', text: 'text-red-400' },
-  };
-
-  const scoreItems = [
-    { label: 'Credit History', val: 88, color: 'from-emerald-500 to-emerald-400' },
-    { label: 'Income', val: 82, color: 'from-cyan-500 to-cyan-400' },
-    { label: 'Debt Ratio', val: 71, color: 'from-amber-500 to-amber-400' },
-    { label: 'Collateral', val: 90, color: 'from-emerald-500 to-cyan-400' },
-  ];
-
-  const signals: Array<{ label: string; score: number; status: SigStatus }> = [
-    { label: 'Payment Consistency', score: 91, status: 'good' },
-    { label: 'Obligation Load', score: 63, status: 'warning' },
-    { label: 'Behavioral Trend', score: 87, status: 'good' },
-    { label: 'Relationship Risk', score: 34, status: 'flag' },
-  ];
-
-  const dataSources = [
-    { src: 'ACRA', status: 'ok', detail: 'Credit history · 36 months' },
-    { src: 'ACRA PEK', status: 'ok', detail: 'Property lien · clear' },
-    { src: 'Norq', status: 'ok', detail: 'Business registration' },
-    { src: 'EKENG', status: 'ok', detail: '8 sub-sources queried' },
-    { src: 'Taxes', status: 'warn', detail: '2 minor obligations' },
-    { src: 'Police', status: 'ok', detail: 'No adverse records' },
-  ];
-
-  const circumference = 2 * Math.PI * 24;
+  const chCircumference = 2 * Math.PI * 20;
 
   return (
-    <div className="flex bg-[#080c17] text-[11px]" style={{ height: 400 }}>
+    <div className="flex bg-[#070b15] text-[11px] rounded-xl overflow-hidden border border-white/[0.07] shadow-2xl" style={{ height: 430 }}>
 
       {/* ── Left Sidebar ── */}
-      <div className="w-11 shrink-0 bg-[#05080f] border-r border-white/5 flex flex-col items-center pt-3 pb-3 gap-1.5">
-        <div className="w-7 h-7 rounded-xl bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center mb-2 shadow-[0_0_14px_rgba(52,211,153,0.45)]">
+      <div className="w-11 shrink-0 bg-[#04070e] border-r border-white/6 flex flex-col items-center pt-3 pb-3 gap-1">
+        {/* Logo */}
+        <div className="w-7 h-7 rounded-xl bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center mb-2.5 shadow-[0_0_14px_rgba(52,211,153,0.4)]">
           <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
         </div>
         {navPaths.map((d, i) => (
-          <button key={i} className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200 ${i === 1 ? 'bg-emerald-500/20 text-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.2)]' : 'text-gray-700 hover:text-gray-500 hover:bg-white/5'}`}>
+          <button key={i} className={`w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200 ${i === 1 ? 'bg-emerald-500/20 text-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.18)]' : 'text-gray-700 hover:text-gray-500 hover:bg-white/5'}`}>
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d={d} />
             </svg>
@@ -587,12 +612,13 @@ function MockDashboard() {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         {/* Top bar */}
-        <div className="h-9 px-3 bg-[#05080f]/80 border-b border-white/5 flex items-center gap-1.5 shrink-0">
-          <span className="text-gray-300 font-semibold text-[11px]">Loan Pipeline</span>
-          <svg className="w-3 h-3 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-          <span className="text-gray-600 text-[10px]">LG-2026-4271 · Active Review</span>
+        <div className="h-9 px-3 bg-[#04070e]/90 border-b border-white/5 flex items-center gap-2 shrink-0">
+          <span className="text-gray-400 text-[10px]">Credit Assessment</span>
+          <svg className="w-3 h-3 text-gray-700 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+          <span className="text-gray-200 text-[10px] font-semibold">#34333</span>
+          <span className="px-1.5 py-px rounded-full bg-amber-500/15 border border-amber-500/25 text-amber-300 text-[7px] font-medium">In Review</span>
           <div className="ml-auto flex items-center gap-2">
-            <span className="flex items-center gap-1 text-[9px] text-emerald-400">
+            <span className="flex items-center gap-1 text-[8px] text-emerald-400">
               <span className="relative flex h-1.5 w-1.5">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
                 <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
@@ -600,292 +626,372 @@ function MockDashboard() {
               Live
             </span>
             <div className="h-3 w-px bg-white/[0.07]" />
-            <button className="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 text-[9px] font-medium">+ New</button>
+            <button className="px-2 py-0.5 rounded-md bg-emerald-500/15 text-emerald-300 border border-emerald-500/25 text-[8px] font-medium">+ New Case</button>
           </div>
         </div>
 
-        {/* Auto-scrolling content */}
+        {/* ── Workflow Stepper ── */}
+        <div className="px-3 py-2 border-b border-white/5 bg-[#070b15]/60 flex items-center gap-1 shrink-0 overflow-x-hidden">
+          {workflowSteps.map((s, i) => (
+            <div key={s} className="flex items-center gap-1 shrink-0">
+              <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-semibold border transition-all duration-500 ${
+                i < activeStep
+                  ? 'bg-emerald-500/12 text-emerald-400 border-emerald-500/20'
+                  : i === activeStep
+                  ? 'bg-sky-500/12 text-sky-300 border-sky-500/25 shadow-[0_0_10px_rgba(56,189,248,0.12)]'
+                  : 'text-gray-700 border-white/5 bg-transparent'
+              }`}>
+                {i < activeStep && <span className="text-emerald-400 text-[7px]">✓</span>}
+                {i === activeStep && (
+                  <span className="w-1 h-1 rounded-full bg-sky-400 inline-block" style={{ animation: 'pulse 2s infinite' }} />
+                )}
+                {s}
+              </div>
+              {i < workflowSteps.length - 1 && (
+                <div className={`w-3 h-px transition-colors duration-700 ${i < activeStep ? 'bg-emerald-500/35' : 'bg-white/8'}`} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* ── Scrolling Content ── */}
         <div className="flex-1 overflow-hidden relative">
           <motion.div
             animate={reduced ? {} : { y: [0, -SCROLL_DIST, -SCROLL_DIST, 0] }}
-            transition={{ duration: 28, times: [0, 0.70, 0.88, 1], repeat: Infinity, ease: 'linear' }}
+            transition={{ duration: 26, times: [0, 0.66, 0.87, 1], repeat: Infinity, ease: 'linear' }}
           >
 
-            {/* ── Section 1 · Pipeline Stages + Selected Application ── */}
-            <div className="px-3 pt-3 pb-2">
-              <div className="grid grid-cols-4 gap-1.5 mb-2.5">
-                {[
-                  { label: 'Screening', count: 12, cls: 'bg-sky-500/10     border-sky-500/20     text-sky-400' },
-                  { label: 'In Analysis', count: 8, cls: 'bg-amber-500/15   border-amber-500/30   text-amber-300', active: true },
-                  { label: 'Under Review', count: 5, cls: 'bg-violet-500/10  border-violet-500/20  text-violet-400' },
-                  { label: 'Decision', count: 3, cls: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
-                ].map((s) => (
-                  <div key={s.label} className={`rounded-lg border px-2 py-1.5 ${s.cls} ${s.active ? 'ring-1 ring-amber-500/25' : ''}`}>
-                    <div className="text-[8px] font-semibold uppercase tracking-wide opacity-75">{s.label}</div>
-                    <div className="text-base font-bold tabular-nums mt-0.5">{s.count}</div>
+            {/* ── Section 1: Verify + Group Members ── */}
+            <div className="px-3 pt-2.5 pb-2">
+              <div className="grid grid-cols-5 gap-2">
+
+                {/* Verification */}
+                <div className="col-span-2 rounded-xl bg-white/2.5 border border-white/6 p-2.5">
+                  <div className="text-[7.5px] font-semibold uppercase tracking-widest text-gray-600 mb-2">1 · Identity Verification</div>
+                  <div className="flex items-center gap-1.5 mb-2">
+                    <div className="flex-1 bg-white/4 border border-white/8 rounded-lg px-2 py-1 flex items-center gap-1.5">
+                      <svg className="w-2.5 h-2.5 text-gray-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0" />
+                      </svg>
+                      <span className="text-gray-400 text-[9px] font-mono tracking-wider">2345678</span>
+                    </div>
+                    <motion.div
+                      animate={verifyStatus === 'done' ? { scale: [0.85, 1.08, 1] } : {}}
+                      transition={{ duration: 0.35 }}
+                      className={`px-1.5 py-1 rounded-lg text-[7.5px] font-semibold whitespace-nowrap border transition-all duration-500 ${
+                        verifyStatus === 'idle' ? 'bg-sky-500/12 text-sky-300 border-sky-500/20' :
+                        verifyStatus === 'checking' ? 'bg-amber-500/12 text-amber-300 border-amber-500/20' :
+                        'bg-emerald-500/12 text-emerald-300 border-emerald-500/20'
+                      }`}
+                    >
+                      {verifyStatus === 'idle' ? 'Verify' : verifyStatus === 'checking' ? '⋯ Checking' : '✓ Verified'}
+                    </motion.div>
                   </div>
+                  <motion.div
+                    animate={{ opacity: verifyStatus === 'done' ? 1 : 0, y: verifyStatus === 'done' ? 0 : 5 }}
+                    transition={{ duration: 0.45 }}
+                    className="rounded-lg bg-emerald-500/6 border border-emerald-500/18 px-2 py-1.5"
+                  >
+                    <div className="text-emerald-300 text-[9px] font-semibold leading-tight">Gevorg Harutyunyan</div>
+                    <div className="text-gray-600 text-[7.5px] mt-0.5">Born 1985 · Yerevan · Active passport</div>
+                  </motion.div>
+                  {verifyStatus !== 'done' && (
+                    <div className="rounded-lg bg-white/2 border border-white/4 px-2 py-1.5 h-9" />
+                  )}
+                </div>
+
+                {/* Group Members */}
+                <div className="col-span-3 rounded-xl bg-white/2.5 border border-white/6 p-2.5">
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="text-[7.5px] font-semibold uppercase tracking-widest text-gray-600">2 · Group Members</div>
+                    <button className="flex items-center gap-0.5 px-1.5 py-0.5 rounded-md bg-sky-500/10 text-sky-400 border border-sky-500/15 text-[7.5px] font-medium">
+                      + Add Member
+                    </button>
+                  </div>
+                  <div className="space-y-1">
+                    {members.map((m) => (
+                      <div key={m.name} className="flex items-center gap-1.5 px-1.5 py-1 rounded-lg bg-white/2.5 border border-white/4">
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0 ${
+                          m.roleColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-300' :
+                          m.roleColor === 'red' ? 'bg-red-500/20 text-red-300' :
+                          'bg-violet-500/20 text-violet-300'
+                        }`}>{m.initials}</div>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-1">
+                            <span className="text-gray-300 text-[9px] font-medium truncate">{m.name}</span>
+                            {m.flag && (
+                              <motion.span animate={{ opacity: [1, 0.45, 1] }} transition={{ duration: 2.2, repeat: Infinity }} className="text-red-400 text-[8px] shrink-0">⚠</motion.span>
+                            )}
+                          </div>
+                          <div className="text-gray-700 text-[7px]">Doc: {m.doc}</div>
+                        </div>
+                        <span className={`text-[7px] px-1.5 py-0.5 rounded-full font-semibold border shrink-0 ${
+                          m.roleColor === 'emerald' ? 'bg-emerald-500/12 text-emerald-400 border-emerald-500/18' :
+                          m.roleColor === 'red' ? 'bg-red-500/12 text-red-400 border-red-500/18' :
+                          'bg-violet-500/12 text-violet-400 border-violet-500/18'
+                        }`}>{m.role}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* ── Section 2: Request Full Data ── */}
+            <div className="px-3 pb-2">
+              <div className="rounded-xl bg-white/2.5 border border-white/6 p-2.5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="text-[7.5px] font-semibold uppercase tracking-widest text-gray-600">3 · Source Data Collection</div>
+                  <motion.button
+                    animate={dataStatus === 'idle' ? { boxShadow: ['0 0 0px rgba(52,211,153,0)', '0 0 12px rgba(52,211,153,0.2)', '0 0 0px rgba(52,211,153,0)'] } : {}}
+                    transition={{ duration: 2.5, repeat: Infinity }}
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[8.5px] font-semibold border transition-all duration-600 ${
+                      dataStatus === 'idle' ? 'bg-emerald-500/18 text-emerald-300 border-emerald-500/28' :
+                      dataStatus === 'loading' ? 'bg-amber-500/12 text-amber-300 border-amber-500/20' :
+                      'bg-emerald-500/10 text-emerald-400 border-emerald-500/15'
+                    }`}
+                  >
+                    {dataStatus === 'idle' && (
+                      <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                      </svg>
+                    )}
+                    {dataStatus === 'idle' && 'Request Full Data'}
+                    {dataStatus === 'loading' && '⋯ Collecting from sources'}
+                    {dataStatus === 'done' && '✓ All data received'}
+                  </motion.button>
+                </div>
+                <div className="grid grid-cols-6 gap-1">
+                  {sources.map((s, i) => {
+                    const isDone = dataStatus === 'done';
+                    const isLoading = dataStatus === 'loading' && i <= 2;
+                    return (
+                      <div key={s.name}
+                        className={`rounded-lg border px-1.5 py-1.5 transition-all duration-700 ${
+                          isDone && s.warn ? 'bg-amber-500/6 border-amber-500/18' :
+                          isDone ? 'bg-emerald-500/6 border-emerald-500/18' :
+                          isLoading ? 'bg-amber-500/6 border-amber-500/12' :
+                          'bg-white/2 border-white/4'
+                        }`}
+                        style={{ transitionDelay: `${i * 100}ms` }}
+                      >
+                        <div className={`w-1.5 h-1.5 rounded-full mb-1 transition-all duration-500 ${
+                          isDone && s.warn ? 'bg-amber-400' :
+                          isDone ? 'bg-emerald-500' :
+                          isLoading ? 'bg-amber-400 animate-pulse' :
+                          'bg-gray-800'
+                        }`} style={{ transitionDelay: `${i * 100}ms` }} />
+                        <div className="text-gray-300 text-[7.5px] font-medium leading-tight">{s.name}</div>
+                        <div className="text-gray-700 text-[6.5px] leading-tight mt-0.5 truncate">{s.detail}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {dataStatus === 'done' && (
+                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5, delay: 0.3 }}
+                    className="mt-1.5 pt-1.5 border-t border-white/4 flex items-center justify-between text-[7.5px]">
+                    <span className="text-gray-700">Queried {new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
+                    <span className="text-emerald-400 font-medium">✓ 5/6 sources clear</span>
+                  </motion.div>
+                )}
+              </div>
+            </div>
+
+            {/* ── Section 3: Group Overview + Member Tabs ── */}
+            <div className="px-3 pb-2">
+              {/* Tabs */}
+              <div className="flex gap-1 mb-2 items-center">
+                {[
+                  { label: 'Group Overview', active: true },
+                  { label: 'G. Harutyunyan', active: false },
+                  { label: 'A. Petrosyan', active: false, flag: true },
+                  { label: 'Global Finance LLC', active: false },
+                ].map((tab) => (
+                  <button key={tab.label} className={`relative px-2 py-0.5 rounded-full text-[7.5px] border font-medium transition-all shrink-0 ${
+                    tab.active ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' :
+                    tab.flag ? 'bg-red-500/10 text-red-400 border-red-500/15' :
+                    'bg-white/2.5 text-gray-500 border-white/6'
+                  }`}>
+                    {tab.label}
+                    {tab.flag && (
+                      <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.8, repeat: Infinity }}
+                        className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full bg-red-500" />
+                    )}
+                  </button>
                 ))}
               </div>
 
-              {/* Selected application card */}
-              <div className="rounded-xl bg-linear-to-br from-white/5 to-white/2 border border-emerald-500/25 p-2.5 shadow-[0_0_20px_rgba(52,211,153,0.07)]">
+              {/* Group Overview Card */}
+              <div className="rounded-xl bg-linear-to-br from-white/4 to-white/1 border border-white/[0.07] p-2.5">
                 <div className="flex items-start justify-between mb-2">
                   <div>
-                    <div className="flex items-center gap-1.5 mb-0.5">
-                      <span className="font-mono text-[9px] text-emerald-400">LG-2026-4271</span>
-                      <span className="px-1.5 py-px rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/25 text-[8px] font-medium">In Analysis</span>
-                      <span className="px-1.5 py-px rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 text-[8px]">Agricultural</span>
-                    </div>
-                    <div className="text-gray-100 font-semibold text-[12px]">Gevorg Harutyunyan Group</div>
-                    <div className="text-gray-600 text-[9px] mt-0.5">36-month term · Collateral: Residential property</div>
+                    <div className="text-gray-100 font-semibold text-[11px] leading-tight">Harutyunyan Credit Group</div>
+                    <div className="text-gray-600 text-[8px] mt-0.5">3 members · Agricultural loan · 36-month term · Collateral: residential property</div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <div className="text-gray-100 font-bold text-sm tabular-nums">18,500,000 ֏</div>
-                    <div className="text-gray-600 text-[9px]">Requested amount</div>
+                  <div className="text-right shrink-0 ml-3">
+                    <div className="text-gray-100 font-bold text-[13px] tabular-nums">18,500,000 ֏</div>
+                    <div className="text-gray-600 text-[7.5px]">Requested amount</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 pt-1.5 border-t border-white/5">
-                  <span className="text-gray-700 text-[9px]">Group:</span>
+                <div className="grid grid-cols-4 gap-1.5">
                   {[
-                    { name: 'G. Harutyunyan', role: 'Borrower', dot: 'bg-emerald-500' },
-                    { name: 'A. Petrosyan', role: 'Guarantor', dot: 'bg-red-500' },
-                    { name: 'Global Finance Solutions LLC', role: 'Co-borrower', dot: 'bg-violet-500' },
+                    { l: 'Group Score', v: '793', c: 'text-emerald-400' },
+                    { l: 'Risk Level', v: 'Low', c: 'text-emerald-400' },
+                    { l: 'Active Loans', v: '2', c: 'text-gray-300' },
+                    { l: 'Flags', v: '1 critical', c: 'text-red-400' },
                   ].map((m) => (
-                    <div key={m.name} className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/4 border border-white/6">
-                      <span className={`w-1.5 h-1.5 rounded-full ${m.dot} shrink-0`} />
-                      <span className="text-gray-400 text-[9px]">{m.name}</span>
-                      <span className="text-gray-700 text-[8px]">{m.role}</span>
+                    <div key={m.l} className="bg-white/2.5 rounded-lg px-2 py-1.5 border border-white/4">
+                      <div className="text-gray-600 text-[7px]">{m.l}</div>
+                      <div className={`${m.c} text-[10px] font-bold tabular-nums mt-0.5`}>{m.v}</div>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            {/* ── Section 2 · ScoreFlex + CHPlus ── */}
-            <div className="px-3 pb-2 grid grid-cols-5 gap-2">
+            {/* ── Section 4: CHPlus + Red Flags ── */}
+            <div className="px-3 pb-2 grid grid-cols-2 gap-2">
 
-              {/* ScoreFlex */}
-              <div className="col-span-2 rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
-                <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-2">ScoreFlex Score</div>
-                <div className="flex items-center gap-2 mb-2.5">
-                  <div className="relative shrink-0 w-14 h-14">
-                    <svg viewBox="0 0 64 64" className="w-14 h-14 -rotate-90">
-                      <circle cx="32" cy="32" r="24" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="5" />
+              {/* CHPlus Analytics */}
+              <div className="rounded-xl bg-white/2.5 border border-white/6 p-2.5">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-3.5 h-3.5 rounded bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_6px_rgba(52,211,153,0.4)]">
+                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <div className="text-gray-300 text-[9px] font-semibold leading-tight">CHPlus Analytics</div>
+                      <div className="text-gray-700 text-[7px]">ACRA · Credit History</div>
+                    </div>
+                  </div>
+                  {/* Mini ring score */}
+                  <div className="relative w-9 h-9 shrink-0">
+                    <svg viewBox="0 0 48 48" className="w-9 h-9 -rotate-90">
+                      <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
                       <motion.circle
-                        cx="32" cy="32" r="24"
-                        fill="none" stroke="url(#sg)" strokeWidth="5" strokeLinecap="round"
-                        strokeDasharray={circumference}
-                        initial={{ strokeDashoffset: circumference }}
-                        animate={{ strokeDashoffset: circumference * (1 - 0.79) }}
-                        transition={{ duration: 1.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+                        cx="24" cy="24" r="20"
+                        fill="none" stroke="url(#chg)" strokeWidth="4" strokeLinecap="round"
+                        strokeDasharray={chCircumference}
+                        initial={{ strokeDashoffset: chCircumference }}
+                        animate={{ strokeDashoffset: chCircumference * (1 - 0.793) }}
+                        transition={{ duration: 1.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
                       />
                       <defs>
-                        <linearGradient id="sg" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <linearGradient id="chg" x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stopColor="#34d399" />
                           <stop offset="100%" stopColor="#22d3ee" />
                         </linearGradient>
                       </defs>
                     </svg>
                     <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-gray-100 font-bold text-sm tabular-nums">793</span>
-                      <span className="text-[7px] text-emerald-400 font-semibold">LOW</span>
+                      <span className="text-gray-100 font-bold text-[9px] leading-none">793</span>
+                      <span className="text-[6px] text-emerald-400 font-semibold">LOW</span>
                     </div>
-                  </div>
-                  <div>
-                    <div className="text-emerald-300 font-semibold text-[10px]">Low Risk</div>
-                    <div className="text-gray-600 text-[9px]">Top 18%</div>
-                    <div className="text-gray-700 text-[8px]">of portfolio</div>
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  {scoreItems.map((item, i) => (
-                    <div key={item.label}>
-                      <div className="flex justify-between mb-0.5">
-                        <span className="text-gray-600 text-[9px]">{item.label}</span>
-                        <span className="text-gray-400 text-[9px] tabular-nums">{item.val}</span>
-                      </div>
-                      <div className="h-1 rounded-full bg-white/5 overflow-hidden">
-                        <motion.div
-                          className={`h-full rounded-full bg-linear-to-r ${item.color}`}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${item.val}%` }}
-                          transition={{ duration: 0.9, delay: i * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CHPlus */}
-              <div className="col-span-3 rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-3.5 h-3.5 rounded bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_6px_rgba(52,211,153,0.5)]">
-                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <span className="text-[9px] font-semibold text-gray-300">CHPlus Analysis</span>
-                    <span className="text-gray-700 text-[8px]">ACRA Analytics</span>
-                  </div>
-                  <span className="flex items-center gap-1 text-[8px] text-emerald-400">
-                    <span className="relative flex h-1.5 w-1.5">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                      <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-                    </span>
-                    Live
-                  </span>
-                </div>
-
-                <div className="space-y-1.5 mb-2">
                   {signals.map((sig, i) => (
                     <div key={sig.label}>
                       <div className="flex justify-between mb-0.5">
-                        <span className="text-gray-500 text-[9px]">{sig.label}</span>
-                        <span className={`text-[9px] font-semibold tabular-nums ${sigColor[sig.status].text}`}>{sig.score}</span>
+                        <span className="text-gray-600 text-[8px]">{sig.label}</span>
+                        <span className={`text-[8px] font-semibold tabular-nums ${sig.ok ? 'text-emerald-400' : sig.warn ? 'text-amber-400' : 'text-red-400'}`}>{sig.val}</span>
                       </div>
                       <div className="h-1 rounded-full bg-white/5 overflow-hidden">
                         <motion.div
-                          className={`h-full rounded-full ${sigColor[sig.status].bar}`}
+                          className={`h-full rounded-full ${sig.ok ? 'bg-emerald-500' : sig.warn ? 'bg-amber-500' : 'bg-red-500'}`}
                           initial={{ width: 0 }}
-                          animate={{ width: `${sig.score}%` }}
-                          transition={{ duration: 0.9, delay: i * 0.08 + 0.4, ease: [0.22, 1, 0.36, 1] }}
+                          animate={{ width: `${sig.val}%` }}
+                          transition={{ duration: 0.85, delay: i * 0.09 + 0.3, ease: [0.22, 1, 0.36, 1] }}
                         />
                       </div>
                     </div>
                   ))}
                 </div>
-
-                <div className="space-y-1">
-                  <div className="flex items-start gap-1.5 px-2 py-1.5 rounded-lg bg-red-500/10 border border-red-500/20">
-                    <svg className="w-3 h-3 text-red-400 shrink-0 mt-px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="text-red-300 text-[9px] leading-tight">Guarantor linked to active default · LG-2025-0871</span>
-                  </div>
-                  <div className="flex items-start gap-1.5 px-2 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/20">
-                    <svg className="w-3 h-3 text-amber-400 shrink-0 mt-px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                    <span className="text-amber-300 text-[9px] leading-tight">D/I ratio 72% — approaching 75% approval threshold</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* ── Section 3 · Relationship Network + Data Sources ── */}
-            <div className="px-3 pb-2 grid grid-cols-2 gap-2">
-
-              {/* Relationship Network */}
-              <div className="rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
-                <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Relationship Network</div>
-                <div className="relative h-22">
-                  {/* SVG lines */}
-                  <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
-                    <line x1="26%" y1="30%" x2="50%" y2="52%" stroke="rgba(239,68,68,0.4)" strokeWidth="1" />
-                    <line x1="74%" y1="30%" x2="50%" y2="52%" stroke="rgba(139,92,246,0.3)" strokeWidth="1" />
-                    <line x1="26%" y1="30%" x2="24%" y2="68%" stroke="rgba(239,68,68,0.5)" strokeWidth="1" strokeDasharray="2,2" />
-                  </svg>
-                  {/* Center — Borrower */}
-                  <div className="absolute w-10 h-10 rounded-full bg-emerald-500/20 border-2 border-emerald-500/50 flex flex-col items-center justify-center z-10"
-                    style={{ top: '50%', left: '50%', transform: 'translate(-50%, -52%)' }}>
-                    <span className="text-emerald-300 text-[7px] font-bold">G.H.</span>
-                    <span className="text-emerald-600 text-[6px]">Borrower</span>
-                  </div>
-                  {/* Guarantor */}
-                  <div className="absolute w-8 h-8 rounded-full bg-red-500/20 border border-red-500/40 flex flex-col items-center justify-center"
-                    style={{ top: '8%', left: '10%' }}>
-                    <span className="text-red-300 text-[7px] font-bold">A.P.</span>
-                    <span className="text-red-500 text-[6px]">⚠ GTR</span>
-                  </div>
-                  {/* Co-borrower */}
-                  <div className="absolute w-8 h-8 rounded-full bg-violet-500/20 border border-violet-500/30 flex flex-col items-center justify-center"
-                    style={{ top: '8%', right: '10%' }}>
-                    <span className="text-violet-300 text-[7px] font-bold">LLC</span>
-                    <span className="text-violet-500 text-[6px]">Co-B</span>
-                  </div>
-                  {/* Linked default */}
-                  <div className="absolute w-7 h-7 rounded-full bg-red-500/10 border border-red-500/30 border-dashed flex items-center justify-center"
-                    style={{ bottom: '2%', left: '8%' }}>
-                    <span className="text-red-400 text-[7px] font-medium">DEF</span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1 text-[8px] text-red-400"><span className="w-1.5 h-1.5 rounded-full bg-red-500 shrink-0" />Default</span>
-                  <span className="flex items-center gap-1 text-[8px] text-violet-400"><span className="w-1.5 h-1.5 rounded-full bg-violet-500 shrink-0" />Co-borrow</span>
-                </div>
               </div>
 
-              {/* Data Sources */}
-              <div className="rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
-                <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Data Sources</div>
-                <div className="space-y-1">
-                  {dataSources.map((item) => (
-                    <div key={item.src} className="flex items-center gap-1.5">
-                      <div className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.status === 'ok' ? 'bg-emerald-500' : 'bg-amber-400'}`} />
-                      <span className="text-gray-300 text-[9px] font-medium w-14 shrink-0">{item.src}</span>
-                      <span className="text-gray-600 text-[8px] truncate">{item.detail}</span>
+              {/* Risk Flags */}
+              <div className="rounded-xl bg-white/2.5 border border-white/6 p-2.5">
+                <div className="flex items-center gap-1 mb-2">
+                  <span className="text-[7.5px] font-semibold uppercase tracking-widest text-gray-600">Risk Flags</span>
+                  <motion.span
+                    animate={{ opacity: [1, 0.4, 1] }}
+                    transition={{ duration: 2.1, repeat: Infinity }}
+                    className="ml-auto px-1.5 py-px rounded-full bg-red-500/18 text-red-300 border border-red-500/25 text-[7px] font-semibold"
+                  >
+                    1 Critical
+                  </motion.span>
+                </div>
+                <div className="space-y-1.5">
+                  <motion.div
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: flagVisible ? 1 : 0, x: flagVisible ? 0 : -8 }}
+                    transition={{ duration: 0.5 }}
+                    className="rounded-lg bg-red-500/8 border border-red-500/20 px-2 py-1.5"
+                  >
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <svg className="w-2.5 h-2.5 text-red-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-red-300 text-[8px] font-semibold">Guarantor Active Default</span>
                     </div>
-                  ))}
-                </div>
-                <div className="mt-1.5 pt-1.5 border-t border-white/5 flex justify-between text-[8px]">
-                  <span className="text-gray-700">Queried 18s ago</span>
-                  <span className="text-emerald-400">✓ 5/6 clear</span>
+                    <p className="text-red-400/65 text-[7px] leading-snug">A. Petrosyan linked to LG-2025-0871 · 90+ day default</p>
+                  </motion.div>
+                  <div className="rounded-lg bg-amber-500/8 border border-amber-500/18 px-2 py-1.5">
+                    <div className="flex items-center gap-1 mb-0.5">
+                      <svg className="w-2.5 h-2.5 text-amber-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                      </svg>
+                      <span className="text-amber-300 text-[8px] font-semibold">D/I Ratio Warning</span>
+                    </div>
+                    <p className="text-amber-400/65 text-[7px] leading-snug">72% — approaching 75% approval threshold</p>
+                  </div>
+                  <div className="rounded-lg bg-sky-500/6 border border-sky-500/15 px-2 py-1.5">
+                    <div className="flex items-center gap-1">
+                      <svg className="w-2.5 h-2.5 text-sky-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <span className="text-sky-300 text-[7.5px]">Tax Service · 2 minor obligations flagged</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* ── Section 4 · Decision Engine ── */}
-            <div className="px-3 pb-2">
-              <div className="rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
+            {/* ── Section 5: Decision Engine ── */}
+            <div className="px-3 pb-3">
+              <div className="rounded-xl bg-white/2.5 border border-white/6 p-2.5">
                 <div className="flex items-center justify-between mb-2">
-                  <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600">Decision Engine</div>
-                  <span className="text-[8px] text-gray-700">Step 3 of 4 · Credit Committee</span>
+                  <div className="text-[7.5px] font-semibold uppercase tracking-widest text-gray-600">5 · Decision Engine</div>
+                  <div className="flex items-center gap-2 text-[7.5px] text-gray-600">
+                    <span>Step 3 of 4 · Credit Committee</span>
+                    <span className="text-amber-600 font-medium">SLA: 4h remaining</span>
+                  </div>
                 </div>
-                <div className="rounded-lg bg-emerald-500/[0.07] border border-emerald-500/20 px-2.5 py-2 mb-2">
+                <div className="rounded-lg bg-emerald-500/6 border border-emerald-500/18 px-2.5 py-2 mb-2">
                   <div className="flex items-center gap-1.5 mb-1">
                     <svg className="w-3 h-3 text-emerald-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     <span className="text-emerald-300 font-semibold text-[10px]">Recommendation: Conditional Approval</span>
                   </div>
-                  <p className="text-gray-500 text-[9px] leading-relaxed">Score 793 (low risk). Guarantor flag requires additional documentation before final approval. Income and collateral coverage adequate.</p>
+                  <p className="text-gray-500 text-[8px] leading-relaxed">Score 793 (low risk, top 18%). Guarantor flag requires additional documentation before final sign-off. Income and collateral coverage adequate for requested amount.</p>
                 </div>
                 <div className="flex items-center gap-1.5 mb-2">
-                  <button className="flex-1 py-1.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-[9px] font-semibold">✓ Approve</button>
-                  <button className="flex-1 py-1.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/25 text-[9px]">⟳ Request Info</button>
-                  <button className="flex-1 py-1.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 text-[9px]">✕ Decline</button>
+                  <button className="flex-1 py-1.5 rounded-lg bg-emerald-500/18 text-emerald-300 border border-emerald-500/28 text-[8.5px] font-semibold">✓ Approve</button>
+                  <button className="flex-1 py-1.5 rounded-lg bg-amber-500/12 text-amber-300 border border-amber-500/22 text-[8.5px]">⟳ Request Info</button>
+                  <button className="flex-1 py-1.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/18 text-[8.5px]">✕ Decline</button>
                 </div>
-                <div className="flex items-center gap-2 text-[8px] text-gray-700 pt-1.5 border-t border-white/5">
+                <div className="flex items-center gap-2 text-[7.5px] text-gray-700 pt-1.5 border-t border-white/4">
                   <span>Analyst: A. Mkrtchyan</span>
                   <span className="text-gray-800">·</span>
                   <span>Assigned: 2h ago</span>
                   <span className="text-gray-800">·</span>
-                  <span className="text-amber-600">SLA: 4h remaining</span>
+                  <span className="text-gray-600">Agricultural portfolio</span>
                 </div>
               </div>
             </div>
-
-            {/* ── Section 5 · Live Portfolio Metrics ── */}
-            <div className="px-3 pb-3">
-              <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Portfolio Metrics · Live</div>
-              <div className="grid grid-cols-4 gap-1.5">
-                {[
-                  { label: 'Approved Today', val: '14', trend: '↑ 3 vs yesterday', color: 'text-emerald-400' },
-                  { label: 'Avg Risk Score', val: '716', trend: '+8 pts MTD', color: 'text-cyan-400' },
-                  { label: 'Active Flags', val: '7', trend: '2 critical', color: 'text-amber-400' },
-                  { label: 'Approval Rate', val: '84%', trend: 'Month to date', color: 'text-violet-400' },
-                ].map((m) => (
-                  <div key={m.label} className="rounded-lg bg-white/3 border border-white/6 px-2 py-1.5">
-                    <div className={`text-sm font-bold tabular-nums ${m.color}`}>{m.val}</div>
-                    <div className="text-gray-600 text-[8px] mt-0.5 leading-tight">{m.label}</div>
-                    <div className="text-gray-700 text-[7px] mt-0.5">{m.trend}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
           </motion.div>
         </div>
       </div>
