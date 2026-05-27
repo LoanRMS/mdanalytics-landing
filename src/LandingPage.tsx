@@ -257,7 +257,6 @@ function Navbar() {
 
   const navLinks = [
     { label: 'Features', id: 'features' },
-    { label: 'CHPlus', id: 'chplus' },
     { label: 'Integrations', id: 'integrations' },
     { label: 'How It Works', id: 'how-it-works' },
     { label: 'Pricing', id: 'pricing' },
@@ -292,29 +291,16 @@ function Navbar() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
         >
-          {navLinks.map((l) =>
-            l.id === 'chplus' ? (
-              <button
-                key={l.id}
-                onClick={() => scrollTo(l.id)}
-                className="px-4 py-2 rounded-lg text-sm font-medium text-emerald-400 hover:text-emerald-300 hover:bg-emerald-500/10 transition-all duration-200 relative group flex items-center gap-1.5"
-              >
-                <span className="relative flex h-1.5 w-1.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-60" />
-                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-                </span>
-                {l.label}
-              </button>
-            ) : (
-              <button
-                key={l.id}
-                onClick={() => scrollTo(l.id)}
-                className="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-gray-200 hover:bg-white/6 transition-all duration-200 relative group"
-              >
-                {l.label}
-                <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-px bg-emerald-400/50 transition-all duration-300 rounded-full" />
-              </button>
-            )
+          {navLinks.map((l) => (
+            <button
+              key={l.id}
+              onClick={() => scrollTo(l.id)}
+              className="px-4 py-2 rounded-lg text-sm text-gray-400 hover:text-gray-200 hover:bg-white/6 transition-all duration-200 relative group"
+            >
+              {l.label}
+              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 group-hover:w-3/4 h-px bg-emerald-400/50 transition-all duration-300 rounded-full" />
+            </button>
+          )
           )}
         </motion.nav>
 
@@ -441,7 +427,7 @@ function HeroSection() {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="mt-6 text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            MDAnalytics aggregates credit intelligence from every source — ACRA, Norq, EKENG (multiple sources) — and delivers a risk score in under two minutes. Replace days of manual work with one unified platform.
+            MDAnalytics aggregates credit intelligence from every source — ACRA, Norq, EKENG (multiple sources) — and delivers a risk score in under one minute. Replace days of manual work with one unified platform.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
@@ -663,7 +649,7 @@ function MockDashboard() {
                   {[
                     { name: 'G. Harutyunyan', role: 'Borrower', dot: 'bg-emerald-500' },
                     { name: 'A. Petrosyan', role: 'Guarantor', dot: 'bg-red-500' },
-                    { name: 'Armavia LLC', role: 'Co-borrower', dot: 'bg-violet-500' },
+                    { name: 'Global Finance Solutions LLC', role: 'Co-borrower', dot: 'bg-violet-500' },
                   ].map((m) => (
                     <div key={m.name} className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/4 border border-white/6">
                       <span className={`w-1.5 h-1.5 rounded-full ${m.dot} shrink-0`} />
@@ -1002,15 +988,15 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
       label: 'Unified Data Aggregation',
       title: 'One click. Every data source.',
-      description: 'Pull complete credit histories from ACRA and Norq, financial statements from Ekeng, in seconds. Connects cleanly with existing software, eliminating manual screening and redundant data entry across your systems.',
+      description: 'Pull compete credit histories from ACRA, salary information from NORQ and PEK, financial reports from ACRA PEK, demographics from EKENG various sources in seconds.',
       accent: 'emerald',
       span: 'col-span-1 md:col-span-2',
     },
     {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>,
-      label: 'Risk Scoring',
+      label: 'Risk Assessment',
       title: 'Consistent, explainable decisions',
-      description: 'ScoreFlex model with configurable criteria surface red flags automatically and deliver consistent scores with full explainability — removing guesswork from every credit decision. Supports both manual review and automated approval workflows.',
+      description: 'ScoreFlex enables risk assessment through configurable criteria, delivering consistent, fully explainable scores. INquiry surfaces multi-source data and highlights red flags for rapid preliminary screening.',
       accent: 'violet',
       span: 'col-span-1',
     },
@@ -1026,18 +1012,10 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
       label: 'Compliance & Audit Trail',
       title: 'Built for regulatory confidence',
-      description: 'Immutable audit logs, role-based access control, and complete decision histories ensure every manual and automated approval meets Armenian banking regulations.',
+      description: 'Immutable audit logs, role-based access control, and complete decision histories ensure every manual and automated approval.',
       accent: 'emerald',
       span: 'col-span-1',
-    },
-    {
-      icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
-      label: 'Real-Time Analytics',
-      title: 'Complete pipeline visibility',
-      description: 'Live dashboards, 12-month trend charts, and application-status tracking give management instant visibility into the full underwriting pipeline and lending performance.',
-      accent: 'amber',
-      span: 'col-span-1 md:col-span-2',
-    },
+    }
   ];
 
   const accentMap: Record<string, { bg: string; border: string; text: string; spot: string; line: string }> = {
@@ -1090,171 +1068,9 @@ function FeaturesSection() {
   );
 }
 
-// ─── CHPlus Mock Report ───────────────────────────────────────────────────────
-
-function CHPlusMockReport({ activeTab }: { activeTab: 'individual' | 'corporate' }) {
-  const individualSignals = [
-    { label: 'Payment Consistency', score: 92, status: 'good', detail: 'On-time rate across 36 months' },
-    { label: 'Obligation Load', score: 44, status: 'warning', detail: '4 active obligations detected' },
-    { label: 'Behavioral Trend', score: 85, status: 'good', detail: 'Improving utilization pattern' },
-    { label: 'Relationship Risk', score: 18, status: 'flag', detail: 'Co-guarantor with active default' },
-  ];
-
-  const corporateSignals = [
-    { label: 'Financial Stability', score: 78, status: 'good', detail: 'Consistent revenue trend' },
-    { label: 'Ownership Complexity', score: 40, status: 'warning', detail: '3-level ownership structure' },
-    { label: 'Related-Party Exposure', score: 28, status: 'warning', detail: '2 related entities with obligations' },
-    { label: 'Director Risk Profile', score: 88, status: 'good', detail: 'No adverse records found' },
-  ];
-
-  const signals = activeTab === 'individual' ? individualSignals : corporateSignals;
-
-  const statusStyle = {
-    good: { bar: 'bg-emerald-500', text: 'text-emerald-400', item: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
-    warning: { bar: 'bg-amber-500', text: 'text-amber-400', item: 'bg-amber-500/10  border-amber-500/20  text-amber-400' },
-    flag: { bar: 'bg-red-500', text: 'text-red-400', item: 'bg-red-500/10    border-red-500/20    text-red-400' },
-  };
-
-  const overallScore = activeTab === 'individual' ? 74 : 61;
-
-  const findings = activeTab === 'individual'
-    ? [
-      { type: 'flag' as const, text: 'Co-guarantor on LG-2025-0871 entered default 3 months ago' },
-      { type: 'warning' as const, text: 'Debt-to-income ratio approaching threshold at current obligation load' },
-      { type: 'good' as const, text: 'Payment behaviour shows consistent improvement over 12 months' },
-    ]
-    : [
-      { type: 'warning' as const, text: 'Director is guarantor on 2 other active loan agreements' },
-      { type: 'warning' as const, text: 'Subsidiary company carries delinquent tax obligations' },
-      { type: 'good' as const, text: 'Core revenue stream stable; no major creditor concentration' },
-    ];
-
-  const findingIcon = {
-    good: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />,
-    warning: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />,
-    flag: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
-  };
-
-  return (
-    <motion.div
-      key={activeTab}
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, y: -10 }}
-      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-      className="rounded-2xl overflow-hidden border border-white/12 bg-[#0a0f1e] shadow-[0_32px_80px_rgba(0,0,0,0.65)]"
-    >
-      {/* Report header */}
-      <div className="px-5 py-3.5 bg-[#07090f] border-b border-white/[0.07] flex items-center justify-between">
-        <div className="flex items-center gap-2.5">
-          <div className="w-6 h-6 rounded-lg bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_12px_rgba(52,211,153,0.45)]">
-            <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <span className="text-gray-300 font-semibold text-sm">CHPlus Report</span>
-          <span className="text-gray-700 text-xs">·</span>
-          <span className="text-gray-600 text-[11px]">ACRA Analytics</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          <span className="text-[10px] text-emerald-400 font-medium">Live</span>
-          <span className="relative flex h-1.5 w-1.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-          </span>
-        </div>
-      </div>
-
-      {/* Subject + score */}
-      <div className="px-5 py-4 border-b border-white/6 flex items-center justify-between gap-4">
-        <div>
-          <div className="text-gray-200 font-semibold text-sm">
-            {activeTab === 'individual' ? 'Aram K. Petrosyan' : 'Armavia Technologies LLC'}
-          </div>
-          <div className="text-gray-600 text-[11px] mt-0.5">
-            {activeTab === 'individual' ? 'Individual · SSN ••••2847' : 'Corporate · Reg. No. ••••8834'}
-          </div>
-        </div>
-        <div className="text-right shrink-0">
-          <div className="text-[10px] text-gray-600 mb-0.5 uppercase tracking-wide">CHPlus Score</div>
-          <div className={`text-3xl font-bold tabular-nums ${overallScore >= 70 ? 'text-emerald-400' : overallScore >= 50 ? 'text-amber-400' : 'text-red-400'}`}>
-            {overallScore}
-          </div>
-        </div>
-      </div>
-
-      {/* Signal analysis */}
-      <div className="px-5 py-4 border-b border-white/6 space-y-4">
-        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-600">Signal Analysis</div>
-        {signals.map((sig, i) => {
-          const s = statusStyle[sig.status as keyof typeof statusStyle];
-          return (
-            <motion.div
-              key={sig.label}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: i * 0.07, duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <div className="flex items-center justify-between mb-1.5">
-                <span className="text-gray-400 text-[11px]">{sig.label}</span>
-                <span className={`text-[11px] font-semibold tabular-nums ${s.text}`}>{sig.score}</span>
-              </div>
-              <div className="h-1.5 rounded-full bg-white/5 overflow-hidden">
-                <motion.div
-                  className={`h-full rounded-full ${s.bar}`}
-                  initial={{ width: 0 }}
-                  animate={{ width: `${sig.score}%` }}
-                  transition={{ duration: 0.9, delay: i * 0.1 + 0.15, ease: [0.22, 1, 0.36, 1] }}
-                />
-              </div>
-              <div className="text-gray-600 text-[10px] mt-1">{sig.detail}</div>
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Key findings */}
-      <div className="px-5 py-4">
-        <div className="text-[10px] font-semibold uppercase tracking-widest text-gray-600 mb-3">Key Findings</div>
-        <div className="space-y-2">
-          {findings.map((f, i) => {
-            const s = statusStyle[f.type];
-            return (
-              <motion.div
-                key={i}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.1 + 0.5, duration: 0.3 }}
-                className={`flex items-start gap-2.5 px-3 py-2.5 rounded-xl border text-[11px] leading-tight ${s.item}`}
-              >
-                <svg className="w-3.5 h-3.5 shrink-0 mt-px" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  {findingIcon[f.type]}
-                </svg>
-                {f.text}
-              </motion.div>
-            );
-          })}
-        </div>
-      </div>
-
-      {/* Footer strip */}
-      <div className="px-5 py-3 border-t border-white/6 flex items-center justify-between">
-        <span className="text-gray-700 text-[10px]">
-          Generated · {new Date().toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })}
-        </span>
-        <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 font-medium">
-          CHPlus · ACRA Analytics
-        </span>
-      </div>
-    </motion.div>
-  );
-}
-
 // ─── CHPlus Section ───────────────────────────────────────────────────────────
 
 function CHPlusSection() {
-  const [activeTab, setActiveTab] = useState<'individual' | 'corporate'>('individual');
-
   const benefits = [
     {
       icon: (
@@ -1306,6 +1122,26 @@ function CHPlusSection() {
       title: 'Faster, More Confident Decisions',
       description: 'Pre-interpreted findings and flagged anomalies reduce analyst review time significantly. Your risk officers act on structured conclusions, not unprocessed raw data.',
       accent: 'emerald',
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+        </svg>
+      ),
+      title: 'Credit History Analytics',
+      description: 'Deep credit intelligence that goes beyond standard bureau reports to surface what lenders actually need to know before approving a loan. Over 300 red flags are automatically detected across borrower history, repayment behavior, and portfolio patterns.',
+      accent: 'cyan',
+    },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+        </svg>
+      ),
+      title: 'Intelligence Before the Score',
+      description: "MDAnalytics doesn't just score — it thinks. Before a single decision is made, its intelligence engine has already surfaced what matters, giving analysts context-aware insights rather than raw numbers.",
+      accent: 'violet',
     },
   ];
 
@@ -1362,7 +1198,7 @@ function CHPlusSection() {
               </svg>
             </div>
             <span className="text-emerald-300 text-xs font-semibold uppercase tracking-widest">
-              CHPlus · Flagship Intelligence
+              Flagship Intelligence — Beyond Automated Decisioning
             </span>
           </motion.div>
 
@@ -1378,7 +1214,7 @@ function CHPlusSection() {
           </h2>
 
           <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            CHPlus is ACRA Analytics — deep credit intelligence that goes beyond bureau reports to surface what lenders actually need to know before approving a loan.
+            CHPlus is Analytics — deep credit intelligence that goes beyond bureau reports to surface what lenders actually need to know before approving a loan.
           </p>
         </Reveal>
 
@@ -1418,89 +1254,104 @@ function CHPlusSection() {
             </Reveal>
           </div>
 
-          {/* Right: interactive mock report */}
-          <div className="lg:sticky lg:top-24">
-            <Reveal>
-              <div>
-                {/* Tab switcher */}
-                <div className="flex gap-2 mb-4">
-                  {(['individual', 'corporate'] as const).map((tab) => (
-                    <button
-                      key={tab}
-                      onClick={() => setActiveTab(tab)}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${activeTab === tab
-                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-[0_0_20px_rgba(52,211,153,0.15)]'
-                        : 'bg-white/4 text-gray-500 border border-white/8 hover:bg-white/6 hover:text-gray-400'
-                        }`}
-                    >
-                      {tab === 'individual' ? (
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                      ) : (
-                        <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                      )}
-                      {tab === 'individual' ? 'Individual' : 'Corporate'}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Report card */}
-                <AnimatePresence mode="wait">
-                  <CHPlusMockReport key={activeTab} activeTab={activeTab} />
-                </AnimatePresence>
-
-                <p className="text-center text-gray-700 text-xs mt-4">
-                  Simulated output for illustration purposes
-                </p>
-              </div>
-            </Reveal>
+          {/* Right: feature cards */}
+          <div className="space-y-3.5">
+            {[
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2 1 3 3 3h10c2 0 3-1 3-3V7c0-2-1-3-3-3H7C5 4 4 5 4 7zm4 0h8M8 12h8M8 16h5" />
+                  </svg>
+                ),
+                title: 'Full Picture, Single Query',
+                description: 'Pulls from multiple national registries — passport, business, enforcement, civil, and vehicle — in one request. No more switching between systems or copy-pasting IDs across portals.',
+                accent: 'emerald',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+                  </svg>
+                ),
+                title: '300+ Automated Red Flags',
+                description: 'Every data point is validated against layered rules — expired documents, death records, blocked businesses, unsafe enforcement articles, name mismatches. What takes an analyst hours is surfaced in seconds.',
+                accent: 'amber',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2" />
+                  </svg>
+                ),
+                title: 'Identity & Status Verification',
+                description: 'Detects registration anomalies, citizenship issues, document expiration, and conflicting personal data across sources — catching what a clean-looking ID alone won\'t reveal.',
+                accent: 'cyan',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                ),
+                title: 'Employment & Income Intelligence',
+                description: 'Norq integration surfaces employment history, contract gaps, overlapping jobs, and net income calculations — automatically flagging tenure risks and data inconsistencies lenders care about.',
+                accent: 'violet',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                  </svg>
+                ),
+                title: 'Analyst-Ready Output',
+                description: 'Data isn\'t just fetched — it\'s structured, color-coded, and pre-interpreted. Risk officers see what needs attention immediately, not a wall of raw registry responses.',
+                accent: 'emerald',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                  </svg>
+                ),
+                title: 'Multi-Registry Screening',
+                description: 'INquiry pulls from multiple national registries in a single query — civil records, business registries, enforcement data, and more — instantly highlighting inconsistencies and risk signals that manual checks would miss.',
+                accent: 'cyan',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
+                  </svg>
+                ),
+                title: 'Red Flag Engine',
+                description: 'Every data point is passed through layered validation logic. From identity discrepancies to hidden liabilities, MDAnalytics flags what deserves attention and explains why — giving analysts confidence, not just alerts.',
+                accent: 'amber',
+              },
+            ].map((b, i) => {
+              const accent = accentMap[b.accent];
+              return (
+                <Reveal key={b.title} delay={i * 0.08}>
+                  <SpotlightCard
+                    spotColor={accent.spot}
+                    className="p-5 rounded-2xl bg-white/3 border border-white/8 hover:bg-white/5 hover:border-white/12 transition-all duration-300 group cursor-default"
+                  >
+                    <div className="flex items-start gap-4">
+                      <div
+                        className={`w-10 h-10 rounded-xl ${accent.bg} border ${accent.border} ${accent.text} flex items-center justify-center shrink-0 group-hover:scale-110 transition-all duration-300 mt-0.5`}
+                      >
+                        {b.icon}
+                      </div>
+                      <div>
+                        <h3 className="text-gray-200 font-semibold text-sm mb-1.5 leading-snug">{b.title}</h3>
+                        <p className="text-gray-500 text-sm leading-relaxed">{b.description}</p>
+                      </div>
+                    </div>
+                  </SpotlightCard>
+                </Reveal>
+              );
+            })}
           </div>
         </div>
-
-        {/* ── Bottom callout strip ─────────────────────────────────────────── */}
-        <Reveal className="mt-24">
-          <div className="relative rounded-2xl overflow-hidden border border-emerald-500/15">
-            <div
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: 'linear-gradient(135deg, rgba(52,211,153,0.07) 0%, rgba(34,211,238,0.04) 50%, rgba(139,92,246,0.06) 100%)' }}
-            />
-            {/* Subtle sweep shimmer */}
-            <motion.div
-              className="absolute inset-0 pointer-events-none"
-              style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(52,211,153,0.05) 50%, transparent 100%)' }}
-              animate={{ x: ['-100%', '100%'] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', repeatDelay: 3 }}
-            />
-            <div className="relative px-8 py-10 sm:px-12 flex flex-col sm:flex-row items-center gap-8 text-center sm:text-left">
-              <div className="flex-1">
-                <div className="text-gray-100 font-semibold text-lg mb-2 leading-snug">
-                  CHPlus works alongside your risk team — not instead of them.
-                </div>
-                <p className="text-gray-500 text-sm leading-relaxed max-w-xl">
-                  It delivers pre-interpreted findings and flagged anomalies so analysts focus on judgment, not manual data cross-referencing. Fully auditable, traceable, and compliant by design.
-                </p>
-              </div>
-              <div className="flex gap-6 text-center shrink-0">
-                {[
-                  { val: '5×', color: 'text-emerald-400', label: 'Faster analysis' },
-                  { val: '100%', color: 'text-cyan-400', label: 'Fully auditable' },
-                  { val: '2-in-1', color: 'text-violet-400', label: 'Individual & Corporate' },
-                ].map((stat, i) => (
-                  <div key={stat.label} className="flex items-center gap-6">
-                    {i > 0 && <div className="w-px h-10 bg-white/8 self-center" />}
-                    <div>
-                      <div className={`text-2xl font-bold tabular-nums ${stat.color}`}>{stat.val}</div>
-                      <div className="text-gray-600 text-xs mt-0.5 whitespace-nowrap">{stat.label}</div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
@@ -1531,14 +1382,14 @@ function IntegrationsSection() {
   ];
 
   const ekengSources = [
-    { key: 'AVV', label: 'AVV', desc: 'Automated vehicle verification' },
-    { key: 'Business', label: 'Business', desc: 'Business registration & activity' },
-    { key: 'Pek', label: 'Pek', desc: 'Property & cadastre data' },
-    { key: 'Civil', label: 'Civil', desc: 'Civil status & identity records' },
-    { key: 'Ces', label: 'CES', desc: 'Employment & social insurance' },
-    { key: 'Taxes', label: 'Taxes', desc: 'Tax declarations & obligations' },
-    { key: 'Police', label: 'Police', desc: 'Administrative violation records' },
-    { key: 'ICPolice', label: 'IC Police', desc: 'Criminal proceeding records' },
+    { key: 'AVV', label: 'AVV', desc: 'Population State Register' },
+    { key: 'Business', label: 'Business', desc: 'Legal Entities State Register' },
+    { key: 'SRC', label: 'PEK', desc: 'State Revenue Committee' },
+    { key: 'Civil', label: 'Civil', desc: 'Civil Status Acts Registry' },
+    { key: 'Ces', label: 'CES', desc: 'Compulsory Enforcement Service' },
+    { key: 'Taxes', label: 'Taxes', desc: 'Unified Municipal E-Governance Platform' },
+    { key: 'Police', label: 'Police', desc: 'Traffic Police' },
+    { key: 'ICPolice', label: 'IC Police', desc: 'Ministry of Internal Affairs' },
   ];
 
   const systemIntegrations = [
@@ -1798,7 +1649,7 @@ function HowItWorksSection() {
               className="relative text-6xl font-bold bg-clip-text text-transparent"
               style={{ backgroundImage: 'linear-gradient(135deg, #34d399, #22d3ee)' }}
             >
-              &lt; 1 minutes
+              &lt; 1 minute
             </div>
             <div className="mt-3 text-gray-400 text-base relative">
               Average time from application creation to complete risk score
@@ -1888,7 +1739,6 @@ function PricingSection() {
     'Full audit trail',
     'Role-based access control',
     'Real-time analytics dashboard',
-    'Loan calculator',
     'On-premise or private cloud deployment',
     'Dedicated implementation support',
     'SLA-backed uptime guarantee',
