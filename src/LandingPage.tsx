@@ -70,14 +70,14 @@ function FloatingOrbs({ variant = 'hero' }: { variant?: 'hero' | 'cta' }) {
   const orbs =
     variant === 'cta'
       ? [
-          { color: 'rgba(52,211,153,0.18)', size: 700, left: '10%', top: '-20%', dx: [0, 50, -30, 0], dy: [0, -40, 60, 0], dur: 22 },
-          { color: 'rgba(56,189,248,0.14)', size: 550, left: '60%', top: '20%', dx: [0, -40, 30, 0], dy: [0, 50, -30, 0], dur: 26 },
-        ]
+        { color: 'rgba(52,211,153,0.18)', size: 700, left: '10%', top: '-20%', dx: [0, 50, -30, 0], dy: [0, -40, 60, 0], dur: 22 },
+        { color: 'rgba(56,189,248,0.14)', size: 550, left: '60%', top: '20%', dx: [0, -40, 30, 0], dy: [0, 50, -30, 0], dur: 26 },
+      ]
       : [
-          { color: 'rgba(52,211,153,0.10)', size: 800, left: '-5%', top: '0%', dx: [0, 60, -30, 0], dy: [0, -50, 70, 0], dur: 30 },
-          { color: 'rgba(56,189,248,0.08)', size: 650, left: '65%', top: '30%', dx: [0, -50, 35, 0], dy: [0, 60, -35, 0], dur: 35 },
-          { color: 'rgba(139,92,246,0.07)', size: 500, left: '30%', top: '55%', dx: [0, 40, -60, 0], dy: [0, -40, 50, 0], dur: 40 },
-        ];
+        { color: 'rgba(52,211,153,0.10)', size: 800, left: '-5%', top: '0%', dx: [0, 60, -30, 0], dy: [0, -50, 70, 0], dur: 30 },
+        { color: 'rgba(56,189,248,0.08)', size: 650, left: '65%', top: '30%', dx: [0, -50, 35, 0], dy: [0, 60, -35, 0], dur: 35 },
+        { color: 'rgba(139,92,246,0.07)', size: 500, left: '30%', top: '55%', dx: [0, 40, -60, 0], dy: [0, -40, 50, 0], dur: 40 },
+      ];
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -266,11 +266,10 @@ function Navbar() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled
-          ? 'bg-[#080d1a]/90 backdrop-blur-2xl shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_32px_rgba(0,0,0,0.4)]'
-          : 'bg-transparent'
-      }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
+        ? 'bg-[#080d1a]/90 backdrop-blur-2xl shadow-[0_1px_0_rgba(255,255,255,0.04),0_4px_32px_rgba(0,0,0,0.4)]'
+        : 'bg-transparent'
+        }`}
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <motion.div
@@ -549,32 +548,32 @@ function MockDashboard() {
 
   type SigStatus = 'good' | 'warning' | 'flag';
   const sigColor: Record<SigStatus, { bar: string; text: string }> = {
-    good:    { bar: 'bg-emerald-500', text: 'text-emerald-400' },
-    warning: { bar: 'bg-amber-500',   text: 'text-amber-400'   },
-    flag:    { bar: 'bg-red-500',     text: 'text-red-400'     },
+    good: { bar: 'bg-emerald-500', text: 'text-emerald-400' },
+    warning: { bar: 'bg-amber-500', text: 'text-amber-400' },
+    flag: { bar: 'bg-red-500', text: 'text-red-400' },
   };
 
   const scoreItems = [
     { label: 'Credit History', val: 88, color: 'from-emerald-500 to-emerald-400' },
-    { label: 'Income',         val: 82, color: 'from-cyan-500 to-cyan-400'       },
-    { label: 'Debt Ratio',     val: 71, color: 'from-amber-500 to-amber-400'     },
-    { label: 'Collateral',     val: 90, color: 'from-emerald-500 to-cyan-400'    },
+    { label: 'Income', val: 82, color: 'from-cyan-500 to-cyan-400' },
+    { label: 'Debt Ratio', val: 71, color: 'from-amber-500 to-amber-400' },
+    { label: 'Collateral', val: 90, color: 'from-emerald-500 to-cyan-400' },
   ];
 
   const signals: Array<{ label: string; score: number; status: SigStatus }> = [
-    { label: 'Payment Consistency', score: 91, status: 'good'    },
-    { label: 'Obligation Load',     score: 63, status: 'warning' },
-    { label: 'Behavioral Trend',    score: 87, status: 'good'    },
-    { label: 'Relationship Risk',   score: 34, status: 'flag'    },
+    { label: 'Payment Consistency', score: 91, status: 'good' },
+    { label: 'Obligation Load', score: 63, status: 'warning' },
+    { label: 'Behavioral Trend', score: 87, status: 'good' },
+    { label: 'Relationship Risk', score: 34, status: 'flag' },
   ];
 
   const dataSources = [
-    { src: 'ACRA',     status: 'ok',   detail: 'Credit history · 36 months' },
-    { src: 'ACRA PEK', status: 'ok',   detail: 'Property lien · clear'      },
-    { src: 'Norq',     status: 'ok',   detail: 'Business registration'      },
-    { src: 'EKENG',    status: 'ok',   detail: '8 sub-sources queried'      },
-    { src: 'Taxes',    status: 'warn', detail: '2 minor obligations'        },
-    { src: 'Police',   status: 'ok',   detail: 'No adverse records'         },
+    { src: 'ACRA', status: 'ok', detail: 'Credit history · 36 months' },
+    { src: 'ACRA PEK', status: 'ok', detail: 'Property lien · clear' },
+    { src: 'Norq', status: 'ok', detail: 'Business registration' },
+    { src: 'EKENG', status: 'ok', detail: '8 sub-sources queried' },
+    { src: 'Taxes', status: 'warn', detail: '2 minor obligations' },
+    { src: 'Police', status: 'ok', detail: 'No adverse records' },
   ];
 
   const circumference = 2 * Math.PI * 24;
@@ -583,8 +582,8 @@ function MockDashboard() {
     <div className="flex bg-[#080c17] text-[11px]" style={{ height: 400 }}>
 
       {/* ── Left Sidebar ── */}
-      <div className="w-11 shrink-0 bg-[#05080f] border-r border-white/[0.05] flex flex-col items-center pt-3 pb-3 gap-1.5">
-        <div className="w-7 h-7 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center mb-2 shadow-[0_0_14px_rgba(52,211,153,0.45)]">
+      <div className="w-11 shrink-0 bg-[#05080f] border-r border-white/5 flex flex-col items-center pt-3 pb-3 gap-1.5">
+        <div className="w-7 h-7 rounded-xl bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center mb-2 shadow-[0_0_14px_rgba(52,211,153,0.45)]">
           <svg className="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
           </svg>
@@ -602,7 +601,7 @@ function MockDashboard() {
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
 
         {/* Top bar */}
-        <div className="h-9 px-3 bg-[#05080f]/80 border-b border-white/[0.05] flex items-center gap-1.5 shrink-0">
+        <div className="h-9 px-3 bg-[#05080f]/80 border-b border-white/5 flex items-center gap-1.5 shrink-0">
           <span className="text-gray-300 font-semibold text-[11px]">Loan Pipeline</span>
           <svg className="w-3 h-3 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           <span className="text-gray-600 text-[10px]">LG-2026-4271 · Active Review</span>
@@ -630,10 +629,10 @@ function MockDashboard() {
             <div className="px-3 pt-3 pb-2">
               <div className="grid grid-cols-4 gap-1.5 mb-2.5">
                 {[
-                  { label: 'Screening',    count: 12, cls: 'bg-sky-500/10     border-sky-500/20     text-sky-400'     },
-                  { label: 'In Analysis',  count: 8,  cls: 'bg-amber-500/15   border-amber-500/30   text-amber-300',  active: true },
-                  { label: 'Under Review', count: 5,  cls: 'bg-violet-500/10  border-violet-500/20  text-violet-400'  },
-                  { label: 'Decision',     count: 3,  cls: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
+                  { label: 'Screening', count: 12, cls: 'bg-sky-500/10     border-sky-500/20     text-sky-400' },
+                  { label: 'In Analysis', count: 8, cls: 'bg-amber-500/15   border-amber-500/30   text-amber-300', active: true },
+                  { label: 'Under Review', count: 5, cls: 'bg-violet-500/10  border-violet-500/20  text-violet-400' },
+                  { label: 'Decision', count: 3, cls: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
                 ].map((s) => (
                   <div key={s.label} className={`rounded-lg border px-2 py-1.5 ${s.cls} ${s.active ? 'ring-1 ring-amber-500/25' : ''}`}>
                     <div className="text-[8px] font-semibold uppercase tracking-wide opacity-75">{s.label}</div>
@@ -643,7 +642,7 @@ function MockDashboard() {
               </div>
 
               {/* Selected application card */}
-              <div className="rounded-xl bg-gradient-to-br from-white/[0.05] to-white/[0.02] border border-emerald-500/25 p-2.5 shadow-[0_0_20px_rgba(52,211,153,0.07)]">
+              <div className="rounded-xl bg-linear-to-br from-white/5 to-white/2 border border-emerald-500/25 p-2.5 shadow-[0_0_20px_rgba(52,211,153,0.07)]">
                 <div className="flex items-start justify-between mb-2">
                   <div>
                     <div className="flex items-center gap-1.5 mb-0.5">
@@ -659,14 +658,14 @@ function MockDashboard() {
                     <div className="text-gray-600 text-[9px]">Requested amount</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-1.5 pt-1.5 border-t border-white/[0.05]">
+                <div className="flex items-center gap-1.5 pt-1.5 border-t border-white/5">
                   <span className="text-gray-700 text-[9px]">Group:</span>
                   {[
-                    { name: 'G. Harutyunyan', role: 'Borrower',    dot: 'bg-emerald-500' },
-                    { name: 'A. Petrosyan',   role: 'Guarantor',   dot: 'bg-red-500'     },
-                    { name: 'Armavia LLC',    role: 'Co-borrower', dot: 'bg-violet-500'  },
+                    { name: 'G. Harutyunyan', role: 'Borrower', dot: 'bg-emerald-500' },
+                    { name: 'A. Petrosyan', role: 'Guarantor', dot: 'bg-red-500' },
+                    { name: 'Armavia LLC', role: 'Co-borrower', dot: 'bg-violet-500' },
                   ].map((m) => (
-                    <div key={m.name} className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.06]">
+                    <div key={m.name} className="flex items-center gap-1 px-1.5 py-0.5 rounded-md bg-white/4 border border-white/6">
                       <span className={`w-1.5 h-1.5 rounded-full ${m.dot} shrink-0`} />
                       <span className="text-gray-400 text-[9px]">{m.name}</span>
                       <span className="text-gray-700 text-[8px]">{m.role}</span>
@@ -680,7 +679,7 @@ function MockDashboard() {
             <div className="px-3 pb-2 grid grid-cols-5 gap-2">
 
               {/* ScoreFlex */}
-              <div className="col-span-2 rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+              <div className="col-span-2 rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
                 <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-2">ScoreFlex Score</div>
                 <div className="flex items-center gap-2 mb-2.5">
                   <div className="relative shrink-0 w-14 h-14">
@@ -719,9 +718,9 @@ function MockDashboard() {
                         <span className="text-gray-600 text-[9px]">{item.label}</span>
                         <span className="text-gray-400 text-[9px] tabular-nums">{item.val}</span>
                       </div>
-                      <div className="h-1 rounded-full bg-white/[0.05] overflow-hidden">
+                      <div className="h-1 rounded-full bg-white/5 overflow-hidden">
                         <motion.div
-                          className={`h-full rounded-full bg-gradient-to-r ${item.color}`}
+                          className={`h-full rounded-full bg-linear-to-r ${item.color}`}
                           initial={{ width: 0 }}
                           animate={{ width: `${item.val}%` }}
                           transition={{ duration: 0.9, delay: i * 0.08 + 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -733,10 +732,10 @@ function MockDashboard() {
               </div>
 
               {/* CHPlus */}
-              <div className="col-span-3 rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+              <div className="col-span-3 rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-1.5">
-                    <div className="w-3.5 h-3.5 rounded bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_6px_rgba(52,211,153,0.5)]">
+                    <div className="w-3.5 h-3.5 rounded bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_6px_rgba(52,211,153,0.5)]">
                       <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
                       </svg>
@@ -760,7 +759,7 @@ function MockDashboard() {
                         <span className="text-gray-500 text-[9px]">{sig.label}</span>
                         <span className={`text-[9px] font-semibold tabular-nums ${sigColor[sig.status].text}`}>{sig.score}</span>
                       </div>
-                      <div className="h-1 rounded-full bg-white/[0.05] overflow-hidden">
+                      <div className="h-1 rounded-full bg-white/5 overflow-hidden">
                         <motion.div
                           className={`h-full rounded-full ${sigColor[sig.status].bar}`}
                           initial={{ width: 0 }}
@@ -793,14 +792,14 @@ function MockDashboard() {
             <div className="px-3 pb-2 grid grid-cols-2 gap-2">
 
               {/* Relationship Network */}
-              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+              <div className="rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
                 <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Relationship Network</div>
-                <div className="relative h-[88px]">
+                <div className="relative h-22">
                   {/* SVG lines */}
                   <svg className="absolute inset-0 w-full h-full" style={{ pointerEvents: 'none' }}>
-                    <line x1="26%" y1="30%" x2="50%" y2="52%" stroke="rgba(239,68,68,0.4)"  strokeWidth="1" />
+                    <line x1="26%" y1="30%" x2="50%" y2="52%" stroke="rgba(239,68,68,0.4)" strokeWidth="1" />
                     <line x1="74%" y1="30%" x2="50%" y2="52%" stroke="rgba(139,92,246,0.3)" strokeWidth="1" />
-                    <line x1="26%" y1="30%" x2="24%" y2="68%" stroke="rgba(239,68,68,0.5)"  strokeWidth="1" strokeDasharray="2,2" />
+                    <line x1="26%" y1="30%" x2="24%" y2="68%" stroke="rgba(239,68,68,0.5)" strokeWidth="1" strokeDasharray="2,2" />
                   </svg>
                   {/* Center — Borrower */}
                   <div className="absolute w-10 h-10 rounded-full bg-emerald-500/20 border-2 border-emerald-500/50 flex flex-col items-center justify-center z-10"
@@ -833,7 +832,7 @@ function MockDashboard() {
               </div>
 
               {/* Data Sources */}
-              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+              <div className="rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
                 <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Data Sources</div>
                 <div className="space-y-1">
                   {dataSources.map((item) => (
@@ -844,7 +843,7 @@ function MockDashboard() {
                     </div>
                   ))}
                 </div>
-                <div className="mt-1.5 pt-1.5 border-t border-white/[0.05] flex justify-between text-[8px]">
+                <div className="mt-1.5 pt-1.5 border-t border-white/5 flex justify-between text-[8px]">
                   <span className="text-gray-700">Queried 18s ago</span>
                   <span className="text-emerald-400">✓ 5/6 clear</span>
                 </div>
@@ -853,7 +852,7 @@ function MockDashboard() {
 
             {/* ── Section 4 · Decision Engine ── */}
             <div className="px-3 pb-2">
-              <div className="rounded-xl bg-white/[0.03] border border-white/[0.07] p-2.5">
+              <div className="rounded-xl bg-white/3 border border-white/[0.07] p-2.5">
                 <div className="flex items-center justify-between mb-2">
                   <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600">Decision Engine</div>
                   <span className="text-[8px] text-gray-700">Step 3 of 4 · Credit Committee</span>
@@ -872,7 +871,7 @@ function MockDashboard() {
                   <button className="flex-1 py-1.5 rounded-lg bg-amber-500/15 text-amber-300 border border-amber-500/25 text-[9px]">⟳ Request Info</button>
                   <button className="flex-1 py-1.5 rounded-lg bg-red-500/10 text-red-400 border border-red-500/20 text-[9px]">✕ Decline</button>
                 </div>
-                <div className="flex items-center gap-2 text-[8px] text-gray-700 pt-1.5 border-t border-white/[0.05]">
+                <div className="flex items-center gap-2 text-[8px] text-gray-700 pt-1.5 border-t border-white/5">
                   <span>Analyst: A. Mkrtchyan</span>
                   <span className="text-gray-800">·</span>
                   <span>Assigned: 2h ago</span>
@@ -887,12 +886,12 @@ function MockDashboard() {
               <div className="text-[8px] font-semibold uppercase tracking-widest text-gray-600 mb-1.5">Portfolio Metrics · Live</div>
               <div className="grid grid-cols-4 gap-1.5">
                 {[
-                  { label: 'Approved Today', val: '14',  trend: '↑ 3 vs yesterday', color: 'text-emerald-400' },
-                  { label: 'Avg Risk Score', val: '716', trend: '+8 pts MTD',        color: 'text-cyan-400'    },
-                  { label: 'Active Flags',   val: '7',   trend: '2 critical',        color: 'text-amber-400'  },
-                  { label: 'Approval Rate',  val: '84%', trend: 'Month to date',     color: 'text-violet-400' },
+                  { label: 'Approved Today', val: '14', trend: '↑ 3 vs yesterday', color: 'text-emerald-400' },
+                  { label: 'Avg Risk Score', val: '716', trend: '+8 pts MTD', color: 'text-cyan-400' },
+                  { label: 'Active Flags', val: '7', trend: '2 critical', color: 'text-amber-400' },
+                  { label: 'Approval Rate', val: '84%', trend: 'Month to date', color: 'text-violet-400' },
                 ].map((m) => (
-                  <div key={m.label} className="rounded-lg bg-white/[0.03] border border-white/[0.06] px-2 py-1.5">
+                  <div key={m.label} className="rounded-lg bg-white/3 border border-white/6 px-2 py-1.5">
                     <div className={`text-sm font-bold tabular-nums ${m.color}`}>{m.val}</div>
                     <div className="text-gray-600 text-[8px] mt-0.5 leading-tight">{m.label}</div>
                     <div className="text-gray-700 text-[7px] mt-0.5">{m.trend}</div>
@@ -1111,29 +1110,29 @@ function CHPlusMockReport({ activeTab }: { activeTab: 'individual' | 'corporate'
   const signals = activeTab === 'individual' ? individualSignals : corporateSignals;
 
   const statusStyle = {
-    good:    { bar: 'bg-emerald-500', text: 'text-emerald-400', item: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
-    warning: { bar: 'bg-amber-500',   text: 'text-amber-400',   item: 'bg-amber-500/10  border-amber-500/20  text-amber-400'   },
-    flag:    { bar: 'bg-red-500',     text: 'text-red-400',     item: 'bg-red-500/10    border-red-500/20    text-red-400'     },
+    good: { bar: 'bg-emerald-500', text: 'text-emerald-400', item: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400' },
+    warning: { bar: 'bg-amber-500', text: 'text-amber-400', item: 'bg-amber-500/10  border-amber-500/20  text-amber-400' },
+    flag: { bar: 'bg-red-500', text: 'text-red-400', item: 'bg-red-500/10    border-red-500/20    text-red-400' },
   };
 
   const overallScore = activeTab === 'individual' ? 74 : 61;
 
   const findings = activeTab === 'individual'
     ? [
-        { type: 'flag'    as const, text: 'Co-guarantor on LG-2025-0871 entered default 3 months ago' },
-        { type: 'warning' as const, text: 'Debt-to-income ratio approaching threshold at current obligation load' },
-        { type: 'good'    as const, text: 'Payment behaviour shows consistent improvement over 12 months' },
-      ]
+      { type: 'flag' as const, text: 'Co-guarantor on LG-2025-0871 entered default 3 months ago' },
+      { type: 'warning' as const, text: 'Debt-to-income ratio approaching threshold at current obligation load' },
+      { type: 'good' as const, text: 'Payment behaviour shows consistent improvement over 12 months' },
+    ]
     : [
-        { type: 'warning' as const, text: 'Director is guarantor on 2 other active loan agreements' },
-        { type: 'warning' as const, text: 'Subsidiary company carries delinquent tax obligations' },
-        { type: 'good'    as const, text: 'Core revenue stream stable; no major creditor concentration' },
-      ];
+      { type: 'warning' as const, text: 'Director is guarantor on 2 other active loan agreements' },
+      { type: 'warning' as const, text: 'Subsidiary company carries delinquent tax obligations' },
+      { type: 'good' as const, text: 'Core revenue stream stable; no major creditor concentration' },
+    ];
 
   const findingIcon = {
-    good:    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />,
+    good: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />,
     warning: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />,
-    flag:    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
+    flag: <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />,
   };
 
   return (
@@ -1311,10 +1310,10 @@ function CHPlusSection() {
   ];
 
   const accentMap: Record<string, { bg: string; border: string; text: string; spot: string }> = {
-    emerald: { bg: 'bg-emerald-500/10', border: 'border-emerald-500/25', text: 'text-emerald-400', spot: 'rgba(52,211,153,0.07)'  },
-    amber:   { bg: 'bg-amber-500/10',   border: 'border-amber-500/25',   text: 'text-amber-400',   spot: 'rgba(245,158,11,0.07)' },
-    cyan:    { bg: 'bg-cyan-500/10',    border: 'border-cyan-500/25',    text: 'text-cyan-400',    spot: 'rgba(56,189,248,0.07)' },
-    violet:  { bg: 'bg-violet-500/10',  border: 'border-violet-500/25',  text: 'text-violet-400',  spot: 'rgba(139,92,246,0.07)' },
+    emerald: { bg: 'bg-emerald-500/10', border: 'border-emerald-500/25', text: 'text-emerald-400', spot: 'rgba(52,211,153,0.07)' },
+    amber: { bg: 'bg-amber-500/10', border: 'border-amber-500/25', text: 'text-amber-400', spot: 'rgba(245,158,11,0.07)' },
+    cyan: { bg: 'bg-cyan-500/10', border: 'border-cyan-500/25', text: 'text-cyan-400', spot: 'rgba(56,189,248,0.07)' },
+    violet: { bg: 'bg-violet-500/10', border: 'border-violet-500/25', text: 'text-violet-400', spot: 'rgba(139,92,246,0.07)' },
   };
 
   return (
@@ -1429,11 +1428,10 @@ function CHPlusSection() {
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
-                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-                        activeTab === tab
-                          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-[0_0_20px_rgba(52,211,153,0.15)]'
-                          : 'bg-white/4 text-gray-500 border border-white/8 hover:bg-white/6 hover:text-gray-400'
-                      }`}
+                      className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${activeTab === tab
+                        ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 shadow-[0_0_20px_rgba(52,211,153,0.15)]'
+                        : 'bg-white/4 text-gray-500 border border-white/8 hover:bg-white/6 hover:text-gray-400'
+                        }`}
                     >
                       {tab === 'individual' ? (
                         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1487,9 +1485,9 @@ function CHPlusSection() {
               </div>
               <div className="flex gap-6 text-center shrink-0">
                 {[
-                  { val: '5×',    color: 'text-emerald-400', label: 'Faster analysis'         },
-                  { val: '100%',  color: 'text-cyan-400',    label: 'Fully auditable'         },
-                  { val: '2-in-1',color: 'text-violet-400',  label: 'Individual & Corporate'  },
+                  { val: '5×', color: 'text-emerald-400', label: 'Faster analysis' },
+                  { val: '100%', color: 'text-cyan-400', label: 'Fully auditable' },
+                  { val: '2-in-1', color: 'text-violet-400', label: 'Individual & Corporate' },
                 ].map((stat, i) => (
                   <div key={stat.label} className="flex items-center gap-6">
                     {i > 0 && <div className="w-px h-10 bg-white/8 self-center" />}
@@ -1554,10 +1552,10 @@ function IntegrationsSection() {
 
   const colorMap: Record<string, { ring: string; bg: string; text: string; border: string; spot: string; chip: string }> = {
     emerald: { ring: 'ring-emerald-500/20', bg: 'bg-emerald-500/10', text: 'text-emerald-300', border: 'border-emerald-500/25', spot: 'rgba(52,211,153,0.08)', chip: 'bg-emerald-500/10 border-emerald-500/20 text-emerald-300' },
-    cyan:    { ring: 'ring-cyan-500/20', bg: 'bg-cyan-500/10', text: 'text-cyan-300', border: 'border-cyan-500/25', spot: 'rgba(56,189,248,0.08)', chip: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300' },
-    violet:  { ring: 'ring-violet-500/20', bg: 'bg-violet-500/10', text: 'text-violet-300', border: 'border-violet-500/25', spot: 'rgba(139,92,246,0.08)', chip: 'bg-violet-500/10 border-violet-500/20 text-violet-300' },
-    amber:   { ring: 'ring-amber-500/20', bg: 'bg-amber-500/10', text: 'text-amber-300', border: 'border-amber-500/25', spot: 'rgba(245,158,11,0.08)', chip: 'bg-amber-500/10 border-amber-500/20 text-amber-300' },
-    slate:   { ring: 'ring-slate-500/20', bg: 'bg-slate-500/10', text: 'text-slate-300', border: 'border-slate-500/25', spot: 'rgba(148,163,184,0.06)', chip: 'bg-slate-500/10 border-slate-500/20 text-slate-300' },
+    cyan: { ring: 'ring-cyan-500/20', bg: 'bg-cyan-500/10', text: 'text-cyan-300', border: 'border-cyan-500/25', spot: 'rgba(56,189,248,0.08)', chip: 'bg-cyan-500/10 border-cyan-500/20 text-cyan-300' },
+    violet: { ring: 'ring-violet-500/20', bg: 'bg-violet-500/10', text: 'text-violet-300', border: 'border-violet-500/25', spot: 'rgba(139,92,246,0.08)', chip: 'bg-violet-500/10 border-violet-500/20 text-violet-300' },
+    amber: { ring: 'ring-amber-500/20', bg: 'bg-amber-500/10', text: 'text-amber-300', border: 'border-amber-500/25', spot: 'rgba(245,158,11,0.08)', chip: 'bg-amber-500/10 border-amber-500/20 text-amber-300' },
+    slate: { ring: 'ring-slate-500/20', bg: 'bg-slate-500/10', text: 'text-slate-300', border: 'border-slate-500/25', spot: 'rgba(148,163,184,0.06)', chip: 'bg-slate-500/10 border-slate-500/20 text-slate-300' },
   };
 
   return (
@@ -2018,11 +2016,10 @@ function FAQSection() {
           {faqs.map((f, i) => (
             <Reveal key={i} delay={i * 0.04}>
               <div
-                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                  open === i
-                    ? 'bg-white/6 border-emerald-500/20 shadow-[0_0_24px_rgba(52,211,153,0.05)]'
-                    : 'bg-white/3 border-white/[0.07] hover:border-white/10 hover:bg-white/4'
-                }`}
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${open === i
+                  ? 'bg-white/6 border-emerald-500/20 shadow-[0_0_24px_rgba(52,211,153,0.05)]'
+                  : 'bg-white/3 border-white/[0.07] hover:border-white/10 hover:bg-white/4'
+                  }`}
               >
                 <button
                   className="w-full flex items-start justify-between gap-4 px-6 py-5 text-left"
@@ -2031,9 +2028,8 @@ function FAQSection() {
                 >
                   <span className="text-gray-200 text-sm font-medium leading-relaxed">{f.q}</span>
                   <motion.span
-                    className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-300 ${
-                      open === i ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-gray-500'
-                    }`}
+                    className={`shrink-0 w-6 h-6 rounded-full flex items-center justify-center transition-colors duration-300 ${open === i ? 'bg-emerald-500/20 text-emerald-400' : 'bg-white/5 text-gray-500'
+                      }`}
                     animate={{ rotate: open === i ? 45 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
@@ -2313,14 +2309,11 @@ function Footer() {
           ))}
         </div>
 
-        <div className="mt-12 pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-700">
-          <div>Built with React & Vite · Hosted on Vercel</div>
-          <div className="flex items-center gap-1.5">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-50" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
-            </span>
-            All systems operational
+        <div className="mt-12 pt-8 border-t border-white/6 flex flex-col sm:flex-row items-center justify-center gap-4 text-xs text-gray-700">
+          <div className="text-center text-sm text-slate-500">
+            © {new Date().getFullYear()}. Powered by{" "}
+            <span className="font-medium text-slate-300">MDAnalytics</span>. All
+            rights reserved.
           </div>
         </div>
       </div>
