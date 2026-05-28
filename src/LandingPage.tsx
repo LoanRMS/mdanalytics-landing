@@ -257,9 +257,9 @@ function Navbar() {
 
   const navLinks = [
     { label: 'Features', id: 'features' },
+    { label: 'Intelligence', id: 'intelligence' },
     { label: 'Integrations', id: 'integrations' },
     { label: 'How It Works', id: 'how-it-works' },
-    { label: 'Pricing', id: 'pricing' },
     { label: 'FAQ', id: 'faq' },
   ];
 
@@ -427,7 +427,7 @@ function HeroSection() {
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="mt-6 text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            MDAnalytics aggregates credit intelligence from every source — ACRA, Norq, EKENG (multiple sources) — and delivers a risk score in under one minute. Replace days of manual work with one unified platform.
+            MDAnalytics aggregates credit intelligence from every source — ACRA, NORQ, EKENG (multiple sources) — and delivers a risk score in under one minute. Replace days of manual work with one unified platform.
           </motion.p>
 
           <motion.div variants={fadeInUp} className="mt-10 flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
@@ -565,7 +565,7 @@ function MockDashboard() {
   const sources = [
     { name: 'ACRA', detail: 'Credit · 36mo' },
     { name: 'ACRA PEK', detail: 'Property lien' },
-    { name: 'Norq', detail: 'Business reg.' },
+    { name: 'NORQ', detail: 'Business reg.' },
     { name: 'EKENG', detail: '8 sub-sources' },
     { name: 'Tax Service', detail: '2 obligations', warn: true },
     { name: 'Police Dept.', detail: 'No records' },
@@ -634,13 +634,12 @@ function MockDashboard() {
         <div className="px-3 py-2 border-b border-white/5 bg-[#070b15]/60 flex items-center gap-1 shrink-0 overflow-x-hidden">
           {workflowSteps.map((s, i) => (
             <div key={s} className="flex items-center gap-1 shrink-0">
-              <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-semibold border transition-all duration-500 ${
-                i < activeStep
-                  ? 'bg-emerald-500/12 text-emerald-400 border-emerald-500/20'
-                  : i === activeStep
+              <div className={`flex items-center gap-1 px-2 py-0.5 rounded-full text-[8px] font-semibold border transition-all duration-500 ${i < activeStep
+                ? 'bg-emerald-500/12 text-emerald-400 border-emerald-500/20'
+                : i === activeStep
                   ? 'bg-sky-500/12 text-sky-300 border-sky-500/25 shadow-[0_0_10px_rgba(56,189,248,0.12)]'
                   : 'text-gray-700 border-white/5 bg-transparent'
-              }`}>
+                }`}>
                 {i < activeStep && <span className="text-emerald-400 text-[7px]">✓</span>}
                 {i === activeStep && (
                   <span className="w-1 h-1 rounded-full bg-sky-400 inline-block" style={{ animation: 'pulse 2s infinite' }} />
@@ -678,11 +677,10 @@ function MockDashboard() {
                     <motion.div
                       animate={verifyStatus === 'done' ? { scale: [0.85, 1.08, 1] } : {}}
                       transition={{ duration: 0.35 }}
-                      className={`px-1.5 py-1 rounded-lg text-[7.5px] font-semibold whitespace-nowrap border transition-all duration-500 ${
-                        verifyStatus === 'idle' ? 'bg-sky-500/12 text-sky-300 border-sky-500/20' :
+                      className={`px-1.5 py-1 rounded-lg text-[7.5px] font-semibold whitespace-nowrap border transition-all duration-500 ${verifyStatus === 'idle' ? 'bg-sky-500/12 text-sky-300 border-sky-500/20' :
                         verifyStatus === 'checking' ? 'bg-amber-500/12 text-amber-300 border-amber-500/20' :
-                        'bg-emerald-500/12 text-emerald-300 border-emerald-500/20'
-                      }`}
+                          'bg-emerald-500/12 text-emerald-300 border-emerald-500/20'
+                        }`}
                     >
                       {verifyStatus === 'idle' ? 'Verify' : verifyStatus === 'checking' ? '⋯ Checking' : '✓ Verified'}
                     </motion.div>
@@ -711,11 +709,10 @@ function MockDashboard() {
                   <div className="space-y-1">
                     {members.map((m) => (
                       <div key={m.name} className="flex items-center gap-1.5 px-1.5 py-1 rounded-lg bg-white/2.5 border border-white/4">
-                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0 ${
-                          m.roleColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-300' :
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[7px] font-bold shrink-0 ${m.roleColor === 'emerald' ? 'bg-emerald-500/20 text-emerald-300' :
                           m.roleColor === 'red' ? 'bg-red-500/20 text-red-300' :
-                          'bg-violet-500/20 text-violet-300'
-                        }`}>{m.initials}</div>
+                            'bg-violet-500/20 text-violet-300'
+                          }`}>{m.initials}</div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-1">
                             <span className="text-gray-300 text-[9px] font-medium truncate">{m.name}</span>
@@ -725,11 +722,10 @@ function MockDashboard() {
                           </div>
                           <div className="text-gray-700 text-[7px]">Doc: {m.doc}</div>
                         </div>
-                        <span className={`text-[7px] px-1.5 py-0.5 rounded-full font-semibold border shrink-0 ${
-                          m.roleColor === 'emerald' ? 'bg-emerald-500/12 text-emerald-400 border-emerald-500/18' :
+                        <span className={`text-[7px] px-1.5 py-0.5 rounded-full font-semibold border shrink-0 ${m.roleColor === 'emerald' ? 'bg-emerald-500/12 text-emerald-400 border-emerald-500/18' :
                           m.roleColor === 'red' ? 'bg-red-500/12 text-red-400 border-red-500/18' :
-                          'bg-violet-500/12 text-violet-400 border-violet-500/18'
-                        }`}>{m.role}</span>
+                            'bg-violet-500/12 text-violet-400 border-violet-500/18'
+                          }`}>{m.role}</span>
                       </div>
                     ))}
                   </div>
@@ -745,11 +741,10 @@ function MockDashboard() {
                   <motion.button
                     animate={dataStatus === 'idle' ? { boxShadow: ['0 0 0px rgba(52,211,153,0)', '0 0 12px rgba(52,211,153,0.2)', '0 0 0px rgba(52,211,153,0)'] } : {}}
                     transition={{ duration: 2.5, repeat: Infinity }}
-                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[8.5px] font-semibold border transition-all duration-600 ${
-                      dataStatus === 'idle' ? 'bg-emerald-500/18 text-emerald-300 border-emerald-500/28' :
+                    className={`flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[8.5px] font-semibold border transition-all duration-600 ${dataStatus === 'idle' ? 'bg-emerald-500/18 text-emerald-300 border-emerald-500/28' :
                       dataStatus === 'loading' ? 'bg-amber-500/12 text-amber-300 border-amber-500/20' :
-                      'bg-emerald-500/10 text-emerald-400 border-emerald-500/15'
-                    }`}
+                        'bg-emerald-500/10 text-emerald-400 border-emerald-500/15'
+                      }`}
                   >
                     {dataStatus === 'idle' && (
                       <svg className="w-3 h-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -767,20 +762,18 @@ function MockDashboard() {
                     const isLoading = dataStatus === 'loading' && i <= 2;
                     return (
                       <div key={s.name}
-                        className={`rounded-lg border px-1.5 py-1.5 transition-all duration-700 ${
-                          isDone && s.warn ? 'bg-amber-500/6 border-amber-500/18' :
+                        className={`rounded-lg border px-1.5 py-1.5 transition-all duration-700 ${isDone && s.warn ? 'bg-amber-500/6 border-amber-500/18' :
                           isDone ? 'bg-emerald-500/6 border-emerald-500/18' :
-                          isLoading ? 'bg-amber-500/6 border-amber-500/12' :
-                          'bg-white/2 border-white/4'
-                        }`}
+                            isLoading ? 'bg-amber-500/6 border-amber-500/12' :
+                              'bg-white/2 border-white/4'
+                          }`}
                         style={{ transitionDelay: `${i * 100}ms` }}
                       >
-                        <div className={`w-1.5 h-1.5 rounded-full mb-1 transition-all duration-500 ${
-                          isDone && s.warn ? 'bg-amber-400' :
+                        <div className={`w-1.5 h-1.5 rounded-full mb-1 transition-all duration-500 ${isDone && s.warn ? 'bg-amber-400' :
                           isDone ? 'bg-emerald-500' :
-                          isLoading ? 'bg-amber-400 animate-pulse' :
-                          'bg-gray-800'
-                        }`} style={{ transitionDelay: `${i * 100}ms` }} />
+                            isLoading ? 'bg-amber-400 animate-pulse' :
+                              'bg-gray-800'
+                          }`} style={{ transitionDelay: `${i * 100}ms` }} />
                         <div className="text-gray-300 text-[7.5px] font-medium leading-tight">{s.name}</div>
                         <div className="text-gray-700 text-[6.5px] leading-tight mt-0.5 truncate">{s.detail}</div>
                       </div>
@@ -807,11 +800,10 @@ function MockDashboard() {
                   { label: 'A. Petrosyan', active: false, flag: true },
                   { label: 'Global Finance LLC', active: false },
                 ].map((tab) => (
-                  <button key={tab.label} className={`relative px-2 py-0.5 rounded-full text-[7.5px] border font-medium transition-all shrink-0 ${
-                    tab.active ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' :
+                  <button key={tab.label} className={`relative px-2 py-0.5 rounded-full text-[7.5px] border font-medium transition-all shrink-0 ${tab.active ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/25' :
                     tab.flag ? 'bg-red-500/10 text-red-400 border-red-500/15' :
-                    'bg-white/2.5 text-gray-500 border-white/6'
-                  }`}>
+                      'bg-white/2.5 text-gray-500 border-white/6'
+                    }`}>
                     {tab.label}
                     {tab.flag && (
                       <motion.span animate={{ opacity: [1, 0.3, 1] }} transition={{ duration: 1.8, repeat: Infinity }}
@@ -1036,7 +1028,7 @@ function ProblemSection() {
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
       ),
       title: 'Data Scattered Across Systems',
-      description: 'ACRA, ACRA Pek, Norq, Pek, AVV, Business, Ces, Civil, Police, ICPolice, Taxes — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
+      description: 'ACRA, ACRA PEK, NORQ, AVV, Business, CES, Civil, Road Police, ICPolice, Taxes, Property, etc. — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
     },
     {
       icon: (
@@ -1184,40 +1176,9 @@ function CHPlusSection() {
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
         </svg>
       ),
-      title: 'Beyond the Bureau Report',
-      description: 'Standard credit history shows what happened. CHPlus analyzes why — surfacing behavioral patterns, obligation trends, and timing anomalies invisible in raw data.',
-      accent: 'emerald',
-    },
-    {
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-        </svg>
-      ),
-      title: 'Hidden Risk Identification',
-      description: 'Cross-references related-party obligations, ownership structures, and guarantee networks to expose risk concentrations that isolated single-source checks miss entirely.',
-      accent: 'amber',
-    },
-    {
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-      ),
-      title: 'Borrower Relationship Mapping',
-      description: 'Traces co-borrower and guarantor networks across the loan portfolio, identifying circular guarantee structures and exposure concentrations before they become defaults.',
+      title: 'Credit History Analytics',
+      description: 'Deep credit intelligence that goes beyond standard bureau reports. Analyzes not just a single borrower but every member of the group, delivering one unified report across all participants — no need to review each one separately. Surfaces behavioral patterns and obligation trends, cross-references related-party obligations, and traces co-borrower and guarantor networks across the loan portfolio to identify circular guarantee structures.',
       accent: 'cyan',
-    },
-    {
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-        </svg>
-      ),
-      title: 'Individual & Corporate Assessments',
-      description: 'Applies the same analytical depth to personal credit profiles and corporate borrower structures — directors, ownership layers, and subsidiary exposure all included.',
-      accent: 'violet',
     },
     {
       icon: (
@@ -1228,16 +1189,6 @@ function CHPlusSection() {
       title: 'Faster, More Confident Decisions',
       description: 'Pre-interpreted findings and flagged anomalies reduce analyst review time significantly. Your risk officers act on structured conclusions, not unprocessed raw data.',
       accent: 'emerald',
-    },
-    {
-      icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-        </svg>
-      ),
-      title: 'Credit History Analytics',
-      description: 'Deep credit intelligence that goes beyond standard bureau reports to surface what lenders actually need to know before approving a loan. Over 300 red flags are automatically detected across borrower history, repayment behavior, and portfolio patterns.',
-      accent: 'cyan',
     },
     {
       icon: (
@@ -1259,7 +1210,7 @@ function CHPlusSection() {
   };
 
   return (
-    <section id="chplus" className="py-32 relative overflow-hidden" style={{ background: '#050810' }}>
+    <section id="intelligence" className="py-32 relative overflow-hidden" style={{ background: '#050810' }}>
       {/* Radial glow background */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -1318,10 +1269,6 @@ function CHPlusSection() {
               behind every decision
             </span>
           </h2>
-
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            CHPlus is Analytics — deep credit intelligence that goes beyond bureau reports to surface what lenders actually need to know before approving a loan.
-          </p>
         </Reveal>
 
         {/* ── Two-column body ─────────────────────────────────────────────── */}
@@ -1352,12 +1299,6 @@ function CHPlusSection() {
                 </Reveal>
               );
             })}
-
-            <Reveal delay={0.48}>
-              <p className="text-gray-600 text-sm px-1 pt-2 leading-relaxed">
-                CHPlus integrates alongside both manual review workflows and automated decisioning pipelines — it complements your underwriting process, not replaces it.
-              </p>
-            </Reveal>
           </div>
 
           {/* Right: feature cards */}
@@ -1400,7 +1341,7 @@ function CHPlusSection() {
                   </svg>
                 ),
                 title: 'Employment & Income Intelligence',
-                description: 'Norq integration surfaces employment history, contract gaps, overlapping jobs, and net income calculations — automatically flagging tenure risks and data inconsistencies lenders care about.',
+                description: 'NORQ integration surfaces employment history, contract gaps, overlapping jobs, and net income calculations — automatically flagging tenure risks and data inconsistencies lenders care about.',
                 accent: 'violet',
               },
               {
@@ -1422,16 +1363,6 @@ function CHPlusSection() {
                 title: 'Multi-Registry Screening',
                 description: 'INquiry pulls from multiple national registries in a single query — civil records, business registries, enforcement data, and more — instantly highlighting inconsistencies and risk signals that manual checks would miss.',
                 accent: 'cyan',
-              },
-              {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9" />
-                  </svg>
-                ),
-                title: 'Red Flag Engine',
-                description: 'Every data point is passed through layered validation logic. From identity discrepancies to hidden liabilities, MDAnalytics flags what deserves attention and explains why — giving analysts confidence, not just alerts.',
-                accent: 'amber',
               },
             ].map((b, i) => {
               const accent = accentMap[b.accent];
@@ -1480,7 +1411,7 @@ function IntegrationsSection() {
       color: 'cyan',
     },
     {
-      name: 'Norq',
+      name: 'NORQ',
       full: 'State Registry Agency',
       description: 'Official business registration, ownership, and legal entity data from the Armenian State Registry.',
       color: 'amber',
@@ -1494,17 +1425,8 @@ function IntegrationsSection() {
     { key: 'Civil', label: 'Civil', desc: 'Civil Status Acts Registry' },
     { key: 'Ces', label: 'CES', desc: 'Compulsory Enforcement Service' },
     { key: 'Taxes', label: 'Taxes', desc: 'Unified Municipal E-Governance Platform' },
-    { key: 'Police', label: 'Police', desc: 'Traffic Police' },
+    { key: 'Police', label: 'Police', desc: 'Road Police (vehicles, violations and more)' },
     { key: 'ICPolice', label: 'IC Police', desc: 'Ministry of Internal Affairs' },
-  ];
-
-  const systemIntegrations = [
-    {
-      name: 'SSO',
-      full: 'Enterprise SSO (Keycloak)',
-      description: 'Seamless integration with Active Directory and existing identity providers via OpenID Connect.',
-      color: 'slate',
-    },
   ];
 
   const colorMap: Record<string, { ring: string; bg: string; text: string; border: string; spot: string; chip: string }> = {
@@ -1531,12 +1453,6 @@ function IntegrationsSection() {
         </Reveal>
 
         {/* Credit Bureau Sources */}
-        <Reveal className="mb-3">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-600">Credit &amp; Registry</span>
-            <div className="flex-1 h-px bg-white/6" />
-          </div>
-        </Reveal>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 mb-5">
           {creditBureaus.map((intg, i) => {
             const c = colorMap[intg.color];
@@ -1567,13 +1483,6 @@ function IntegrationsSection() {
         </div>
 
         {/* Ekeng — Featured Multi-Source Card */}
-        <Reveal className="mb-3 mt-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-600">EKENG Government Databases</span>
-            <div className="flex-1 h-px bg-white/6" />
-            <span className="text-[10px] text-gray-600 font-medium">{ekengSources.length} sources</span>
-          </div>
-        </Reveal>
         <Reveal delay={0.1}>
           <SpotlightCard
             spotColor="rgba(139,92,246,0.08)"
@@ -1616,42 +1525,6 @@ function IntegrationsSection() {
               Pre-built connector · All 8 sub-sources queried in parallel
             </div>
           </SpotlightCard>
-        </Reveal>
-
-        {/* System Integrations + Custom */}
-        <Reveal className="mb-3 mt-8">
-          <div className="flex items-center gap-3 mb-4">
-            <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-600">Enterprise</span>
-            <div className="flex-1 h-px bg-white/6" />
-          </div>
-        </Reveal>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {systemIntegrations.map((intg, i) => {
-            const c = colorMap[intg.color];
-            return (
-              <Reveal key={intg.name} delay={i * 0.08}>
-                <SpotlightCard
-                  spotColor={c.spot}
-                  className="h-full p-6 rounded-2xl bg-white/3 border border-white/8 hover:border-white/[0.14] transition-all duration-300 group"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className={`w-12 h-12 rounded-2xl ${c.bg} border ${c.border} ring-4 ${c.ring} flex items-center justify-center group-hover:scale-105 group-hover:ring-8 transition-all duration-300 shrink-0`}>
-                      <span className={`font-bold text-sm ${c.text}`}>{intg.name}</span>
-                    </div>
-                    <div>
-                      <div className="text-gray-200 font-semibold text-sm">{intg.name}</div>
-                      <div className="text-gray-500 text-xs">{intg.full}</div>
-                    </div>
-                  </div>
-                  <p className="text-gray-500 text-sm leading-relaxed">{intg.description}</p>
-                  <div className="mt-4 flex items-center gap-1.5 text-xs text-emerald-400">
-                    <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                    Pre-built connector
-                  </div>
-                </SpotlightCard>
-              </Reveal>
-            );
-          })}
 
           <Reveal delay={0.12}>
             <div className="h-full p-6 rounded-2xl border border-dashed border-white/10 flex flex-col items-center justify-center gap-3 text-center group hover:border-white/20 hover:bg-white/2 transition-all duration-300 cursor-default">
@@ -1668,6 +1541,11 @@ function IntegrationsSection() {
               </div>
             </div>
           </Reveal>
+        </Reveal>
+
+        {/* System Integrations + Custom */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+
         </div>
       </div>
     </section>
@@ -1687,13 +1565,13 @@ function HowItWorksSection() {
     {
       number: '02',
       title: 'Aggregate Intelligence',
-      description: 'One click triggers simultaneous queries to ACRA, Norq and Ekeng. Complete borrower profiles — credit history, income, identity, demographics — are assembled automatically.',
+      description: 'One click triggers simultaneous queries to ACRA, NORQ and Ekeng. Complete borrower profiles — credit history, income, identity, demographics — are assembled automatically.',
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>,
     },
     {
       number: '03',
       title: 'Score & Decide',
-      description: "ScoreFlex AI models assess risk across every data point, generating an explainable score with criterion-level breakdowns. Your analyst reviews the insight, not the raw data.",
+      description: "ScoreFlex models assess risk across every data point, generating an explainable score with criterion-level breakdowns. Your analyst reviews the insight, not the raw data.",
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" /></svg>,
     },
   ];
@@ -1834,100 +1712,6 @@ function BenefitsSection() {
   );
 }
 
-// ─── Pricing Section ─────────────────────────────────────────────────────────
-
-function PricingSection() {
-  const features = [
-    'Unlimited users and requests',
-    'ACRA, Norq, Ekeng integrations',
-    'ScoreFlex scoring engine',
-    'Custom scoring model configuration',
-    'Full audit trail',
-    'Role-based access control',
-    'Real-time analytics dashboard',
-    'On-premise or private cloud deployment',
-    'Dedicated implementation support',
-    'SLA-backed uptime guarantee',
-  ];
-
-  return (
-    <section id="pricing" className="py-24 bg-[#060a15]">
-      <div className="max-w-7xl mx-auto px-6">
-        <Reveal className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-4">
-            Pricing
-          </div>
-          <h2 className="text-4xl font-bold text-gray-100 tracking-tight">
-            Enterprise-grade pricing for financial institutions
-          </h2>
-          <p className="mt-4 text-gray-400 text-lg max-w-xl mx-auto">
-            MDAnalytics is deployed as a private, on-premise or hosted solution tailored to your institution's scale and requirements.
-          </p>
-        </Reveal>
-
-        <Reveal>
-          <div className="max-w-2xl mx-auto relative">
-            <div
-              className="absolute -inset-px rounded-3xl opacity-60 blur-xl pointer-events-none"
-              style={{ background: 'linear-gradient(135deg, rgba(52,211,153,0.3), rgba(34,211,238,0.25), rgba(139,92,246,0.2))' }}
-            />
-            <SpotlightCard
-              spotColor="rgba(52,211,153,0.12)"
-              spotSize={480}
-              className="relative rounded-3xl bg-linear-to-br from-white/[0.07] to-white/3 border border-white/15 p-10 shadow-2xl"
-            >
-              <div className="flex items-start justify-between mb-8">
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-widest text-emerald-400 mb-1">Enterprise</div>
-                  <div className="text-4xl font-bold text-gray-100">Custom pricing</div>
-                  <div className="text-gray-500 text-sm mt-1">Tailored to your institution's volume and needs</div>
-                </div>
-                <div className="px-3 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 text-emerald-400 text-xs font-medium flex items-center gap-1.5">
-                  <span className="relative flex h-1.5 w-1.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-400" />
-                  </span>
-                  Most popular
-                </div>
-              </div>
-
-              <motion.div
-                className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-10"
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
-              >
-                {features.map((f) => (
-                  <motion.div
-                    key={f}
-                    variants={{ hidden: { opacity: 0, x: -10 }, visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } } }}
-                    className="flex items-center gap-2.5"
-                  >
-                    <div className="w-5 h-5 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center shrink-0">
-                      <svg className="w-3 h-3 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" /></svg>
-                    </div>
-                    <span className="text-gray-400 text-sm">{f}</span>
-                  </motion.div>
-                ))}
-              </motion.div>
-
-              <a
-                href={`mailto:${SALES_EMAIL}`}
-                className="relative overflow-hidden w-full py-4 rounded-2xl font-semibold text-white text-sm bg-linear-to-r from-emerald-500 to-cyan-500 transition-all duration-300 shadow-[0_8px_32px_rgba(52,211,153,0.35)] hover:shadow-[0_12px_48px_rgba(52,211,153,0.5)] hover:-translate-y-0.5 group flex items-center justify-center"
-              >
-                <span className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
-                Contact Sales
-              </a>
-              <p className="text-center text-gray-600 text-xs mt-4">Response within one business day · No commitment required</p>
-            </SpotlightCard>
-          </div>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
 // ─── FAQ Section ─────────────────────────────────────────────────────────────
 
 function FAQSection() {
@@ -1935,7 +1719,7 @@ function FAQSection() {
 
   const faqs = [
     {
-      q: 'How does the data integration with ACRA, Norq, and other sources work?',
+      q: 'How does the data integration with ACRA, NORQ, and other sources work?',
       a: "MDAnalytics connects to each data source via secure, pre-built API integrations. When a credit analyst triggers a data pull, the system queries all connected sources simultaneously and assembles a unified borrower profile — no manual portal logins required. Credentials and endpoints are configured once during onboarding.",
     },
     {
@@ -1957,7 +1741,7 @@ function FAQSection() {
   ];
 
   return (
-    <section id="faq" className="py-24 bg-[#080d1a]">
+    <section id="faq" className="py-24 bg-[#060a15]">
       <div className="max-w-4xl mx-auto px-6">
         <Reveal className="text-center mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-medium mb-4">
@@ -2080,7 +1864,7 @@ function DemoRequestSection() {
           </h2>
 
           <p className="mt-4 text-gray-400 text-lg max-w-xl mx-auto">
-            Request a personalized demo and speak with our team. We'll walk you through the platform and tailor the conversation to your institution's specific needs.
+            Request a personalized demo and speak with our team. We'll walk you through the platform.
           </p>
         </Reveal>
 
@@ -2134,7 +1918,7 @@ function DemoRequestSection() {
                       type="text"
                       name="company"
                       required
-                      placeholder="Evoca Bank"
+                      placeholder="Mock Financial"
                       value={form.company}
                       onChange={handleChange}
                       className="px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-gray-200 placeholder-gray-600 text-sm focus:outline-none focus:border-emerald-500/40 focus:bg-white/7 transition-all duration-200"
@@ -2210,10 +1994,9 @@ function Footer() {
   const links = {
     Product: [
       { label: 'Features', action: () => scrollTo('features') },
-      { label: 'CHPlus', action: () => scrollTo('chplus') },
+      { label: 'Intelligence', action: () => scrollTo('intelligence') },
       { label: 'Integrations', action: () => scrollTo('integrations') },
       { label: 'How It Works', action: () => scrollTo('how-it-works') },
-      { label: 'Pricing', action: () => scrollTo('pricing') },
     ],
     Resources: [
       { label: 'FAQ', action: () => scrollTo('faq') },
@@ -2292,11 +2075,10 @@ export default function LandingPage() {
         <TrustedBySection />
         <ProblemSection />
         <FeaturesSection />
-        <CHPlusSection />
         <IntegrationsSection />
+        <CHPlusSection />
         <HowItWorksSection />
         <BenefitsSection />
-        <PricingSection />
         <FAQSection />
         <DemoRequestSection />
       </main>
