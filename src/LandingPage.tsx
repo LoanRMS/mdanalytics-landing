@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence, useReducedMotion, type Variants } from 'framer-motion';
 
-const SALES_EMAIL = 'sales@dynamicsolutions.am';
+const SALES_EMAIL = 'info@dynamicsolutions.am';
 
 // ─── Animation Variants ────────────────────────────────────────────────────
 
@@ -257,8 +257,8 @@ function Navbar() {
 
   const navLinks = [
     { label: 'Features', id: 'features' },
-    { label: 'Intelligence', id: 'intelligence' },
     { label: 'Integrations', id: 'integrations' },
+    { label: 'Intelligence', id: 'intelligence' },
     { label: 'How It Works', id: 'how-it-works' },
     { label: 'FAQ', id: 'faq' },
   ];
@@ -272,10 +272,11 @@ function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
         <motion.div
-          className="flex items-center gap-2.5"
+          className="flex items-center gap-2.5 cursor-pointer"
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <div className="h-8 w-8 rounded-xl bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_20px_rgba(52,211,153,0.45)]">
             <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -423,7 +424,7 @@ function HeroSection() {
               Loan Decisions,
             </span>
             <br />
-            <span className="text-gray-100">Faster.</span>
+            <span className="text-gray-100">Lend Faster.</span>
           </motion.h1>
 
           <motion.p variants={fadeInUp} className="mt-6 text-lg text-gray-400 max-w-xl mx-auto lg:mx-0 leading-relaxed">
@@ -1200,6 +1201,16 @@ function CHPlusSection() {
       description: "MDAnalytics doesn't just score — it thinks. Before a single decision is made, its intelligence engine has already surfaced what matters, giving analysts context-aware insights rather than raw numbers.",
       accent: 'violet',
     },
+    {
+      icon: (
+        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2" />
+        </svg>
+      ),
+      title: 'Identity & Status Verification',
+      description: 'Detects registration anomalies, citizenship issues, document expiration, and conflicting personal data across sources — catching what a clean-looking ID alone won\'t reveal.',
+      accent: 'cyan',
+    }
   ];
 
   const accentMap: Record<string, { bg: string; border: string; text: string; spot: string }> = {
@@ -1327,26 +1338,6 @@ function CHPlusSection() {
               {
                 icon: (
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2" />
-                  </svg>
-                ),
-                title: 'Identity & Status Verification',
-                description: 'Detects registration anomalies, citizenship issues, document expiration, and conflicting personal data across sources — catching what a clean-looking ID alone won\'t reveal.',
-                accent: 'cyan',
-              },
-              {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                ),
-                title: 'Employment & Income Intelligence',
-                description: 'NORQ integration surfaces employment history, contract gaps, overlapping jobs, and net income calculations — automatically flagging tenure risks and data inconsistencies lenders care about.',
-                accent: 'violet',
-              },
-              {
-                icon: (
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                   </svg>
                 ),
@@ -1363,6 +1354,16 @@ function CHPlusSection() {
                 title: 'Multi-Registry Screening',
                 description: 'INquiry pulls from multiple national registries in a single query — civil records, business registries, enforcement data, and more — instantly highlighting inconsistencies and risk signals that manual checks would miss.',
                 accent: 'cyan',
+              },
+              {
+                icon: (
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                ),
+                title: 'Employment & Income Intelligence',
+                description: 'NORQ integration surfaces employment history, contract gaps, overlapping jobs, and net income calculations — automatically flagging tenure risks and data inconsistencies lenders care about.',
+                accent: 'violet',
               },
             ].map((b, i) => {
               const accent = accentMap[b.accent];
@@ -1994,8 +1995,8 @@ function Footer() {
   const links = {
     Product: [
       { label: 'Features', action: () => scrollTo('features') },
-      { label: 'Intelligence', action: () => scrollTo('intelligence') },
       { label: 'Integrations', action: () => scrollTo('integrations') },
+      { label: 'Intelligence', action: () => scrollTo('intelligence') },
       { label: 'How It Works', action: () => scrollTo('how-it-works') },
     ],
     Resources: [
