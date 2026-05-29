@@ -398,7 +398,7 @@ function HeroSection() {
 
       <div className="relative max-w-7xl mx-auto px-6 py-24 lg:py-32 flex flex-col lg:flex-row items-center gap-16">
         <motion.div
-          className="flex-1 text-center lg:text-left"
+          className="flex-1 w-full text-center lg:text-left"
           initial="hidden"
           animate="visible"
           variants={stagger}
@@ -473,9 +473,9 @@ function HeroSection() {
         </motion.div>
 
         <motion.div
-          className="flex-1 w-full max-w-2xl"
-          initial={{ opacity: 0, y: 40, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
+          className="hidden lg:block flex-1 w-full max-w-2xl min-w-0"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
         >
           <div className="relative">
