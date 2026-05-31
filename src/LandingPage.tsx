@@ -821,10 +821,6 @@ function MockDashboard() {
                     <div className="text-gray-100 font-semibold text-[11px] leading-tight">Harutyunyan Credit Group</div>
                     <div className="text-gray-600 text-[8px] mt-0.5">3 members · Agricultural loan · 36-month term · Collateral: residential property</div>
                   </div>
-                  <div className="text-right shrink-0 ml-3">
-                    <div className="text-gray-100 font-bold text-[13px] tabular-nums">18,500,000 ֏</div>
-                    <div className="text-gray-600 text-[7.5px]">Requested amount</div>
-                  </div>
                 </div>
                 <div className="grid grid-cols-4 gap-1.5">
                   {[
@@ -844,65 +840,6 @@ function MockDashboard() {
 
             {/* ── Section 4: CHPlus + Red Flags ── */}
             <div className="px-3 pb-2 grid grid-cols-2 gap-2">
-
-              {/* CHPlus Analytics */}
-              <div className="rounded-xl bg-white/2.5 border border-white/6 p-2.5">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-3.5 h-3.5 rounded bg-linear-to-br from-emerald-400 to-cyan-500 flex items-center justify-center shadow-[0_0_6px_rgba(52,211,153,0.4)]">
-                      <svg className="w-2 h-2 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <div>
-                      <div className="text-gray-300 text-[9px] font-semibold leading-tight">CHPlus Analytics</div>
-                      <div className="text-gray-700 text-[7px]">ACRA · Credit History</div>
-                    </div>
-                  </div>
-                  {/* Mini ring score */}
-                  <div className="relative w-9 h-9 shrink-0">
-                    <svg viewBox="0 0 48 48" className="w-9 h-9 -rotate-90">
-                      <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="4" />
-                      <motion.circle
-                        cx="24" cy="24" r="20"
-                        fill="none" stroke="url(#chg)" strokeWidth="4" strokeLinecap="round"
-                        strokeDasharray={chCircumference}
-                        initial={{ strokeDashoffset: chCircumference }}
-                        animate={{ strokeDashoffset: chCircumference * (1 - 0.793) }}
-                        transition={{ duration: 1.5, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                      />
-                      <defs>
-                        <linearGradient id="chg" x1="0%" y1="0%" x2="100%" y2="100%">
-                          <stop offset="0%" stopColor="#34d399" />
-                          <stop offset="100%" stopColor="#22d3ee" />
-                        </linearGradient>
-                      </defs>
-                    </svg>
-                    <div className="absolute inset-0 flex flex-col items-center justify-center">
-                      <span className="text-gray-100 font-bold text-[9px] leading-none">793</span>
-                      <span className="text-[6px] text-emerald-400 font-semibold">LOW</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="space-y-1.5">
-                  {signals.map((sig, i) => (
-                    <div key={sig.label}>
-                      <div className="flex justify-between mb-0.5">
-                        <span className="text-gray-600 text-[8px]">{sig.label}</span>
-                        <span className={`text-[8px] font-semibold tabular-nums ${sig.ok ? 'text-emerald-400' : sig.warn ? 'text-amber-400' : 'text-red-400'}`}>{sig.val}</span>
-                      </div>
-                      <div className="h-1 rounded-full bg-white/5 overflow-hidden">
-                        <motion.div
-                          className={`h-full rounded-full ${sig.ok ? 'bg-emerald-500' : sig.warn ? 'bg-amber-500' : 'bg-red-500'}`}
-                          initial={{ width: 0 }}
-                          animate={{ width: `${sig.val}%` }}
-                          transition={{ duration: 0.85, delay: i * 0.09 + 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
 
               {/* Risk Flags */}
               <div className="rounded-xl bg-white/2.5 border border-white/6 p-2.5">
