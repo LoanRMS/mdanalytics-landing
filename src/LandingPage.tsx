@@ -608,7 +608,7 @@ function MockDashboard() {
           <span className="text-gray-400 text-[10px]">Credit Assessment</span>
           <svg className="w-3 h-3 text-gray-700 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
           <span className="text-gray-200 text-[10px] font-semibold">#34333</span>
-          <span className="px-1.5 py-px rounded-full bg-amber-500/15 border border-amber-500/25 text-amber-300 text-[7px] font-medium">In Review</span>
+          <span className="px-1.5 py-px rounded-full bg-amber-500/15 border border-amber-500/25 text-amber-300 text-[7px] font-medium">Decision</span>
           <div className="ml-auto flex items-center gap-2">
             <span className="flex items-center gap-1 text-[8px] text-emerald-400">
               <span className="relative flex h-1.5 w-1.5">
