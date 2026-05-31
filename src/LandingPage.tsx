@@ -1811,20 +1811,22 @@ function DemoRequestSection() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
-    const subject = encodeURIComponent(`Demo Request — ${form.company}`);
-    const body = encodeURIComponent(
-      `New Demo Request\n\nFull Name: ${form.name}\nCompany: ${form.company}\nEmail: ${form.email}\nPhone: ${form.phone}${form.message ? `\n\nMessage:\n${form.message}` : ''}`
-    );
-    const a = document.createElement('a');
-    a.href = `mailto:${SALES_EMAIL}?subject=${subject}&body=${body}`;
-    a.click();
-    setTimeout(() => {
-      setLoading(false);
+    try {
+      const res = await fetch('/api/send-demo-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      if (!res.ok) throw new Error('Request failed');
       setSubmitted(true);
-    }, 500);
+    } catch {
+      alert('Something went wrong. Please email us directly at ' + SALES_EMAIL);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
