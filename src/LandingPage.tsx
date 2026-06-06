@@ -374,7 +374,7 @@ function HeroSection() {
   const statsRef = useRef(null);
   const statsInView = useInView(statsRef, { once: true });
 
-  const c1 = useCountUp(2000000, 2200, statsInView);
+  const c1 = useCountUp(5000000, 2200, statsInView);
   const c2 = useCountUp(10, 1000, statsInView);
   const c3 = useCountUp(6, 1400, statsInView);
 
