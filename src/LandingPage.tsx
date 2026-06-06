@@ -1995,7 +1995,7 @@ function Footer() {
 
 export default function LandingPage() {
   useEffect(() => {
-    document.title = 'MDAnalytics — Loan Risk Management for Armenian Banks';
+    document.title = '';
   }, []);
 
   return (
