@@ -1488,13 +1488,13 @@ function HowItWorksSection() {
     {
       number: '01',
       title: 'Create the Loan Group',
-      description: 'Register the application with all participants — primary borrower, co-borrowers, and guarantors. Enter loan parameters: amount, term, collateral, and purpose.',
+      description: 'Register the application with all participants — primary borrower, co-borrowers, affiliated, guarantors, etc. One click triggers simultaneous queries to ACRA, NORQ and Ekeng.',
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" /></svg>,
     },
     {
       number: '02',
       title: 'Aggregate Intelligence',
-      description: 'One click triggers simultaneous queries to ACRA, NORQ and Ekeng. Complete borrower profiles — credit history, income, identity, demographics — are assembled automatically.',
+      description: 'Complete borrower profiles — credit history, income, identity, demographics — are assembled and analyzed automatically.',
       icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>,
     },
     {
@@ -1661,7 +1661,7 @@ function FAQSection() {
     },
     {
       q: 'Can MDAnalytics integrate with our existing core banking system?',
-      a: "Yes. MDAnalytics exposes a GraphQL API that allows bi-directional integration with core banking systems, CRM platforms, and document management systems. Common integrations include pushing approved loan decisions back into your core system and pulling customer master data for pre-population.",
+      a: "Yes․ Bi-directional integration with mobile applications, credit conveyors, CRM platforms and core banking systems is possible. The right approach depends on your setup, so let's talk.",
     },
     {
       q: 'How is sensitive borrower data protected?',
