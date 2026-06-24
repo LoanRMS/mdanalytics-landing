@@ -565,7 +565,7 @@ function MockDashboard() {
 
   const sources = [
     { name: 'ACRA', detail: 'Credit · 36mo' },
-    { name: 'ACRA PEK', detail: 'Property lien' },
+    { name: 'ACRA SRC', detail: 'Property lien' },
     { name: 'NORQ', detail: 'Business reg.' },
     { name: 'EKENG', detail: '8 sub-sources' },
     { name: 'Tax Service', detail: '2 obligations', warn: true },
@@ -957,7 +957,7 @@ function ProblemSection() {
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
       ),
       title: 'Data Scattered Across Systems',
-      description: 'ACRA, ACRA PEK, NORQ, AVV, Business, CES, Civil, Road Police, ICPolice, Taxes, Property, etc. — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
+      description: 'ACRA, ACRA SRC, NORQ, AVV, Business, CES, Civil, Road Police, ICPolice, Taxes, Property, etc. — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
     },
     {
       icon: (
@@ -1015,7 +1015,7 @@ function FeaturesSection() {
       icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
       label: 'Unified Data Aggregation',
       title: 'One click. Every data source.',
-      description: 'Pull compete credit histories from ACRA, salary information from NORQ and PEK, financial reports from ACRA PEK, demographics from EKENG various sources in seconds.',
+      description: 'Pull compete credit histories from ACRA, salary information from NORQ and SRC, financial reports from ACRA SRC, demographics from EKENG various sources in seconds.',
       accent: 'emerald',
       span: 'col-span-1 md:col-span-2',
     },
@@ -1334,9 +1334,9 @@ function IntegrationsSection() {
       color: 'emerald',
     },
     {
-      name: 'ACRA PEK',
+      name: 'ACRA SRC',
       full: 'ACRA Property Registry',
-      description: 'Collateral verification and property encumbrance data from the Armenian unified property registry.',
+      description: 'Official tax reports of private entrepreneurs and legal entities from the State Revenue Committee.',
       color: 'cyan',
     },
     {
@@ -1350,7 +1350,7 @@ function IntegrationsSection() {
   const ekengSources = [
     { key: 'AVV', label: 'AVV', desc: 'Population State Register' },
     { key: 'Business', label: 'Business', desc: 'Legal Entities State Register' },
-    { key: 'SRC', label: 'PEK', desc: 'State Revenue Committee' },
+    { key: 'SRC', label: 'SRC', desc: 'State Revenue Committee' },
     { key: 'Civil', label: 'Civil', desc: 'Civil Status Acts Registry' },
     { key: 'Ces', label: 'CES', desc: 'Compulsory Enforcement Service' },
     { key: 'Taxes', label: 'Taxes', desc: 'Unified Municipal E-Governance Platform' },
