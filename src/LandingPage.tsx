@@ -565,7 +565,7 @@ function MockDashboard() {
 
   const sources = [
     { name: 'ACRA', detail: 'Credit · 36mo' },
-    { name: 'ACRA SRC', detail: 'Property lien' },
+    { name: 'ACRA SRC', detail: 'Tax reports lien' },
     { name: 'NORQ', detail: 'Business reg.' },
     { name: 'EKENG', detail: '8 sub-sources' },
     { name: 'Tax Service', detail: '2 obligations', warn: true },
@@ -957,7 +957,7 @@ function ProblemSection() {
         <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582 4 8 4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg>
       ),
       title: 'Data Scattered Across Systems',
-      description: 'ACRA, ACRA SRC, NORQ, AVV, Business, CES, Civil, Road Police, ICPolice, Taxes, Property, etc. — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
+      description: 'ACRA, ACRA SRC, NORQ, AVV, Business, CES, Civil, Road Police, ICPolice, Taxes, Tax reports, etc. — each system has its own interface, its own login, its own format. Consolidating data for a single borrower is an error-prone, time-consuming ordeal.',
     },
     {
       icon: (
@@ -1335,7 +1335,7 @@ function IntegrationsSection() {
     },
     {
       name: 'ACRA SRC',
-      full: 'ACRA Property Registry',
+      full: 'ACRA Tax reports Registry',
       description: 'Official tax reports of private entrepreneurs and legal entities from the State Revenue Committee.',
       color: 'cyan',
     },
